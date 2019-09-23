@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+export PS1="\[\e[1;32m\]▶▶ \[\e[0m\]"
+
+STARTFGCOLOR='\e[0;36m'
+ENDFGCOLOR="\e[0;37m" # 0 is normal 37 is white
+STARTBGCOLOR="\e[40m"
+ENDBGCOLOR="\e[0m" # reset
+
+function colorize() {
+    local COLOR_ASCI="\[$STARTFGCOLOR\]\[$STARTBGCOLOR\]"$1"\[$ENDFGCOLOR\]\[$ENDBGCOLOR\]"
+    echo "$COLOR_ASCI"
+}
+
+function terminal_width() {
+    local width=$(stty size | awk '{print $2}')
+    echo "$width"
+}
+
+export tlsd=0
+export tlsf=0
+export tlsq=1
+export tlsr=1
+export tlsA=0
+export tlsm=0
+export tlsN=20
+export tlsP=3
+export tlsR=5
+export tlsD=3
+export tlsM=6
+export tlsp=''
+export tlsg='fancy_grid'
+
+function prompt_command {
+    tlsOPTS=''
+
+    # flags
+    if [[ $tlsd -eq 1 ]]; then tlsOPTS+="-d "; fi
+    if [[ $tlsf -eq 1 ]]; then tlsOPTS+="-f "; fi
+    if [[ $tlsq -eq 1 ]]; then tlsOPTS+="-q "; fi
+    if [[ $tlsr -eq 1 ]]; then tlsOPTS+="-r "; fi
+    if [[ $tlsA -eq 1 ]]; then tlsOPTS+="-A "; fi
+    if [[ $tlsm -eq 1 ]]; then tlsOPTS+="-m "; fi
+
+    # parameters
+    if [[ ! -z $tlsN ]]; then tlsOPTS+="-N "$tlsN" "; fi
+    if [[ ! -z $tlsP ]]; then tlsOPTS+="-P "$tlsP" "; fi
+    if [[ ! -z $tlsR ]]; then tlsOPTS+="-R "$tlsR" "; fi
+    if [[ ! -z $tlsD ]]; then tlsOPTS+="-D "$tlsD" "; fi
+    if [[ ! -z $tlsM ]]; then tlsOPTS+="-M "$tlsM" "; fi
+    if [[ ! -z $tlsp ]]; then tlsOPTS+="-p "$tlsp" "; fi
+    if [[ ! -z $tlsg ]]; then tlsOPTS+="-g "$tlsg" "; fi
+
+    source tls $tlsOPTS
+}
+
+export PROMPT_COMMAND=prompt_command
+
