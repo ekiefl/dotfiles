@@ -51,7 +51,7 @@ function prompt_command {
     if [[ ! -z $tlsp ]]; then tlsOPTS+="-p "$tlsp" "; fi
     if [[ ! -z $tlsg ]]; then tlsOPTS+="-g "$tlsg" "; fi
 
-    source tls $tlsOPTS
+    #source tls $tlsOPTS
 }
 
 export PROMPT_COMMAND=prompt_command

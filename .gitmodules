@@ -70,3 +70,7 @@
     path = .vim/bundle/vimpyter
     url = https://github.com/szymonmaszke/vimpyter
     ignore = dirty
+[submodule ".vim/bundle/vim-gitgutter"]
+    path = .vim/bundle/vim-gitgutter
+    url = https://github.com/airblade/vim-gitgutter
+    ignore = dirty
