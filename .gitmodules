@@ -24,7 +24,7 @@
     ignore = dirty
 [submodule ".vim/bundle/nerdtree"]
     path = .vim/bundle/nerdtree
-    url = https://github.com/ctford/vim/tree/master/bundle/nerdtree
+    url = https://github.com/scrooloose/nerdtree
     ignore = dirty
 [submodule ".vim/bundle/syntastic"]
     path = .vim/bundle/syntastic
@@ -36,7 +36,7 @@
     ignore = dirty
 [submodule ".vim/bundle/tagbar"]
     path = .vim/bundle/tagbar
-    url = https://github.com/Martiusweb/vim/tree/master/bundle/tagbar
+    url = https://github.com/majutsushi/tagbar
     ignore = dirty
 [submodule ".vim/bundle/vim-abolish"]
     path = .vim/bundle/vim-abolish
