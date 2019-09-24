@@ -145,8 +145,6 @@ set smarttab
 set expandtab
 set backspace=indent,eol,start
 
-execute pathogen#infect()
-
 
 " source abbreviations
 :so ~/.vim/abbreviations.vim
