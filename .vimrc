@@ -11,6 +11,46 @@
 " tar -zxvf ctags-5.8.tar.gz
 " cd ctags && ./configure && make && sudo make install
 
+" -----------------------------------------------------------------
+" VIM-PLUG {{{
+" -----------------------------------------------------------------
+
+" this downloads vim-plug if its missing
+if empty(glob("~/.vim/autoload/plug.vim"))
+  silent! execute '!curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * silent! PlugInstall
+endif
+
+" declare plugins
+silent! if plug#begin()
+
+    Plug 'tmhedberg/SimpylFold'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'kien/ctrlp.vim'
+    Plug 'morhetz/gruvbox'
+    Plug 'davidhalter/jedi-vim'
+    Plug 'sjbach/lusty'
+    Plug 'scrooloose/nerdtree'
+    Plug 'vim-syntastic/syntastic'
+    Plug 'godlygeek/tabular'
+    Plug 'majutsushi/tagbar'
+    Plug 'tpope/vim-abolish'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tmhedberg/SimpylFold'
+    Plug 'tpope/vim-surround'
+    Plug 'szymonmaszke/vimpyter'
+    Plug 'airblade/vim-gitgutter'
+
+  call plug#end()
+endif
+
+" -----------------------------------------------------------------
+" }}}
+" -----------------------------------------------------------------
+
 " this fixes insert mode arrow keys mapping to A B C D
 if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
   inoremap <silent> <C-[>OC <RIGHT>
