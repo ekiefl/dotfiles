@@ -1,3 +1,15 @@
+if [ $(uname -n) == $my_2016_macbook ]; then
+    echo "\nsup\n"r
+fi
 
-sup
+if [ $(uname -n) == $barhal_server ]; then
+    echo "\nYou're in barhal\n"$
+fi
 
+if [ $(uname -n) == $midway2_server ]; then
+    echo "\nYou're in midway 2\n"$
+fi
+
+if [ $(uname -n) == $midway1_server ]; then
+    echo "\nYou're in midway 2\n"$
+fi

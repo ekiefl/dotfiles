@@ -9,11 +9,11 @@ export midway2_server="midway-login2"
 ###############################################################################
 
 # welcome message
-cat ~/.bash_welcome
+bash ~/.bash_welcome
 
 # Define your aliases here ...
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # autocorrects small mistakes
