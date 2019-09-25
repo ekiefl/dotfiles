@@ -39,7 +39,6 @@ silent! if plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-fugitive'
-    Plug 'tmhedberg/SimpylFold'
     Plug 'tpope/vim-surround'
     Plug 'szymonmaszke/vimpyter'
     Plug 'airblade/vim-gitgutter'
@@ -63,9 +62,6 @@ let $BASH_ENV = "~/.bash_aliases"
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
 autocmd BufEnter * if &buftype=="terminal" | execute "silent !title terminal vim " . expand("%:t") | endif " FIXME autocmd commands for Terminal have not been properly written yet
 
-" fuzzy search with ctrlp
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 set nowrap
 set ai
 set history=750
@@ -77,7 +73,6 @@ set number
 filetype plugin on
 set list
 set mouse=v
-"set foldmethod=indent
 
 " my leader is space:
 let mapleader = "\<Space>"
@@ -91,6 +86,7 @@ nnoremap :w<CR> <nop>
 nnoremap :q<CR> <nop>
 nnoremap :e <nop>
 nnoremap <Leader>x :xa<CR>
+
 
 " easily edit and source vimrc (and bash)
 :nnoremap <leader>ev :split ~/.vimrc<cr>
@@ -109,15 +105,13 @@ nnoremap <C-H> <C-W><C-H>
 set clipboard=unnamed
 vnoremap <c-y> "*y
 
-" triple quote
-vnoremap S3" <esc>`<O<esc>S"""<esc>`>o<esc>S"""<esc>k$
-
 " ' is so much easier to type than ` for markers, that I switch them here
 nnoremap ' `
 nnoremap ` '
 vnoremap ' `
 vnoremap ` '
 
+" select what was just pasted
 nnoremap gp `[v`]
 
 " >> indents in command mode. >M idents to level defined by line above
@@ -145,7 +139,6 @@ set smarttab
 set expandtab
 set backspace=indent,eol,start
 
-
 " source abbreviations
 :so ~/.vim/abbreviations.vim
 :so ~/.vim/myscripts.vim
@@ -170,14 +163,13 @@ let g:syntastic_enable_highlighting = 0
 map <leader>pp :let g:syntastic_python_checkers = ['pylint']<CR>
 
 " fold plugin
+let g:SimpylFold_fold_import = 0
+let g:SimpylFold_fold_docstring = 0
+:hi Folded ctermfg=109
 set nofoldenable
-"let g:SimpylFold_docstring_preview = 1
-"let g:SimpylFold_fold_import = 0
-"let b:SimpylFold_fold_import = 0
-"let g:SimpylFold_fold_docstring = 0
-"let b:SimpylFold_fold_docstring = 0
-":hi Folded ctermbg=237
-":hi Folded ctermfg=013
+set foldmethod=indent
+nnoremap q<tab> zA
+nnoremap <tab> za
 
 let g:jedi#show_call_signatures = '1'
 let g:jedi#use_splits_not_buffers = ''
@@ -185,29 +177,29 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#documentation_command = 'R'
 let g:jedi#smart_auto_mappings = 0
 
+
 " closes vim if only window is NERDTree
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " shows line numbers for NERDTree
+map <leader>o :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
 
-" shows line numbers for Tagbar
-let g:tagbar_show_linenumbers = 1
+" Tagbar / tackboard
+let g:tagbar_left = 1
+let g:tagbar_show_linenumbers = 0
 let g:tagbar_width = 30
-
 map <leader>t :TagbarToggle<CR>
-map <leader>o :NERDTree<CR>
+
 map <leader>me :set mouse=v<CR>
 map <leader>mm :set mouse=a<CR>
 set mouse=a
-hi SpellBad cterm=underline 
+hi SpellBad cterm=underline
 "ctermbg=red ctermfg=black
-let g:tagbar_left = 1
-let g:airline#extensions#tabline#enabled = 1
 
+let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
 :let g:airline_theme='simple'
 
 set noruler
@@ -223,25 +215,20 @@ set laststatus=2
 :set fo-=t
 
 " making space above or below curor's line
-:nnoremap <C-u> :call ReturnToOriginalPosition("o")<CR>
-:nnoremap <C-i> :call ReturnToOriginalPosition("O")<CR>
+":nnoremap <C-u> :call ReturnToOriginalPosition("o")<CR>
+":nnoremap <C-i> :call ReturnToOriginalPosition("O")<CR>
 
-" adding end and start of line bash commands
+" add end and start of line bash equivalents
 :inoremap <C-e> <C-o>$
 :inoremap <C-a> <C-o><S-i>
 
-" do you want arrow movement during insert mode disabled? then uncomment these
-"ino <down> <Nop>
-"ino <left> <Nop>
-"ino <right> <Nop>
-"ino <up> <Nop>
-
 " how far away from max cursor position is from window
 :set so=1
-" show cursorline
-:set cursorline
-:set ttyfast
-:set lazyredraw
+
+" show cursorline, causes some amout of lag issues, even with ttyfast and lazyredraw
+":set cursorline
+":set ttyfast
+":set lazyredraw
 
 " if these are uncommented shift-left and shift-right switch buffer in normal mode
 :map <s-left> :bp!<CR>
@@ -250,22 +237,23 @@ set laststatus=2
 " close a buffer without second thought
 :map <leader>c :bw!<CR>
 
-:set hidden
+:set hidden " unknown what this does
 
 " jedi autocomplete window navigation
 inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " legacy comment: 'laggy plugin for relative + absolute numbering was called RltvNmbr'
-
-" hybrid line numbering
-:set number relativenumber
+:set number relativenumber " hybrid line numbering
+":set number " absolute numbering
 :highlight LineNr ctermfg=174
 
 " snakemake syntax highlighting
 au BufNewFile,BufRead Snakefile set syntax=snakemake
 au BufNewFile,BufRead *.smk set syntax=snakemake
-au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa  setf fasta
+
+" FASTA fasta highlighting
+au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 
 " operate inside or outside delimiters when cursor is not between
 let delimiterList = ['(', ')', '[', ']', '<', '>', '{', '}', '"', "'"]
@@ -300,7 +288,9 @@ augroup AutoChdir
     autocmd BufEnter * if &buftype !=# 'terminal' | lchdir %:p:h | endif
 augroup ENDautocmd BufEnter * lcd %:p:h
 
-" everything to do with terminal mode
+" -----------------------------------------------------------------
+" TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{
+" -----------------------------------------------------------------
 function SetupPaste()
     silent! normal a<C-w>""
     "exe '<C-w>""'
@@ -328,3 +318,6 @@ endfunction
 tnoremap <esc> <C-\><C-n>
 nnoremap <leader>s :call InitShell()<CR>
 
+" -----------------------------------------------------------------
+" }}}
+" -----------------------------------------------------------------
