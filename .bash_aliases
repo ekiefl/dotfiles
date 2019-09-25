@@ -57,6 +57,7 @@ if [ "$(uname -n)" == "$my_2016_macbook" ]; then
 
     # convenience variables
     export academics="/Users/evan/Academics"
+    export anvenv="/Users/evan/virtual-envs/anvio-master/bin/activate"
     export anvio="/Users/evan/Software/anvio"
     export anviobin="/Users/evan/Software/anvio/bin"
     export anviosandbox="/Users/evan/Software/anvio/sandbox"
@@ -74,6 +75,21 @@ if [ "$(uname -n)" == "$my_2016_macbook" ]; then
     export table2md="csvtomd"
     export talon="/Applications/Talon.app/Contents/Resources/talon_plugins"
     export talonscripts="/Users/evan/.talon/user"
+fi
+
+# -----------------------------------------------------------------------------
+# }}} BARHAL {{{
+# -----------------------------------------------------------------------------
+
+# specific to barhal
+if [ "$(uname -n)" == "$barhal_server" ]; then
+    export anvenv="/groups/merenlab/virtual-envs/anvio-master/anvio/"
+    export ekiefl="/groups/merenlab/people/ekiefl"
+    export s="/users/ekiefl"
+    export ekieflshared="/workspace/shared/ekiefl-shared/"
+    export merenlab="/groups/merenlab"
+    export merenlabshared="/workspace/shared/merenlab-shared"
+    export anvenv="/groups/merenlab/virtual-envs/anvio-master/bin/activate"
 fi
 
 # -----------------------------------------------------------------------------

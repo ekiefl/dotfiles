@@ -55,12 +55,6 @@ fi
 # -----------------------------------------------------------------------------
 
 if [ "$(uname -n)" == "$barhal_server" ]; then
-    # user-defined variables
-    export ekiefl="/groups/merenlab/people/ekiefl"
-    export s="/users/ekiefl"
-    export ekieflshared="/workspace/shared/ekiefl-shared/"
-    export merenlab="/groups/merenlab"
-    export merenlabshared="/workspace/shared/merenlab-shared"
     # Where I store my binaries
     export PATH=$PATH:~/.local/bin
 fi
