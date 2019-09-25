@@ -27,7 +27,7 @@ export CLICOLOR=1
 export LSCOLORS=gxhxCxDxBxegedabagaced
 
 # iterm
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+source ~/.iterm2_shell_integration.bash
 
 # -----------------------------------------------------------------------------
 # }}} MY MACBOOK {{{
