@@ -1,12 +1,3 @@
 .DS_store
 .vim/bundle
 .vim/.viminfo.tmp
-.talon/calib.bin
-.talon/.sys/*
-.talon/.venv/*
-.talon/bin/*
-.talon/n_grams/*
-.talon/obsolete_user/*
-.talon/last_phrase
-.talon/phrase_log
-.talon/talon.log
