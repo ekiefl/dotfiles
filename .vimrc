@@ -40,7 +40,6 @@ silent! if plug#begin()
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
-    Plug 'szymonmaszke/vimpyter'
     Plug 'airblade/vim-gitgutter'
 
   call plug#end()
@@ -290,32 +289,33 @@ augroup ENDautocmd BufEnter * lcd %:p:h
 " -----------------------------------------------------------------
 " TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{
 " -----------------------------------------------------------------
-function SetupPaste()
-    silent! normal a<C-w>""
-    "exe '<C-w>""'
-    "sleep 1
-    "terminal! <C-w>N
-endfunction
-
-"autocmd BufEnter * if &buftype ==# 'terminal' | nnoremap p a<C-w>""<C-w>N | endif
-"autocmd BufLeave * if &buftype ==# 'terminal' | nnoremap p p | endif
-
-function InitShell()
-    set termwinsize=0x75
-    set splitright
-    let g:vimwin = win_getid()
-    vert term ++kill=kill<cr>
-    let g:shellwin = win_getid()
-    nnoremap <leader>b :call win_gotoid(shellwin)<CR>a
-    nnoremap <leader>v :call win_gotoid(vimwin)<CR>
-    tnoremap <C-v> <C-\><C-n>:call win_gotoid(vimwin)<CR>
-    call term_sendkeys("", "source ~/.bash_aliases\<CR>")
-    silent! normal i
-    setlocal nonumber norelativenumber
-endfunction
-
-tnoremap <esc> <C-\><C-n>
-nnoremap <leader>s :call InitShell()<CR>
+"
+"function SetupPaste()
+"    silent! normal a<C-w>""
+"    "exe '<C-w>""'
+"    "sleep 1
+"    "terminal! <C-w>N
+"endfunction
+"
+""autocmd BufEnter * if &buftype ==# 'terminal' | nnoremap p a<C-w>""<C-w>N | endif
+""autocmd BufLeave * if &buftype ==# 'terminal' | nnoremap p p | endif
+"
+"function InitShell()
+"    set termwinsize=0x75
+"    set splitright
+"    let g:vimwin = win_getid()
+"    vert term ++kill=kill<cr>
+"    let g:shellwin = win_getid()
+"    nnoremap <leader>b :call win_gotoid(shellwin)<CR>a
+"    nnoremap <leader>v :call win_gotoid(vimwin)<CR>
+"    tnoremap <C-v> <C-\><C-n>:call win_gotoid(vimwin)<CR>
+"    call term_sendkeys("", "source ~/.bash_aliases\<CR>")
+"    silent! normal i
+"    setlocal nonumber norelativenumber
+"endfunction
+"
+"tnoremap <esc> <C-\><C-n>
+"nnoremap <leader>s :call InitShell()<CR>
 
 " -----------------------------------------------------------------
 " }}}
