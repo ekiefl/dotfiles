@@ -88,7 +88,9 @@ nnoremap <Leader>x :xa<CR>
 
 " easily edit and source vimrc (and bash)
 :nnoremap <leader>ev :split ~/.vimrc<cr>
-:nnoremap <leader>eb :split ~/.bash_profile<cr>
+:nnoremap <leader>eb :split ~/.bashrc<cr>
+:nnoremap <leader>ea :split ~/.bash_aliases<cr>
+:nnoremap <leader>ep :split ~/.bash_prompt<cr>
 :nnoremap <leader>sv :source ~/.vimrc<cr>
 :nnoremap <leader>et :e ~/.talon/user/<cr>
 

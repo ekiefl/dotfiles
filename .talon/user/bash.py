@@ -25,6 +25,7 @@ import os
 import time
 import glob
 
+from datetime import datetime
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
 # -----------------------------------------------------------------------------
@@ -123,6 +124,7 @@ git_map = {
     'yadam add'      : 'yadm add ',
     'yadam reset'    : 'yadm reset --hard HEAD ',
     'yadam checkout' : 'yadm checkout ',
+    'yadam update' :  [Key("esc"), "a", "yadm add -u; yadm commit -m '{}'; yadm push origin master".format(datetime.now()), Key("enter")],
 }; bashmap.update(git_map)
 
 names_map = {
