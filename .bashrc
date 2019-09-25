@@ -51,5 +51,21 @@ if [ $(uname -n) == $my_2016_macbook ]; then
 fi
 
 ###############################################################################
+# }}} BARHAL {{{
+###############################################################################
+
+# user-defined variables
+export ekiefl="/groups/merenlab/people/ekiefl"
+export s="/users/ekiefl"
+export ekieflshared="/workspace/shared/ekiefl-shared/"
+export merenlab="/groups/merenlab"
+export merenlabshared="/workspace/shared/merenlab-shared"
+export METAPIPE="/groups/merenlab/people/ekiefl/utils/MerenLab-workflows/workflows/assembly-based-metagenomics-workflow"
+export popvar="/groups/merenlab/people/ekiefl/high_coverage_populations/popvar"
+
+# Where I store my binaries
+export PATH=$PATH:~/.local/bin
+
+###############################################################################
 # }}}
 ###############################################################################
