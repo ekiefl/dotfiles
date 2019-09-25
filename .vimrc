@@ -60,7 +60,6 @@ let $BASH_ENV = "~/.bash_aliases"
 
 " Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
-autocmd BufEnter * if &buftype=="terminal" | execute "silent !title terminal vim " . expand("%:t") | endif " FIXME autocmd commands for Terminal have not been properly written yet
 
 set nowrap
 set ai
