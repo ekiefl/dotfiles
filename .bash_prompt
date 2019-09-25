@@ -51,7 +51,11 @@ function prompt_command {
     if [[ ! -z $tlsp ]]; then tlsOPTS+="-p "$tlsp" "; fi
     if [[ ! -z $tlsg ]]; then tlsOPTS+="-g "$tlsg" "; fi
 
-    #source tls $tlsOPTS
+    if hash tls 2>/dev/null; then
+        source tls $tlsOPTS
+    else
+        echo 'tls not found. get at https://github.com/ekiefl/treepy'
+    fi
 }
 
 export PROMPT_COMMAND=prompt_command

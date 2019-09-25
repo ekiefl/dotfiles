@@ -39,7 +39,6 @@ silent! if plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-fugitive'
-    Plug 'tmhedberg/SimpylFold'
     Plug 'tpope/vim-surround'
     Plug 'szymonmaszke/vimpyter'
     Plug 'airblade/vim-gitgutter'
@@ -182,26 +181,25 @@ let g:jedi#smart_auto_mappings = 0
 " closes vim if only window is NERDTree
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " shows line numbers for NERDTree
+map <leader>o :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
 
-" shows line numbers for Tagbar
+" Tagbar / tackboard
+let g:tagbar_left = 1
 let g:tagbar_show_linenumbers = 0
 let g:tagbar_width = 30
-
 map <leader>t :TagbarToggle<CR>
-map <leader>o :NERDTree<CR>
+
 map <leader>me :set mouse=v<CR>
 map <leader>mm :set mouse=a<CR>
 set mouse=a
 hi SpellBad cterm=underline
 "ctermbg=red ctermfg=black
-let g:tagbar_left = 1
-let g:airline#extensions#tabline#enabled = 1
 
+let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
 :let g:airline_theme='simple'
 
 set noruler
@@ -220,15 +218,9 @@ set laststatus=2
 ":nnoremap <C-u> :call ReturnToOriginalPosition("o")<CR>
 ":nnoremap <C-i> :call ReturnToOriginalPosition("O")<CR>
 
-" adding end and start of line bash commands
+" add end and start of line bash equivalents
 :inoremap <C-e> <C-o>$
 :inoremap <C-a> <C-o><S-i>
-
-" do you want arrow movement during insert mode disabled? then uncomment these
-"ino <down> <Nop>
-"ino <left> <Nop>
-"ino <right> <Nop>
-"ino <up> <Nop>
 
 " how far away from max cursor position is from window
 :set so=1
