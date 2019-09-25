@@ -26,6 +26,9 @@ source ~/.bash_prompt
 export CLICOLOR=1
 export LSCOLORS=gxhxCxDxBxegedabagaced
 
+# iterm
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 ###############################################################################
 # }}} MY MACBOOK {{{
 ###############################################################################
@@ -33,9 +36,6 @@ export LSCOLORS=gxhxCxDxBxegedabagaced
 if [ $(uname -n) == $my_2016_macbook ]; then
     # python paths
     export PYTHONPATH="${PYTHONPATH}:/Users/evan/Software/pymol-v1.8.6.0-Darwin-x86_64/modules"
-
-    # iterm
-    test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
     # pyenv 
     export PYENV_ROOT="$HOME/.pyenv"
