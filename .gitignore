@@ -1,6 +1,6 @@
 .DS_store
 .vim/bundle
-.vim/.viminfo*
+.vim/.viminfo.tmp
 .talon.talon/calib.bin
 .talon/.sys*
 .talon/.venv*
