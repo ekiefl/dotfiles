@@ -1,6 +1,5 @@
 shopt -s expand_aliases
 
-
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
 # -----------------------------------------------------------------------------
@@ -18,9 +17,9 @@ alias lsla="ls -la"
 alias h="head -n"
 alias t="tail -n"
 alias col="column -t"
-alias eb="vim ~/.bash_profile"
+alias eb="vim ~/.bashrc"
 alias ep="vim ~/.bash_prompt"
-alias et="vim /Users/evan/.talon/user/"
+alias et="vim ~/.talon/user/"
 alias ea="vim ~/.bash_aliases"
 alias sb="source ~/.bash_profile"
 alias ev="vim ~/.vimrc"
@@ -37,7 +36,6 @@ function title {
 
 # specific to my macbook
 if [ "$(uname -n)" == "$my_2016_macbook" ]; then
-    # shortcuts
     alias anvio="source ~/virtual-envs/anvio-master/bin/activate"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
     alias mbl="ssh ekiefl@evol5.mbl.edu"
@@ -55,7 +53,7 @@ if [ "$(uname -n)" == "$my_2016_macbook" ]; then
     alias vim="/usr/local/bin/vim"
     alias vi="/usr/local/bin/vim"
 
-    # convenience variables
+    # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
     export anvenv="/Users/evan/virtual-envs/anvio-master/bin/activate"
     export anvio="/Users/evan/Software/anvio"
@@ -83,6 +81,7 @@ fi
 
 # specific to barhal
 if [ "$(uname -n)" == "$barhal_server" ]; then
+    # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export anvenv="/groups/merenlab/virtual-envs/anvio-master/anvio/"
     export ekiefl="/groups/merenlab/people/ekiefl"
     export s="/users/ekiefl"
@@ -90,6 +89,16 @@ if [ "$(uname -n)" == "$barhal_server" ]; then
     export merenlab="/groups/merenlab"
     export merenlabshared="/workspace/shared/merenlab-shared"
     export anvenv="/groups/merenlab/virtual-envs/anvio-master/bin/activate"
+fi
+
+# -----------------------------------------------------------------------------
+# }}} MIDWAY {{{
+# -----------------------------------------------------------------------------
+
+# specific to barhal
+if [ "$(uname -n)" == "$midway2_server" ]; then
+    # convenience variables (these are the only exports allowed in ~/.bash_aliases)
+    echo
 fi
 
 # -----------------------------------------------------------------------------
