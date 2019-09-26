@@ -1,21 +1,7 @@
 #!/usr/bin/env bash
 
+export tlsRUN=1
 export PS1="\[\e[1;32m\]▶▶ \[\e[0m\]"
-
-STARTFGCOLOR='\e[0;36m'
-ENDFGCOLOR="\e[0;37m" # 0 is normal 37 is white
-STARTBGCOLOR="\e[40m"
-ENDBGCOLOR="\e[0m" # reset
-
-function colorize() {
-    local COLOR_ASCI="\[$STARTFGCOLOR\]\[$STARTBGCOLOR\]"$1"\[$ENDFGCOLOR\]\[$ENDBGCOLOR\]"
-    echo "$COLOR_ASCI"
-}
-
-function terminal_width() {
-    local width=$(stty size | awk '{print $2}')
-    echo "$width"
-}
 
 export tlsd=0
 export tlsf=0

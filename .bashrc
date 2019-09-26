@@ -1,8 +1,8 @@
 # find by typing `uname -n`
 export my_2016_macbook="Evans-MacBook-Pro.local"
 export barhal_server="barhal-01.bpcservers.private"
-export midway1_server="midway-login1"
-export midway2_server="midway-login2"
+export midway_login1="midway2-login1.rcc.local"
+export midway_login2="midway2-login2.rcc.local"
 
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
@@ -37,7 +37,7 @@ if [ "$(uname -n)" == "$my_2016_macbook" ]; then
     # python paths
     export PYTHONPATH="${PYTHONPATH}:/Users/evan/Software/pymol-v1.8.6.0-Darwin-x86_64/modules"
 
-    # pyenv 
+    # pyenv
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
@@ -63,7 +63,7 @@ fi
 # }}} MIDWAY {{{
 # -----------------------------------------------------------------------------
 
-if [ "$(uname -n)" == "$midway2_server" ]; then
+if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
     # load modules
     module load python/3.6.1+intel-16.0
 fi

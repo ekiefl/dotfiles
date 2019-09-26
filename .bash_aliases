@@ -94,8 +94,7 @@ fi
 # -----------------------------------------------------------------------------
 
 # specific to barhal
-if [ "$(uname -n)" == "$midway2_server" ]; then
-    # convenience variables (these are the only exports allowed in ~/.bash_aliases)
+if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
     echo
 fi
 

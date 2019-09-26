@@ -14,6 +14,8 @@ syntax = {
     'phi': 'fi',
     'done': 'done',
 
+    'export': 'export ',
+
     'elif': 'elif',
     'else': 'else',
     'lint': ' in ',

@@ -2,22 +2,14 @@ if [ $(uname -n) == $my_2016_macbook ]; then
     echo ""
     echo "sup"
     echo ""
-fi
-
-if [ $(uname -n) == $barhal_server ]; then
+elif [ $(uname -n) == $barhal_server ]; then
     echo ""
-    echo "You're in barhal. Welcome!"$
+    echo "You're in barhal. Welcome!"
     echo ""
-fi
-
-if [ $(uname -n) == $midway2_server ]; then
+elif [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
     echo ""
-    echo "You're in midway 2. Welcome!"$
+    echo "You're in midway 2. Welcome!"
     echo ""
-fi
-
-if [ $(uname -n) == $midway1_server ]; then
-    echo ""
-    echo "You're in midway 2. Welcome!"$
-    echo ""
+else
+    echo "You're here. Welcome!"
 fi

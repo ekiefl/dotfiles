@@ -10,7 +10,7 @@ ctx_midway: specific to midway1 and midway2
 ctx = Context('bash', bundle='com.googlecode.iterm2')
 ctx_local = Context('bash_local', bundle='com.googlecode.iterm2', func=lambda app, win: 'Evans-MacBook-Pro' in win.title)
 ctx_barhal = Context('bash_barhal', bundle='com.googlecode.iterm2', func=lambda app, win: 'barhal-01.bpcservers.private' in win.title)
-ctx_midway = Context('bash_midway', bundle='com.googlecode.iterm2', func=lambda app, win: any(s in win.title for s in ('midway-login1', 'midway-login2')))
+ctx_midway = Context('bash_midway', bundle='com.googlecode.iterm2', func=lambda app, win: any(s in win.title for s in ('midway2-login1', 'midway2-login2')))
 
 bashmap = {}
 bashmap_local = {}
