@@ -71,10 +71,10 @@ function! SmoothScroll(dir, windiv, factor)
       endwhile
    endwhile
 endfunction
-map <S-j> :call SmoothScroll("d",2, 2)
-map <S-k> :call SmoothScroll("u",2, 2)
-map <S-d> :call SmoothScroll("d",1, 1)
-map <S-u> :call SmoothScroll("u",1, 1)
+map <S-j> :call SmoothScroll("d", 2, 2)
+map <S-k> :call SmoothScroll("u", 2, 2)
+map <S-d> :call SmoothScroll("d", 1, 1)
+map <S-u> :call SmoothScroll("u", 1, 1)
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

@@ -81,7 +81,6 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>fq :q!<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>e :e
-" disable (for muscle memory)
 nnoremap :w<CR> <nop>
 nnoremap :q<CR> <nop>
 nnoremap :e <nop>
@@ -89,12 +88,12 @@ nnoremap <Leader>x :xa<CR>
 
 
 " easily edit and source vimrc (and bash)
-:nnoremap <leader>ev :split ~/.vimrc<cr>
-:nnoremap <leader>eb :split ~/.bashrc<cr>
-:nnoremap <leader>ea :split ~/.bash_aliases<cr>
-:nnoremap <leader>ep :split ~/.bash_prompt<cr>
-:nnoremap <leader>sv :source ~/.vimrc<cr>
-:nnoremap <leader>et :e ~/.talon/user/<cr>
+nnoremap <leader>ev :split ~/.vimrc<cr>
+nnoremap <leader>eb :split ~/.bashrc<cr>
+nnoremap <leader>ea :split ~/.bash_aliases<cr>
+nnoremap <leader>ep :split ~/.bash_prompt<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
+nnoremap <leader>et :e ~/.talon/user/<cr>
 
 
 " moving around splits
@@ -141,11 +140,9 @@ set smarttab
 set expandtab
 set backspace=indent,eol,start
 
-set smartindent
-
 " source abbreviations
-:so ~/.vim/abbreviations.vim
-:so ~/.vim/myscripts.vim
+so ~/.vim/abbreviations.vim
+so ~/.vim/myscripts.vim
 
 " This defines how fast page up and page down functionality scrolls. A reasonable default is 5000
 let g:scroll_factor = 15000
@@ -164,12 +161,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_enable_highlighting = 0
-map <leader>pp :let g:syntastic_python_checkers = ['pylint']<CR>
+"map <leader>pp :let g:syntastic_python_checkers = ['pylint']<CR>
 
 " fold plugin
 let g:SimpylFold_fold_import = 0
 let g:SimpylFold_fold_docstring = 0
-:hi Folded ctermfg=109
+hi Folded ctermfg=109
 set nofoldenable
 set foldmethod=indent
 nnoremap q<tab> zA
@@ -198,13 +195,12 @@ map <leader>me :set mouse=v<CR>
 map <leader>mm :set mouse=a<CR>
 set mouse=a
 hi SpellBad cterm=underline
-"ctermbg=red ctermfg=black
 
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-:let g:airline_theme='simple'
+let g:airline_theme='simple'
 
 set noruler
 set laststatus=2
@@ -215,42 +211,42 @@ set laststatus=2
 "set statusline+=%{fugitive#statusline()}
 
 " no automatic word wrap, but `gq` wraps to textwidth
-:set textwidth=100
-:set fo-=t
+set textwidth=100
+set fo-=t
 
 " making space above or below curor's line
-":nnoremap <C-u> :call ReturnToOriginalPosition("o")<CR>
-":nnoremap <C-i> :call ReturnToOriginalPosition("O")<CR>
+"nnoremap <C-u> :call ReturnToOriginalPosition("o")<CR>
+"nnoremap <C-i> :call ReturnToOriginalPosition("O")<CR>
 
 " add end and start of line bash equivalents
-:inoremap <C-e> <C-o>$
-:inoremap <C-a> <C-o><S-i>
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o><S-i>
 
 " how far away from max cursor position is from window
-:set so=1
+set so=1
 
 " show cursorline, causes some amout of lag issues, even with ttyfast and lazyredraw
-":set cursorline
-":set ttyfast
-":set lazyredraw
+"set cursorline
+set ttyfast
+set lazyredraw
 
 " if these are uncommented shift-left and shift-right switch buffer in normal mode
-:map <s-left> :bp!<CR>
-:map <s-right> :bn!<CR>
+map <s-left> :bp!<CR>
+map <s-right> :bn!<CR>
 
 " close a buffer without second thought
-:map <leader>c :bw!<CR>
+map <leader>c :bw!<CR>
 
-:set hidden " unknown what this does
+set hidden " unknown what this does
 
 " jedi autocomplete window navigation
 inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " legacy comment: 'laggy plugin for relative + absolute numbering was called RltvNmbr'
-:set number relativenumber " hybrid line numbering
-":set number " absolute numbering
-:highlight LineNr ctermfg=174
+set number relativenumber " hybrid line numbering
+"set number " absolute numbering
+highlight LineNr ctermfg=174
 
 " snakemake syntax highlighting
 au BufNewFile,BufRead Snakefile set syntax=snakemake
