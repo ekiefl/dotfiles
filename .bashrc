@@ -55,8 +55,8 @@ fi
 # -----------------------------------------------------------------------------
 
 if [ "$(uname -n)" == "$barhal_server" ]; then
-    # Where I store my binaries
-    export PATH=$PATH:~/.local/bin
+    # nothing so far
+    echo
 fi
 
 # -----------------------------------------------------------------------------
@@ -66,10 +66,6 @@ fi
 if [ "$(uname -n)" == "$midway2_server" ]; then
     # load modules
     module load python/3.6.1+intel-16.0
-
-    # Where I store my binaries
-    export PATH=$PATH:~/.local/bin
-
 fi
 
 # -----------------------------------------------------------------------------

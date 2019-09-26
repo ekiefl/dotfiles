@@ -1,3 +1,7 @@
+# this is where I store my binaries when I don't have write access,
+# so exporting this path is the absolute first order of business
+export PATH=$PATH:~/.local/bin
+
 # pull from yadm before anything
 if hash yadm 2>/dev/null; then
     yadm pull
