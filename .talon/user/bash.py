@@ -90,6 +90,7 @@ programs = {
     "pip"          : "pip ",
     "pip install"  : "pip install ",
     "barhally"     : ["barhali", Key("enter"), "source $anvenv", Key("enter")],
+    "midwayer"       : ["midway2", Key("enter")],
     'deactivate'   : 'deactivate ',
     "(vim | fim)"  : "vim ",
     "anvy"         : ["anvi-", Key("tab"), Key("tab"), "y"],
