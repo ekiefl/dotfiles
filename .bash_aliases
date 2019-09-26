@@ -24,7 +24,7 @@ alias ea="vim ~/.bash_aliases"
 alias sb="source ~/.bash_profile"
 alias ev="vim ~/.vimrc"
 alias hs="history | cut -c 8-"
-alias yu="yadm commit -m '$(date)'"
+alias yu="yadm add -u; yadm commit -m '$(date)'; yadm push origin master"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {
