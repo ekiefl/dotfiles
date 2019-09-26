@@ -54,7 +54,7 @@ punctuation = {
 
 alpha.update({'corey %s' % k: Key('ctrl-%s' % v) for k, v in alnum})
 alpha.update({'commy %s' % k: Key('cmd-%s' % v) for k, v in alnum})
-alpha.update({'commy ship %s' % k: Key('ctrl-shift-%s' % v) for k, v in alnum})
+alpha.update({'commy ship %s' % k: Key('cmd-shift-%s' % v) for k, v in alnum})
 alpha.update({'alt %s' % k: Key('alt-%s' % v) for k, v in alnum})
 
 word_for_enter = 'slaw'

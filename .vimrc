@@ -38,7 +38,6 @@ silent! if plug#begin()
     Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-airline/vim-airline'
     Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
     Plug 'airblade/vim-gitgutter'
 
@@ -48,6 +47,10 @@ endif
 " -----------------------------------------------------------------
 " }}}
 " -----------------------------------------------------------------
+"
+" this allows scripts in the ~/.vim/ftplugin/ folder to be sourced
+" if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
+filetype plugin on
 
 " this fixes insert mode arrow keys mapping to A B C D
 if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
@@ -68,7 +71,6 @@ set iskeyword+=_,$,@,%,#,-
 syntax on
 set hlsearch
 set number
-filetype plugin on
 set list
 set mouse=v
 
@@ -138,6 +140,8 @@ set shiftwidth=4
 set smarttab
 set expandtab
 set backspace=indent,eol,start
+
+set smartindent
 
 " source abbreviations
 :so ~/.vim/abbreviations.vim
