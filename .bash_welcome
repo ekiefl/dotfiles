@@ -1,4 +1,4 @@
-if [[ "$my_macbook_pro" =~ "$(uname -n)" ]]; then
+if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     echo ""
     echo "sup"
     echo ""

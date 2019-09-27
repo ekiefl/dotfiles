@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [[ "$my_macbook_pro" =~ "$(uname -n)" ]]; then
+if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     export PS1="\[\e[1;32m\]▶▶ \[\e[0m\]"
 elif [[ "$barhal_server" =~ "$(uname -n)" ]]; then
     export PS1="\[\e[1;37m\]▶▶ \[\e[0m\]"
