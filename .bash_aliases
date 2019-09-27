@@ -106,6 +106,7 @@ if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" 
     export anviocode="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio"
     export anviotests="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests"
     export anviooutput="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
+    export merenlab="/project2/meren/"
 fi
 
 # -----------------------------------------------------------------------------
