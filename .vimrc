@@ -77,6 +77,7 @@ set mouse=v
 " my leader is space:
 let mapleader = "\<Space>"
 
+
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>fq :q!<CR>
 nnoremap <Leader>q :q<CR>
@@ -233,7 +234,11 @@ set so=1
 set ttyfast
 set lazyredraw
 
-" if these are uncommented shift-left and shift-right switch buffer in normal mode
+" redraw when buffers are entered
+nnoremap <leader>r :redraw!<CR>
+autocmd BufEnter * execute "redraw!"
+
+" if these are unkommented shift-left and shift-right switch buffer in normal mode
 map <s-left> :bp!<CR>
 map <s-right> :bn!<CR>
 
