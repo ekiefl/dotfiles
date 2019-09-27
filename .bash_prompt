@@ -54,7 +54,11 @@ function prompt_command {
     if hash tls 2>/dev/null; then
         source tls $tlsOPTS
     else
-        echo 'tls not found. get at https://github.com/ekiefl/treepy'
+        echo "You don't have tls, trying to install."
+        git clone https://github.com/ekiefl/treepy.git
+        cd treepy
+        python setup.py install --user
+        cd -
     fi
 }
 
