@@ -37,7 +37,7 @@ function title {
 # -----------------------------------------------------------------------------
 
 # specific to my macbook
-if [ "$(uname -n)" == "$my_2016_macbook" ]; then
+if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     alias anvio="source ~/virtual-envs/anvio-master/bin/activate"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
     alias pymol="/Applications/MacPyMOL.app/Contents/MacOS/MacPyMOL"
@@ -80,7 +80,7 @@ fi
 # -----------------------------------------------------------------------------
 
 # specific to barhal
-if [ "$(uname -n)" == "$barhal_server" ]; then
+if [[ "$barhal_server" =~ "$(uname -n)" ]]; then
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export anvenv="/groups/merenlab/virtual-envs/anvio-master/anvio/"
     export ekiefl="/groups/merenlab/people/ekiefl"
@@ -96,7 +96,7 @@ fi
 # -----------------------------------------------------------------------------
 
 # specific to barhal
-if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
+if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
 
     # convenience variables only
