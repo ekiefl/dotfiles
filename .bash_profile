@@ -6,7 +6,7 @@ export PATH=$PATH:~/.local/bin
 if hash yadm 2>/dev/null; then
     yadm pull
 else
-    echo 'yadm binary not found. dotfiles were not pulled'
+    echo 'yadm binary not found. dotfiles were not pulled. install here: https://github.com/TheLocehiliosan/yadm'
 fi
 
 # bashrc contains all else
