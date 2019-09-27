@@ -185,6 +185,9 @@ let g:jedi#smart_auto_mappings = 0
 map <leader>o :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
 
+" suppress 'you don't have ruby so lusty wont work' msg
+let g:LustyJugglerSuppressRubyWarning = 1
+
 " Tagbar / tackboard
 let g:tagbar_left = 1
 let g:tagbar_show_linenumbers = 0
