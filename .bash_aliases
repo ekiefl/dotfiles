@@ -97,7 +97,15 @@ fi
 
 # specific to barhal
 if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
-    echo
+    alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
+
+    # convenience variables only
+    export anvenv="/project2/meren/VIRTUAL-ENVS/anvio-master/"
+    export anviobin="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/bin"
+    export anviosandbox="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/sandbox"
+    export anviocode="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio"
+    export anviotests="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests"
+    export anviooutput="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
 fi
 
 # -----------------------------------------------------------------------------

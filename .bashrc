@@ -83,6 +83,8 @@ if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" 
 
     # get rid of bash prompt prefix
     conda config --set changeps1 False
+
+    cd /project2/meren/VIRTUAL-ENVS/anvio-master/anvio; git pull
 fi
 
 # -----------------------------------------------------------------------------
