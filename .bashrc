@@ -1,8 +1,7 @@
 # find by typing `uname -n`
-export my_2016_macbook="Evans-MacBook-Pro.local"
+export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79"
 export barhal_server="barhal-01.bpcservers.private"
-export midway_login1="midway2-login1.rcc.local"
-export midway_login2="midway2-login2.rcc.local"
+export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local"
 
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
@@ -33,7 +32,7 @@ source ~/.iterm2_shell_integration.bash
 # }}} MY MACBOOK {{{
 # -----------------------------------------------------------------------------
 
-if [ "$(uname -n)" == "$my_2016_macbook" ]; then
+if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     # python paths
     export PYTHONPATH="${PYTHONPATH}:/Users/evan/Software/pymol-v1.8.6.0-Darwin-x86_64/modules"
 
@@ -54,7 +53,7 @@ fi
 # }}} BARHAL {{{
 # -----------------------------------------------------------------------------
 
-if [ "$(uname -n)" == "$barhal_server" ]; then
+if [[ "$barhal_server" =~ "$(uname -n)" ]]; then
     # nothing so far
     echo
 fi
@@ -63,7 +62,7 @@ fi
 # }}} MIDWAY {{{
 # -----------------------------------------------------------------------------
 
-if [ "$(uname -n)" == "$midway_login1" ] || [ "$(uname -n)" == "$midway_login2" ]; then
+if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     # load modules
     module load Anaconda3/5.3.0
     module load vim/8.1
@@ -90,5 +89,3 @@ fi
 # -----------------------------------------------------------------------------
 # }}}
 # -----------------------------------------------------------------------------
-
-
