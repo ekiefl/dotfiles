@@ -209,10 +209,10 @@ let g:airline_theme='simple'
 set noruler
 set laststatus=2
 
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"set statusline+=%{fugitive#statusline()}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%{fugitive#statusline()}
 
 " no automatic word wrap, but `gq` wraps to textwidth
 set textwidth=100
