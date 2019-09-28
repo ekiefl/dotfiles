@@ -137,11 +137,13 @@ names_map = {
 
     # convenience variables
     'snap academics'     : ["$academics/"],
-    'snap anvio'         : ["$anvio/"],
-    'snap anvio output'  : ["$anviooutput/"],
-    'snap anvio tests'   : ["$anviotests/"],
-    'snap jort a tap'    : ["$jortatap/"],
-    'snap anviocode'     : ["$anviocode/"],
+    'snap anvio'         : ["$a/"],
+    'snap anvio output'  : ["$ao/"],
+    'snap anvio sandbox' : ["$as/"],
+    'snap anvio bin'     : ["$ab/"],
+    'snap anvio tests'   : ["$at/"],
+    'snap anvio code'     : ["$ac/"],
+    'snap jorta tap'    : ["$jortatap/"],
     'snap desktop'       : ["$desktop/"],
     'snap documents'     : ["$documents/"],
     'snap dot files'     : ["$dotfiles/"],
