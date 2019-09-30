@@ -68,6 +68,7 @@ window_handler = {
     # sometimes saving doesn't work on barhal so small sleep command is added
     'write it'              : [Key('escape'), lambda m: time.sleep(0.25), Key('%s w' % LEADER)],
     'run it'                : [Key('escape'), lambda m: time.sleep(0.25), Key('%s w' % LEADER), lambda m: time.sleep(0.5), Key('cmd-l up enter')],
+    'run same'                : [Key('escape'), lambda m: time.sleep(0.25), Key('%s w' % LEADER), lambda m: time.sleep(0.5), Key('ctrl-z up up enter')],
 
     # terminal navigation
     'torque': Key('esc %s b' % LEADER),
