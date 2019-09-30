@@ -180,8 +180,6 @@ let g:jedi#documentation_command = 'R'
 let g:jedi#smart_auto_mappings = 0
 
 
-" closes vim if only window is NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " shows line numbers for NERDTree
 map <leader>o :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
@@ -200,19 +198,21 @@ map <leader>mm :set mouse=a<CR>
 set mouse=a
 hi SpellBad cterm=underline
 
-let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_theme='simple'
+let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
+let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
 
 set noruler
 set laststatus=2
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%{fugitive#statusline()}
+" fugitive shortcuts
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gvdiffsplit<CR>
+nnoremap <Leader>gp :Gpush<CR>
 
 " no automatic word wrap, but `gq` wraps to textwidth
 set textwidth=100
@@ -234,9 +234,10 @@ set so=1
 set ttyfast
 set lazyredraw
 
-" redraw when buffers are entered
-nnoremap <leader>r :redraw!<CR>
-autocmd BufEnter * execute "redraw!"
+
+" redraw when windowed buffers are entered
+nnoremap <leader>rd :redraw!<CR>
+autocmd BufWinEnter * execute "redraw!"
 
 " if these are unkommented shift-left and shift-right switch buffer in normal mode
 map <s-left> :bp!<CR>
@@ -246,6 +247,7 @@ map <s-right> :bn!<CR>
 map <leader>c :bw!<CR>
 
 set hidden " unknown what this does
+
 
 " jedi autocomplete window navigation
 inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -291,10 +293,11 @@ endfor
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 
 " working directory is currently buffered file (if not a terminal buffer)
-augroup AutoChdir
-    autocmd!
-    autocmd BufEnter * if &buftype !=# 'terminal' | lchdir %:p:h | endif
-augroup ENDautocmd BufEnter * lcd %:p:h
+" OK USEFUL but incompatible with Gdiff (fugitive) which is super useful
+"augroup AutoChdir
+"    autocmd!
+"    autocmd BufEnter * if &buftype !=# 'terminal' | lchdir %:p:h | endif
+"augroup ENDautocmd BufEnter * lcd %:p:h
 
 " -----------------------------------------------------------------
 " TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{

@@ -29,6 +29,8 @@ alias gd="git diff"
 alias gc="git commit -m"
 alias hs="history | cut -c 8-"
 alias yu="yadm add -u; yadm commit -m '$(date)'; yadm push origin master"
+alias ys="yadm status"
+alias yd="yadm diff"
 alias yp="yadm pull"
 
 # changes title of the window from `old` to `new (old)` via `title new`
