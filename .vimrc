@@ -26,7 +26,7 @@ silent! if plug#begin()
 
     Plug 'tmhedberg/SimpylFold'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'kien/ctrlp.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'morhetz/gruvbox'
     Plug 'davidhalter/jedi-vim'
     Plug 'sjbach/lusty'
