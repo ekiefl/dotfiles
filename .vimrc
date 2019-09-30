@@ -15,6 +15,9 @@
 " tar -zxvf ctags-5.8.tar.gz
 " cd ctags && ./configure && make && sudo make install
 
+" my leader is space:
+let mapleader = "\<Space>"
+
 " -----------------------------------------------------------------
 " }}} VIM-PLUG {{{
 " -----------------------------------------------------------------
@@ -28,7 +31,7 @@ endif
 " declare plugins
 silent! if plug#begin()
 
-    Plug     'jiangmiao/auto-pairs'
+    Plug        'ekiefl/auto-pairs'
     Plug      'ctrlpvim/ctrlp.vim'
     Plug       'morhetz/gruvbox'
     Plug   'davidhalter/jedi-vim'
@@ -197,8 +200,6 @@ set number
 set list
 set mouse=v
 
-" my leader is space:
-let mapleader = "\<Space>"
 
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>fq :q!<CR>
