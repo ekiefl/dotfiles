@@ -306,8 +306,8 @@ nnoremap <leader>rd :redraw!<CR>
 autocmd BufWinEnter * execute "redraw!"
 
 " shift-left and shift-right switch buffer in normal mode
-map <s-left> :bp!<CR>
-map <s-right> :bn!<CR>
+nnoremap <s-h> :bp!<CR>
+nnoremap <s-l> :bn!<CR>
 
 " close a buffer without second thought
 map <leader>c :bw!<CR>
