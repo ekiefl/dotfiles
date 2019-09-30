@@ -35,6 +35,7 @@ alias yp="yadm pull"
 alias ss="screen -S"
 alias sls="screen -ls"
 alias sx="screen -x"
+alias sr="screen -r"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {
