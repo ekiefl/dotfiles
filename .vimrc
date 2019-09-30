@@ -1,3 +1,7 @@
+" -----------------------------------------------------------------
+" COMPILING A COMPATIBLE VIM {{{
+" -----------------------------------------------------------------
+
 " git clone https://github.com/vim/vim.git
 " cd vim/
 " PATH="/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/bin:${PATH}" # This is the place on that must match the config directory
@@ -12,7 +16,7 @@
 " cd ctags && ./configure && make && sudo make install
 
 " -----------------------------------------------------------------
-" VIM-PLUG {{{
+" }}} VIM-PLUG {{{
 " -----------------------------------------------------------------
 
 " this downloads vim-plug if its missing
@@ -24,30 +28,149 @@ endif
 " declare plugins
 silent! if plug#begin()
 
-    Plug 'tmhedberg/SimpylFold'
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'morhetz/gruvbox'
-    Plug 'davidhalter/jedi-vim'
-    Plug 'sjbach/lusty'
-    Plug 'scrooloose/nerdtree'
+    Plug     'jiangmiao/auto-pairs'
+    Plug      'ctrlpvim/ctrlp.vim'
+    Plug       'morhetz/gruvbox'
+    Plug   'davidhalter/jedi-vim'
+    Plug        'sjbach/lusty'
+    Plug    'scrooloose/nerdtree'
+    Plug     'tmhedberg/SimpylFold'
     Plug 'vim-syntastic/syntastic'
-    Plug 'godlygeek/tabular'
-    Plug 'majutsushi/tagbar'
-    Plug 'tpope/vim-abolish'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'vim-airline/vim-airline'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-surround'
-    Plug 'airblade/vim-gitgutter'
+    Plug     'godlygeek/tabular'
+    Plug    'majutsushi/tagbar'
+    Plug   'vim-airline/vim-airline'
+    Plug   'vim-airline/vim-airline-themes'
+    Plug         'tpope/vim-fugitive'
+    Plug      'airblade/vim-gitgutter'
+    Plug         'tpope/vim-surround'
 
   call plug#end()
 endif
 
 " -----------------------------------------------------------------
-" }}}
+" }}} auto-pairs  {{{  # pairs chars, see ~/.vim/after/indent/python.vim
 " -----------------------------------------------------------------
-"
+
+" pressing enter at {|} where | is cursor position not working?
+" https://github.com/jiangmiao/auto-pairs/issues/215
+
+" -----------------------------------------------------------------
+" }}} ctrlp.vim  {{{  # fuzzy file/buf search
+" -----------------------------------------------------------------
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" -----------------------------------------------------------------
+" }}} gruvbox  {{{  # retro color scheme
+" -----------------------------------------------------------------
+
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'medium' " soft, medium and hard.
+set background=dark " dark or light
+
+" -----------------------------------------------------------------
+" }}} jedi-vim  {{{  # python autocompletion
+" -----------------------------------------------------------------
+
+inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
+let g:jedi#show_call_signatures = '1'
+let g:jedi#use_splits_not_buffers = ''
+let g:jedi#popup_on_dot = 0
+let g:jedi#documentation_command = 'R'
+let g:jedi#smart_auto_mappings = 0
+
+" -----------------------------------------------------------------
+" }}} lusty  {{{  # grep all buffers (<leader>lg)
+" -----------------------------------------------------------------
+
+" suppress 'you don't have ruby so lusty wont work' msg
+let g:LustyJugglerSuppressRubyWarning = 1
+
+" -----------------------------------------------------------------
+" }}} nerdtree  {{{  # file explorer
+" -----------------------------------------------------------------
+
+map <leader>o :NERDTree<CR>
+let NERDTreeShowLineNumbers=1
+
+" -----------------------------------------------------------------
+" }}} SimpylFold {{{  # folding
+" -----------------------------------------------------------------
+
+let g:SimpylFold_fold_import = 0
+let g:SimpylFold_fold_docstring = 0
+hi Folded ctermfg=109
+set nofoldenable
+set foldmethod=indent
+nnoremap q<tab> zA
+nnoremap <tab> za
+
+" -----------------------------------------------------------------
+" }}} syntastic {{{  # syntax check for python
+" -----------------------------------------------------------------
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_enable_highlighting = 1
+
+" -----------------------------------------------------------------
+" }}} tabular {{{  # tabularize lines
+" -----------------------------------------------------------------
+
+" :'<'>Tab /<delimiter>
+
+" -----------------------------------------------------------------
+" }}} tagbar {{{  # search files using tags (e.g. methods, classes)
+" -----------------------------------------------------------------
+
+let g:tagbar_left = 1
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_width = 30
+map <leader>t :TagbarToggle<CR>
+
+" -----------------------------------------------------------------
+" }}} vim-airline {{{  # beefs the status bar
+" -----------------------------------------------------------------
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_theme='simple'
+let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
+let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
+
+" -----------------------------------------------------------------
+" }}} vim-fugitive {{{  # everything git
+" -----------------------------------------------------------------
+
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gvdiffsplit<CR>
+nnoremap <Leader>gp :Gpush<CR>
+
+" -----------------------------------------------------------------
+" }}} vim-gitgutter {{{  # + useful for partial file staging
+" -----------------------------------------------------------------
+
+" [c and ]c to find git chunks. <leader>hp to preview hunk in new
+" window, saving window stages the hunk
+
+" -----------------------------------------------------------------
+" }}} vim-surround {{{  # surround selections with enclosing chars
+" -----------------------------------------------------------------
+
+" :'<'>S<enclosing_charater>
+
+" -----------------------------------------------------------------
+" }}} 
+" -----------------------------------------------------------------
+
 " this allows scripts in the ~/.vim/ftplugin/ folder to be sourced
 " if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
 filetype plugin on
@@ -77,7 +200,6 @@ set mouse=v
 " my leader is space:
 let mapleader = "\<Space>"
 
-
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>fq :q!<CR>
 nnoremap <Leader>q :q<CR>
@@ -87,7 +209,6 @@ nnoremap :q<CR> <nop>
 nnoremap :e <nop>
 nnoremap <Leader>x :xa<CR>
 
-
 " easily edit and source vimrc (and bash)
 nnoremap <leader>ev :split ~/.vimrc<cr>
 nnoremap <leader>eb :split ~/.bashrc<cr>
@@ -95,7 +216,6 @@ nnoremap <leader>ea :split ~/.bash_aliases<cr>
 nnoremap <leader>ep :split ~/.bash_prompt<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
 nnoremap <leader>et :e ~/.talon/user/<cr>
-
 
 " moving around splits
 nnoremap <C-J> <C-W><C-J>
@@ -116,8 +236,6 @@ vnoremap ` '
 " select what was just pasted
 nnoremap gp `[v`]
 
-" >> indents in command mode. >M idents to level defined by line above
-" command not written yet
 " << back-indents in command mode <M back-idents to 0
 nnoremap <M ^d0
 " related: some times you just want to move a line up (mnemonic: Move Up)
@@ -149,70 +267,18 @@ so ~/.vim/myscripts.vim
 let g:scroll_factor = 15000
 
 set term=xterm-256color
-set background=dark
-colorscheme gruvbox
 
 set nobackup
 set nowritebackup
 set noswapfile
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['python']
-let g:syntastic_enable_highlighting = 0
-"map <leader>pp :let g:syntastic_python_checkers = ['pylint']<CR>
-
-" fold plugin
-let g:SimpylFold_fold_import = 0
-let g:SimpylFold_fold_docstring = 0
-hi Folded ctermfg=109
-set nofoldenable
-set foldmethod=indent
-nnoremap q<tab> zA
-nnoremap <tab> za
-
-let g:jedi#show_call_signatures = '1'
-let g:jedi#use_splits_not_buffers = ''
-let g:jedi#popup_on_dot = 0
-let g:jedi#documentation_command = 'R'
-let g:jedi#smart_auto_mappings = 0
-
-
-" shows line numbers for NERDTree
-map <leader>o :NERDTree<CR>
-let NERDTreeShowLineNumbers=1
-
-" suppress 'you don't have ruby so lusty wont work' msg
-let g:LustyJugglerSuppressRubyWarning = 1
-
-" Tagbar / tackboard
-let g:tagbar_left = 1
-let g:tagbar_show_linenumbers = 0
-let g:tagbar_width = 30
-map <leader>t :TagbarToggle<CR>
 
 map <leader>me :set mouse=v<CR>
 map <leader>mm :set mouse=a<CR>
 set mouse=a
 hi SpellBad cterm=underline
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_theme='simple'
-let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
-let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
-
 set noruler
 set laststatus=2
-
-" fugitive shortcuts
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gd :Gvdiffsplit<CR>
-nnoremap <Leader>gp :Gpush<CR>
 
 " no automatic word wrap, but `gq` wraps to textwidth
 set textwidth=100
@@ -234,12 +300,11 @@ set so=1
 set ttyfast
 set lazyredraw
 
-
 " redraw when windowed buffers are entered
 nnoremap <leader>rd :redraw!<CR>
 autocmd BufWinEnter * execute "redraw!"
 
-" if these are unkommented shift-left and shift-right switch buffer in normal mode
+" shift-left and shift-right switch buffer in normal mode
 map <s-left> :bp!<CR>
 map <s-right> :bn!<CR>
 
@@ -248,12 +313,6 @@ map <leader>c :bw!<CR>
 
 set hidden " unknown what this does
 
-
-" jedi autocomplete window navigation
-inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
-
-" legacy comment: 'laggy plugin for relative + absolute numbering was called RltvNmbr'
 set number relativenumber " hybrid line numbering
 "set number " absolute numbering
 highlight LineNr ctermfg=174
@@ -291,13 +350,6 @@ endfor
 
 " vimpyter
 autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
-
-" working directory is currently buffered file (if not a terminal buffer)
-" OK USEFUL but incompatible with Gdiff (fugitive) which is super useful
-"augroup AutoChdir
-"    autocmd!
-"    autocmd BufEnter * if &buftype !=# 'terminal' | lchdir %:p:h | endif
-"augroup ENDautocmd BufEnter * lcd %:p:h
 
 " -----------------------------------------------------------------
 " TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{
