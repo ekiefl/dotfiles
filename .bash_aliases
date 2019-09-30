@@ -32,6 +32,9 @@ alias yu="yadm add -u; yadm commit -m '$(date)'; yadm push origin master"
 alias ys="yadm status"
 alias yd="yadm diff"
 alias yp="yadm pull"
+alias ss="screen -S"
+alias sls="screen -ls"
+alias sx="screen -x"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {
@@ -74,7 +77,7 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     export dropbox="/Users/evan/Dropbox"
     export googledrive="/Users/evan/googledrive"
     export jortatap="/Users/evan/Academics/Research/Meren/JORTATAP"
-    export meren="/Users/evan/Academics/Research/Meren"
+    export m="/Users/evan/Academics/Research/Meren"
     export software="/Users/evan/Software"
     export table2md="csvtomd"
     export talon="/Applications/Talon.app/Contents/Resources/talon_plugins"
@@ -89,10 +92,10 @@ fi
 if [[ "$barhal_server" =~ "$(uname -n)" ]]; then
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export anvenv="/groups/merenlab/virtual-envs/anvio-master/anvio/"
-    export ekiefl="/groups/merenlab/people/ekiefl"
+    export ek="/groups/merenlab/people/ekiefl"
     export s="/users/ekiefl"
     export ekieflshared="/workspace/shared/ekiefl-shared/"
-    export merenlab="/groups/merenlab"
+    export ml="/groups/merenlab"
     export merenlabshared="/workspace/shared/merenlab-shared"
     export anvenv="/groups/merenlab/virtual-envs/anvio-master/bin/activate"
 fi
@@ -112,7 +115,8 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export ac="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio"
     export at="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests"
     export ao="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
-    export merenlab="/project2/meren/"
+    export ml="/project2/meren/"
+    export ek="/project2/meren/PEOPLE/ekiefl"
 fi
 
 # -----------------------------------------------------------------------------

@@ -147,7 +147,7 @@ names_map = {
     'snap desktop'       : ["$desktop/"],
     'snap documents'     : ["$documents/"],
     'snap dot files'     : ["$dotfiles/"],
-    'snap meren'         : ["$meren/"],
+    'snap meren'         : ["$m/"],
     'snap software'      : ["$software/"],
     'snap talon'         : ["$talon/"],
     'snap talon scripts' : ["$talonscripts/"],
@@ -198,6 +198,13 @@ ctx_barhal.keymap(bashmap_barhal)
 # -----------------------------------------------------------------------------
 # }}} MIDWAY ONLY {{{
 # -----------------------------------------------------------------------------
+
+names_map = {
+    'snap marrin lab' : ['$ml'],
+    'snap e keyful' : ['$ek'],
+}; bashmap_midway.update(names_map)
+
+ctx_midway.keymap(bashmap_midway)
 
 # -----------------------------------------------------------------------------
 # }}}
