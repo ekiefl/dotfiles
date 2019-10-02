@@ -19,8 +19,8 @@ DISABLE_WINDOW_SWAPPING = True
 LEADER = 'space'
 
 # hacky ways for repeat commands that take numbers as variables (there is another one of these in std)
-vimmap.update({'%d buff' % k: [Key('escape')] + [Key('shift-right'), lambda m: time.sleep(0.1)]*k for k in range(2, 10)})
-vimmap.update({'%d ruff' % k: [Key('escape')] + [Key('shift-left'), lambda m: time.sleep(0.1)]*k for k in range(2, 10)})
+vimmap.update({'%d buff' % k: [Key('escape')] + [Key('shift-l'), lambda m: time.sleep(0.1)]*k for k in range(2, 10)})
+vimmap.update({'%d ruff' % k: [Key('escape')] + [Key('shift-h'), lambda m: time.sleep(0.1)]*k for k in range(2, 10)})
 vimmap.update({'%d box' % k: ['x']*k for k in range(2, 10)})
 vimmap.update({'%d undo' % k: ['u']*k for k in range(2, 10)})
 vimmap.update({'%d redo' % k: [Key('ctrl-r')]*k for k in range(2, 10)})
@@ -58,8 +58,8 @@ viewport = {
 }; vimmap.update(viewport)
 
 window_handler = {
-    'buff'                  : Key('esc shift-right'),
-    'ruff'                  : Key('esc shift-left'),
+    'buff'                  : Key('esc shift-l'),
+    'ruff'                  : Key('esc shift-h'),
     'north'                 : Key('ctrl-k'),
     'south'                 : Key('ctrl-j'),
     'east'                  : Key('ctrl-l'),

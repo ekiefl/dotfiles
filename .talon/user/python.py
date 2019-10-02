@@ -13,7 +13,7 @@ def text(m):
     words = [parse_word(word) for word in tmp]
     Str(' '.join(words))(None)
 
-ctx = Context('python', bundle='com.googlecode.iterm2', func=lambda app, win: any(s in win.title for s in ('.py', 'IPython', 'Python', 'Snakefile', '.ipynb', 'anvi-')))
+ctx = Context('python', bundle='com.googlecode.iterm2', func=lambda app, win: any(s in win.title for s in ('.py', 'IPython', 'Python', 'Snakefile', '.ipynb', 'anvi-', 'clusterize')))
 
 pythonmap = {}
 
