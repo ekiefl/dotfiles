@@ -108,6 +108,7 @@ fi
 # specific to barhal
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
+    alias clusterize="cl"
 
     # convenience variables only
     export a="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio"
