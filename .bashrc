@@ -7,6 +7,11 @@ export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local"
 # SHARED BY ALL {{{
 # -----------------------------------------------------------------------------
 
+# if you're scp-ing, we're done
+if [ -z "$PS1" ]; then
+    return
+fi
+
 # welcome message
 bash ~/.bash_welcome
 
