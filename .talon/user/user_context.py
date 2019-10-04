@@ -1,6 +1,6 @@
 from talon.voice import Context as TalonContext
 
-blacklist = ('SpeechTexter', 'Duolingo')
+blacklist=[]
 
 class Context(TalonContext):
     def __init__(self, name, app=None, exe=None, bundle=None, title=None, func=None, group=None, blacklist=blacklist):

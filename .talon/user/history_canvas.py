@@ -2,7 +2,7 @@ from talon import ui, ctrl
 from talon.engine import engine
 from talon.canvas import Canvas
 
-hist_len = 3
+hist_len = 4
 
 class History:
     def __init__(self):
