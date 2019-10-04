@@ -1,5 +1,7 @@
 from talon.voice import Context as TalonContext
 
+blacklist=[]
+
 class Context(TalonContext):
     def __init__(self, name, app=None, exe=None, bundle=None, title=None, func=None, group=None, blacklist=blacklist):
         # if no func is passed, create trivial function
