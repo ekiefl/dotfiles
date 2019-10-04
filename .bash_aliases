@@ -108,7 +108,10 @@ fi
 # specific to barhal
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
-    alias clusterize="cl"
+    alias cl="clusterize"
+    alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %4c %8z %6m %8e %8d %l %L %g'; echo ; squeue --partition=meren -o '%10i %30j %5u %8T %10M %9l %6D %R %5C %13m %15N'"
+    alias qe="squeue --user=ekiefl -o '%10i %30j %5u %8T %10M %9l %6D %R %5C %13m %15N'"
+    alias sc="scancel"
 
     # convenience variables only
     export a="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio"
@@ -119,6 +122,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export ao="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
+    export sm="anvi-run-workflow -w <> -c config.json --additional-params --cluster \"sbatch --job-name={rule} --output={log} --error={log} --partition=meren --nodes=1 --ntasks-per-node={threads}\" --jobs <> --resource nodes=<> --latency-wait 100"
 fi
 
 # -----------------------------------------------------------------------------
