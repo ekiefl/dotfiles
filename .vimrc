@@ -79,14 +79,35 @@ set background=dark " dark or light
 
 inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
-let g:jedi#show_call_signatures = '1'
-let g:jedi#use_splits_not_buffers = ''
-let g:jedi#popup_on_dot = 0
+
+let g:jedi#use_splits_not_buffers = 'top'
+let g:jedi#popup_on_dot = 1
 let g:jedi#documentation_command = 'R'
 let g:jedi#smart_auto_mappings = 0
+let g:jedi#completions_command = "<C-N>"
+let g:jedi#auto_close_doc = 0
+
+" req'd for g:jedi#show_call_signatures=2
+" normally removes INSERT/VISUAL/NORMAL mode info,
+" but not with airline plugin
+:set noshowmode
+let g:jedi#show_call_signatures = '2' " place in cmd line
+
+" toggle autopopup on an off (useful when files are big)
+function TogglePopup()
+    let popup_status = g:jedi#popup_on_dot
+    if popup_status == 0
+        let g:jedi#popup_on_dot = 1
+    else
+        let g:jedi#popup_on_dot = 0
+    endif
+endfunction
+nnoremap <leader>. :call TogglePopup()<cr>
 
 " -----------------------------------------------------------------
+"  nnoremap 
 " }}} lusty  {{{  # grep all buffers (<leader>lg)
+" nnoremap 
 " -----------------------------------------------------------------
 
 " suppress 'you don't have ruby so lusty wont work' msg

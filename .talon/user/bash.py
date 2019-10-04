@@ -207,6 +207,7 @@ ctx_barhal.keymap(bashmap_barhal)
 names_map = {
     'snap marrin lab' : ['$ml'],
     'snap e keyful' : ['$ek'],
+    'cluster rise' : [ 'clusterize -n 1 ""', Key('left')],
 }; bashmap_midway.update(names_map)
 
 ctx_midway.keymap(bashmap_midway)

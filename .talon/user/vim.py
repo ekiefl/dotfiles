@@ -6,7 +6,7 @@ from .mouse import advanced_click
 from .std import punctuation
 from .std import lower_upper_digits
 import time
-ctx = Context('vim', bundle='com.googlecode.iterm2', func=lambda app, win: 'vim' in win.title)
+ctx = Context('vim', bundle='com.googlecode.iterm2', func=lambda app, win: 'vim' in win.title, blacklist=['Chrome'])
 
 vimmap = {}
 
@@ -88,8 +88,8 @@ plugins = {
     'tabularize'            :  [":Tab", Key("space"), "/"],
 
     # jedi
-    'show me'               :  lambda m: press('ctrl-space', wait=16000), # does not work in iterm :(
-    'soy'                   :  Key('ctrl-y'),
+    'pop'               :  Key('ctrl-n'),
+    'autopop'              :  [Key('esc'), ':call TogglePopup()', Key('enter')],
 
     # git
     'blame': [Key('esc'), ':Gblame', Key('enter')],
@@ -585,7 +585,7 @@ mouse_map = {
                                             ' | '.join(list(target_required_text_selectors.keys())),
                                             ' | '.join(list(movement_targets.keys()))): TeleportCommand,
     '(%s) (here to here | to here | here)' % (' | '.join(here_to_here_commands)): HereToHereCommand,
-    'go to | go here' :  [initial_pos_click, Key('%s' % LEADER), "d"],
+    'go to | go here' :  [Key('esc'), initial_pos_click, Key('%s' % LEADER), "d"],
 }; vimmap.update(mouse_map)
 
 common_names = {
