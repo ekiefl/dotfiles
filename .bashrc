@@ -85,6 +85,9 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     fi
     unset __conda_setup
 
+    # do not add a space after auto completing directories
+
+
     # get rid of bash prompt prefix
     conda config --set changeps1 False
 
