@@ -28,7 +28,9 @@ export tlsg='fancy_grid'
 
 function prompt_command {
     if [[ $tlsRUN -eq 0 ]]; then
-        # tls is not to be run
+        # tls is not to be run, settle for a ls
+        echo ""
+        ls
         return
     fi
 

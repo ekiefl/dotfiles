@@ -124,7 +124,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export ao="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
-    export sm="anvi-run-workflow -w <> -c config.json --additional-params --cluster \"sbatch --job-name={rule} --output={log} --error={log} --partition=meren --nodes=1 --ntasks-per-node={threads}\" --jobs <> --resource nodes=<> --latency-wait 100"
+    export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -e={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100"
 
     export jortatap="/project2/meren/PEOPLE/ekiefl/JORTATAP"
 fi
