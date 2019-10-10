@@ -207,10 +207,14 @@ ctx_barhal.keymap(bashmap_barhal)
 # }}} MIDWAY ONLY {{{
 # -----------------------------------------------------------------------------
 
-names_map = {
-    'snap marrin lab' : ['$ml'],
-    'snap e keyful' : ['$ek'],
+programs = {
+    "run queue" : ["q", Key("enter")],
     'cluster rise' : [ 'clusterize -n 1 ""', Key('left')],
+}; bashmap_midway.update(programs)
+
+names_map = {
+    'snap marrin lab' : ['$ml/'],
+    'snap e keyful' : ['$ek/'],
 }; bashmap_midway.update(names_map)
 
 ctx_midway.keymap(bashmap_midway)

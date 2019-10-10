@@ -24,6 +24,7 @@ basicpython  = {
     'loop'         : 'for ',
     'class'        : 'class ',
     'return'       : 'return ',
+    'yield'       : 'yield ',
     "from"         : "from ",
     "with"         : "with ",
     "lint"         : " in ",

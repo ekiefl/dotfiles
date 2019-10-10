@@ -74,9 +74,9 @@ window_handler = {
     'torque': Key('esc %s b' % LEADER),
     'court': Key('ctrl-v'),
 
-    'quit it'               : [Key('esc'), Key('%s' % LEADER), "q"],
-    'force quit it'         : [Key('esc'), Key('%s' % LEADER), "fq"],
-    'force quit all confirm'        : [Key('esc'), ':qa!', Key('enter')],
+    'quit it'               : [initial_pos_click, Key('esc'), Key('%s' % LEADER), "q"],
+    'force quit it'         : [initial_pos_click, Key('esc'), Key('%s' % LEADER), "fq"],
+    'force quit all'        : [initial_pos_click, Key('esc'), ':qa!', Key('enter')],
 }; vimmap.update(window_handler)
 
 plugins = {
@@ -92,7 +92,21 @@ plugins = {
     'autopop'              :  [Key('esc'), ':call TogglePopup()', Key('enter')],
 
     # git
-    'blame': [Key('esc'), ':Gblame', Key('enter')],
+    'get blame': [Key('esc'), ':Gblame', Key('enter')],
+    'get status': [Key('esc'), ':Gstatus', Key('enter')],
+    'get push': [Key('esc'), ':Gpush', Key('enter')],
+    'get diff': [Key('esc'), ':Gvdiffsplit', Key('enter')],
+    'get add': [Key('esc'), initial_pos_click, '-'],
+    'get commit': [Key('esc'), 'cc'],
+    'chunk nex': [Key('esc'), ']c hp'],
+    'chunk bex': [Key('esc'), '[c hp'],
+
+    # lusty
+    'local grep': [Key('esc'), ' lg'],
+
+    # ctrl-p
+    'fuzzy here': [Key('esc ctrl-p')],
+    'fuzzy': [Key('esc'), ':CtrlP '],
 
     # surround
     'surround list'         : ['S)', lambda m: time.sleep(0.3), 'ilist', Key('escape')],

@@ -101,7 +101,7 @@ def rot13(i, word, _):
         out += c
     return out
 
-def vak(i, word, _):
+def sak(i, word, _):
     if i == 0:
         return ' --'+word
     else:
@@ -112,7 +112,7 @@ formatters = {
     'camel':        (True,  lambda i, word, _: word if i == 0 else word.capitalize()),
     'snake':        (True,  lambda i, word, _: word if i == 0 else '_'+word),
     'dashword':     (True,  lambda i, word, _: word if i == 0 else '-'+word),
-    'vak':          (True, vak),
+    'sak':          (True, sak),
     'dotword':      (True,  lambda i, word, _: word if i == 0 else '.'+word),
     'smash':        (True,  lambda i, word, _: word),
     'proper':       (True, lambda i, word, _: word.capitalize()),
@@ -135,7 +135,7 @@ def FormatText(m):
     for i, word in enumerate(words):
         word = parse_word(word)
         for name in reversed(fmt):
-            if name == 'vak':
+            if name == 'sak':
                 space_at_end = True
             smash, func = formatters[name]
             word = func(i, word, i == len(words)-1)

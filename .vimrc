@@ -80,8 +80,8 @@ set background=dark " dark or light
 inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
-let g:jedi#use_splits_not_buffers = 'top'
-let g:jedi#popup_on_dot = 1
+let g:jedi#use_splits_not_buffers = ''
+let g:jedi#popup_on_dot = 0
 let g:jedi#documentation_command = 'R'
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#completions_command = "<C-N>"
