@@ -29,8 +29,10 @@ export tlsg='fancy_grid'
 function prompt_command {
     if [[ $tlsRUN -eq 0 ]]; then
         # tls is not to be run, settle for a ls
+        columns="$(stty size | awk '{print $2}')"
         echo ""
-        ls
+        for (( i=1; i<=$columns; i++ )); do printf "═"; done
+        ls -bF | head -30 | xargs ls -d --color=always
         return
     fi
 

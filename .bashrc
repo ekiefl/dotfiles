@@ -85,13 +85,13 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     fi
     unset __conda_setup
 
-    # do not add a space after auto completing directories
-
-
     # get rid of bash prompt prefix
     conda config --set changeps1 False
 
     cd /project2/meren/VIRTUAL-ENVS/anvio-master/anvio; git pull; cd -
+
+    # source the SOURMASH_REDUNDANCY_PAPER project
+    source /project2/meren/PEOPLE/ekiefl/SOURMASH_REDUNDANCY_PAPER/PROJECT_ENVIRONMENT.sh
 fi
 
 # -----------------------------------------------------------------------------
