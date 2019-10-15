@@ -32,7 +32,7 @@ function prompt_command {
         columns="$(stty size | awk '{print $2}')"
         echo ""
         for (( i=1; i<=$columns; i++ )); do printf "═"; done
-        ls -bF | head -30 | xargs ls -d --color=always
+        ls -b | head -30 | xargs ls -dF --color=always
         return
     fi
 
