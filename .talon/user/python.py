@@ -19,7 +19,7 @@ pythonmap = {}
 
 
 basicpython  = {
-    'she bang'     : '#!/usr/bin/env python\n# -*- coding: utf-8',
+    'she bang': [Key('esc'), 'ggO#!/usr/bin/env python\n# -*- coding: utf-8', Key('esc')],
     'def'          : 'def ',
     'loop'         : 'for ',
     'class'        : 'class ',

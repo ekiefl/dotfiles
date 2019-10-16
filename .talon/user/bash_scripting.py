@@ -13,6 +13,7 @@ syntax = {
     'do': [Key('esc'), 'A', '; do', Key('enter tab')],
     'phi': 'fi',
     'done': 'done',
+    'she bang': [Key('esc'), 'ggO#!/bin/bash', Key('esc')],
 
     'export': 'export ',
 

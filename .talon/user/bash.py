@@ -92,9 +92,15 @@ programs = {
     "pip"          : "pip ",
     "pip install"  : "pip install ",
     "barhally"     : ["barhali", Key("enter"), "source $anvenv", Key("enter")],
-    "midwayer"       : ["midwayer", Key("enter"),
+    "midwayer confirm"  : ["midwayer", Key("enter"),
                         lambda x: time.sleep(1),
                         open(os.path.join(os.path.expanduser('~'), '.ssh', 'midway')).read(),
+                        Key('enter'),
+                        lambda x: time.sleep(1),
+                        '1', Key('enter')],
+    "midwayer test"  : ["midwayer", Key("enter"),
+                        lambda x: time.sleep(1),
+                        'password',
                         Key('enter'),
                         lambda x: time.sleep(1),
                         '1', Key('enter')],
@@ -215,6 +221,7 @@ programs = {
 names_map = {
     'snap marrin lab' : ['$ml/'],
     'snap e keyful' : ['$ek/'],
+    'snap project home' : ['$PROJECT_HOME/'],
 }; bashmap_midway.update(names_map)
 
 ctx_midway.keymap(bashmap_midway)
