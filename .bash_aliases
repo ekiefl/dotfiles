@@ -111,7 +111,7 @@ fi
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
     alias cl="clusterize"
-    alias clh="tail -n 30 ~/.clusterize_history | column -t"
+    alias clh="column -t ~/.clusterize_history | tail"
     alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %4c %8z %6m %8e %8d %l %L %g'; echo ; squeue --partition=meren -o '%10i %45j %5u %5C %13m %8T %10M %9l %6D %R'"
     alias qe="squeue --user=ekiefl -o '%10i %30j %5u %8T %10M %9l %6D %R %5C %13m %15N'"
     alias sc="scancel"
