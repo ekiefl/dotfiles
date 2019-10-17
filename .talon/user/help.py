@@ -36,6 +36,7 @@ css_template = (
     """
 <style type="text/css">
     body {
+        width: 1000px;
         padding: 0;
         margin: 0;
         font-size: """
@@ -334,7 +335,7 @@ def render_commands_webview(context, target_page=1):
 
 keymap = {
     "help [commands] <dgndictation>": render_commands_help,
-    "help context": render_contexts_help,
+    "help me": render_contexts_help,
 }
 
 ctx.keymap(keymap)

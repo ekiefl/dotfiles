@@ -74,6 +74,7 @@ window_handler = {
     'torque': Key('esc %s b' % LEADER),
     'court': Key('ctrl-v'),
 
+    'quit terminal'               : [Key('esc ctrl-\\ ctrl-w')],
     'quit it'               : [initial_pos_click, Key('esc'), Key('%s' % LEADER), "q"],
     'force quit it'         : [initial_pos_click, Key('esc'), Key('%s' % LEADER), "fq"],
     'force quit all'        : [initial_pos_click, Key('esc'), ':qa!', Key('enter')],
@@ -86,10 +87,6 @@ plugins = {
 
     # Tabularize
     'tabularize'            :  [":Tab", Key("space"), "/"],
-
-    # jedi
-    'pop'               :  Key('ctrl-n'),
-    'autopop'              :  [Key('esc'), ':call TogglePopup()', Key('enter')],
 
     # git
     'get blame': [Key('esc'), ':Gblame', Key('enter')],
@@ -423,11 +420,12 @@ def HereToHereCommand(m):
                                  else [Str("'{}".format(marker1))]),
         }
 
+    # .R files only.
     elif command_prefix == 'run':
         actions_dict = {
             'selection_type': Str("V"),
             'selection_movement': Str("'{}".format(marker3)),
-            'selection_ending_stroke': [Str("R"), Key('ctrl-l'), Str('a')],
+            'selection_ending_stroke': [Str("\\se"), Key('esc')],
         }
 
     elif command_prefix == 'steal':

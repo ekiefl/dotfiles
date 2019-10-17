@@ -84,6 +84,11 @@ basicpython  = {
     "cyst argh"           : "sys.argv",
 }; pythonmap.update(basicpython)
 
+vim_python_map = {
+    # jedi
+    'pop'               :  Key('ctrl-n'),
+    'autopop'              :  [Key('esc'), ':call TogglePopup()', Key('enter')],
+}; pythonmap.update(vim_python_map)
 
 pandasmap = {
     "loke" : ["loc[]", Key("left")],
