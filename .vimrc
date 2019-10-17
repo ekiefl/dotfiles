@@ -123,6 +123,7 @@ let NERDTreeShowLineNumbers=1
 " }}} Nvim-R {{{  #  turn vim into an R environment
 " -----------------------------------------------------------------
 
+let R_assign=0 " dont replace _ with <-, i am a big boy
 
 " -----------------------------------------------------------------
 " }}} SimpylFold {{{  # folding
