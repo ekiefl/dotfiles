@@ -37,7 +37,7 @@ def switch_app(m, name=None, word_index=None, last=False):
 ctx = Context('switcher')
 keymap = {
     'termy':                      lambda m: switch_app(m, name='iTerm2'),
-    'fox {switcher.apps}'       : lambda m: switch_app(m, word_index=1),
+    'sox {switcher.apps}'       : lambda m: switch_app(m, word_index=1),
     'paste {switcher.apps}'     : [lambda m: switch_app(m, word_index=1), Key('cmd-v')],
     'paste all {switcher.apps}' : [Key('cmd-a cmd-x'), lambda m: switch_app(m, word_index=2), Key('cmd-v')],
     'google it'                 : [lambda m: switch_app(m, name='Chrome'), Key('cmd-t cmd-l cmd-v enter')]

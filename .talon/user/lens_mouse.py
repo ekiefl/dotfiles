@@ -7,22 +7,67 @@ It shows a dim circle (that looks kind of like a lens) wherever you look, instea
 By default, pressing F3 does the click. I did it this way because I use a separate noise recognition tool to make my clicking sound. You may want to map the click() method in this file to the "pop" sound (see https://github.com/dwiel/talon_community/blob/master/noise/pop.py)
 """
 
-print('MODULE LOADEDMODULE LOADEDMODULE LOADEDMODULE LOADED')
 import time
 import math
+import threading
 
-from talon import canvas, ctrl, tap, ui
+from talon import canvas, ctrl, tap, ui, applescript
 from talon.track.geom import Point2d, EyeFrame
-# from talon.track.filter import DwellFilter, LowPassFilter, MultiFilter, OneEuroFilter
-# from talon.skia import Shader
 from talon_plugins import eye_mouse
 from talon_plugins.eye_mouse import tracker
 from talon.voice import Context, Key, press
 
 import json
-from .utils import tell_hammerspoon_osa, debounce
 
-# from .noise import model as noise_model
+
+def tell_hammerspoon_osa(code):
+    script = f'''
+    tell application "Hammerspoon"
+        return execute lua code "{code}"
+    end tell'''
+    # print(script)
+    try:
+        ret = applescript.run(script)
+    except applescript.ApplescriptErr:
+        print('osa error:', script)
+        raise
+    if ret:
+        if isinstance(ret, str) and luaDict[ret]:
+            return luaDict[ret]
+
+        print(script)
+        print('osa returned: ', ret)
+        result = ffi.string(ret).decode('utf8')
+        return result
+
+
+def debounce(wait):
+    """ Decorator that will postpone a functions
+        execution until after wait seconds
+        have elapsed since the last time it was invoked. """
+
+    def decorator(fn):
+        def debounced(*args, **kwargs):
+            def call_it():
+                debounced._timer = None
+                debounced._last_call = time()
+                return fn(*args, **kwargs)
+
+            time_since_last_call = time() - debounced._last_call
+            if time_since_last_call >= wait:
+                return call_it()
+
+            if debounced._timer is None:
+                debounced._timer = threading.Timer(wait - time_since_last_call, call_it)
+                debounced._timer.start()
+
+        debounced._timer = None
+        debounced._last_call = 0
+
+        return debounced
+
+    return decorator
+
 
 screen = ui.main_screen()
 size_px = Point2d(screen.width, screen.height)
@@ -207,16 +252,16 @@ def toggle_circle():
 def toggle_demo():
     mouse.size = demo_size if mouse.size == regular_size else regular_size
 
-context.keymap(
-    {
-        # "shit": lambda m: mouse.enabled and click(),
-        "(kill | toggle) circle": lambda m: mouse.enabled and toggle_circle(),
-        "(kill | toggle) eyes": lambda m: toggle_watcher(),
-        "presentation mode": lambda m: mouse.enabled and toggle_demo(),
-        # old stuff
-        'control mouse':   lambda m: eye_mouse.control_mouse.toggle(),
-        'camera overlay':  lambda m: eye_mouse.camera_overlay.toggle(),
-        'run calibration': lambda m: eye_mouse.calib_start(),
-        'calibrate eyes': lambda m: eye_mouse.calib_start(),
-    }
-)
+#context.keymap(
+#    {
+#        # "shit": lambda m: mouse.enabled and click(),
+#        "(kill | toggle) circle": lambda m: mouse.enabled and toggle_circle(),
+#        "(kill | toggle) eyes": lambda m: toggle_watcher(),
+#        "presentation mode": lambda m: mouse.enabled and toggle_demo(),
+#        # old stuff
+#        'control mouse':   lambda m: eye_mouse.control_mouse.toggle(),
+#        'camera overlay':  lambda m: eye_mouse.camera_overlay.toggle(),
+#        'run calibration': lambda m: eye_mouse.calib_start(),
+#        'calibrate eyes': lambda m: eye_mouse.calib_start(),
+#    }
+#)

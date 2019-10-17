@@ -2,8 +2,8 @@ from talon import app, webview, ui
 from talon.engine import engine
 from talon_init import TALON_HOME
 
-SHOW = False # history_canvas.py offers a transparent background and is preferable atm
-hist_len = 3
+SHOW = True # history_canvas.py offers a transparent background but miss renders
+hist_len = 4
 
 template = '''
 <style type="text/css">
@@ -21,7 +21,7 @@ table {
 td {
     overflow-wrap: normal;
     word-wrap: normal;
-    text-align: left;
+    text-align: right;
     margin: 0;
     padding: 0;
     padding-left: 5px;
@@ -49,7 +49,7 @@ if SHOW:
     webview = webview.Webview()
     webview.render(template, phrases=['waiting...'])
     webview.show()
-    webview.move(1, ui.main_screen().height)
+    webview.move(ui.main_screen().width - 100, ui.main_screen().height)
 
     class History:
         def __init__(self):

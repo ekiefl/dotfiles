@@ -107,7 +107,7 @@ matplotlibmap = {
 
 argparse = {
     "arrgh parse" : ["argparse"],
-    "arrgh parse template" : """ap = argparse.ArgumentParser()\nap.add_argument('--full-name', '-m', default=None, help='brief description')\nargs = ap.parse_args()""",
+    "arrgh parse template" : ["ap = argparse.ArgumentParser()\nap.add_argument(\n'--full-name',\n'-m',\ndefault=None,\nhelp='brief description'", Key('down'), '\nargs = ap.parse_args()'] 
 }; pythonmap.update(argparse)
 
 

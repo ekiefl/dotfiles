@@ -246,7 +246,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " CTRL-Y copies to the sys clipboard
-set clipboard=unnamed
+"set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 vnoremap <c-y> "*y
 
 " ' is so much easier to type than ` for markers, that I switch them here

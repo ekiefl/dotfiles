@@ -3,15 +3,10 @@ from .user_context import Context
 import time
 ctx = Context('chrome', bundle='com.google.Chrome')
 
-from .vim import common_to_bash
-
 chromemap = {}
 
-chromemap.update(common_to_bash)
-
-chromemap.update({'%d ruff' % k: [Key('J')]*k for k in range(1, 10)})
-chromemap.update({'%d buff' % k: [Key('K')]*k for k in range(1, 10)})
-
+chromemap.update({'%d ruff' % k: [Key('cmd-alt-left')]*k for k in range(1, 10)})
+chromemap.update({'%d buff' % k: [Key('cmd-alt-left')]*k for k in range(1, 10)})
 
 chromemap.update({
     "go to amazon" : [Key("escape escape cmd-l"), lambda m: time.sleep(0.1), "amazon.com", Key("enter")],
@@ -29,6 +24,8 @@ chromemap.update({
     })
 
 chromemap.update({
+    'baych' : 'H',
+    'phaych' : 'L',
     'more' : 'd',
     'less' : 'u',
     'box' : '',

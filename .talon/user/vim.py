@@ -186,7 +186,7 @@ def initial_pos_click_function(m):
 
 text_selectors = {
     "whale"      : "iw",
-    "ship whale" : "iW",
+    "bail" : "iW",
     "each"       : "e",
     "ship each"  : "E",
     "bat"        : "b",
