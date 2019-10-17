@@ -1,1 +1,2 @@
 RltvNmbr.vba: call delete('/Users/evan/.vim/plugin/RltvNmbr.vim')|call delete('/Users/evan/.vim/plugin/RltvNmbrPlugin.vim')|call delete('/Users/evan/.vim/doc/RltvNmbr.txt')|call delete('/Users/evan/.vim/autoload/RltvNmbr.vim')
+csv-0.31.vmb: call delete('/home/ekiefl/.vim/ftplugin/csv.vim')|call delete('/home/ekiefl/.vim/doc/ft-csv.txt')|call delete('/home/ekiefl/.vim/syntax/csv.vim')|call delete('/home/ekiefl/.vim/ftdetect/csv.vim')|call delete('/home/ekiefl/.vim/plugin/csv.vim')

@@ -57,7 +57,7 @@ endif
 
 " pressing enter at {|} where | is cursor position not working?
 " https://github.com/jiangmiao/auto-pairs/issues/215
-
+"
 " -----------------------------------------------------------------
 " }}} ctrlp.vim  {{{  # fuzzy file/buf search
 " -----------------------------------------------------------------
