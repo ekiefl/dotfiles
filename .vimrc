@@ -37,6 +37,7 @@ silent! if plug#begin()
     Plug   'davidhalter/jedi-vim'
     Plug        'sjbach/lusty'
     Plug    'scrooloose/nerdtree'
+    Plug      'jalvesaq/Nvim-R'
     Plug     'tmhedberg/SimpylFold'
     Plug 'vim-syntastic/syntastic'
     Plug     'godlygeek/tabular'
@@ -105,9 +106,7 @@ endfunction
 nnoremap <leader>. :call TogglePopup()<cr>
 
 " -----------------------------------------------------------------
-"  nnoremap 
 " }}} lusty  {{{  # grep all buffers (<leader>lg)
-" nnoremap 
 " -----------------------------------------------------------------
 
 " suppress 'you don't have ruby so lusty wont work' msg
@@ -119,6 +118,11 @@ let g:LustyJugglerSuppressRubyWarning = 1
 
 map <leader>o :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
+
+" -----------------------------------------------------------------
+" }}} Nvim-R {{{  #  turn vim into an R environment
+" -----------------------------------------------------------------
+
 
 " -----------------------------------------------------------------
 " }}} SimpylFold {{{  # folding
@@ -221,7 +225,6 @@ set number
 set list
 set mouse=v
 
-
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>fq :q!<CR>
 nnoremap <Leader>q :q<CR>
@@ -246,8 +249,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " CTRL-Y copies to the sys clipboard
-"set clipboard=unnamed
-set clipboard^=unnamed,unnamedplus
+set clipboard=unnamed
 vnoremap <c-y> "*y
 
 " ' is so much easier to type than ` for markers, that I switch them here
