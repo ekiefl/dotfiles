@@ -157,6 +157,8 @@ keymap.update({'%d work' % k: [Key('alt-backspace')]*k for k in range(2, 10)})
 keymap.update({'%d chuck' % k: [Key('backspace')]*k for k in range(2, 10)})
 keymap.update({'%d left' % k: [Key('left')]*k for k in range(2, 10)})
 keymap.update({'%d right' % k: [Key('right')]*k for k in range(2, 10)})
+keymap.update({'%d down' % k: [Key('down')]*k for k in range(2, 10)})
+keymap.update({'%d up' % k: [Key('up')]*k for k in range(2, 10)})
 
 keymap.update(alpha)
 keymap.update(punctuation)

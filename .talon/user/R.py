@@ -2,6 +2,8 @@ from talon.voice import Word, Context, Key, Rep, Str, press
 from talon import ctrl
 import string
 
+from .mouse import initial_pos_click
+
 def parse_word(word):
     word = word.lstrip('\\').split('\\', 1)[0]
     word = mapping.get(word, word)
@@ -53,6 +55,26 @@ ggplot = {
     'ex limb'        : 'xlim',
     'why limb'       : 'ylim',
 }; Rmap.update(ggplot)
+
+Nvim = {
+    'start are': [Key('esc'), '\\rf'],
+    'quit are': [Key('esc'), '\\rq'],
+
+    # jedi
+    'pop'               :  Key('ctrl-x ctrl-o'),
+
+    'help': [Key('esc'), initial_pos_click, '\\rh'],
+    'example': [Key('esc'), initial_pos_click, '\\re'],
+    'view': [Key('esc'), initial_pos_click, '\\rv'],
+    'show': [Key('esc'), initial_pos_click, '\\rp'],
+    'structure': [Key('esc'), initial_pos_click, '\\rt'],
+    'browse': [Key('esc'), '\\ro'],
+    'summary': [Key('esc'), '\\rs'],
+    'plot': [Key('esc'), '\\rg'],
+
+    'run all': [Key('esc'), '\\aa'],
+    'run selection': [Key('esc'), '\\se'],
+}; Rmap.update(Nvim)
 
 ctx.keymap(Rmap)
 
