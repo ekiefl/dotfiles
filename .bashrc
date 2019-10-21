@@ -52,6 +52,10 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
 
     export PATH="$HOME/.cargo/bin:$PATH"
     export PATH="$PATH:~/.local/bin"
+
+    function worklog {
+        echo "$(date): $@" >> ~/.worklog
+    }
 fi
 
 # -----------------------------------------------------------------------------

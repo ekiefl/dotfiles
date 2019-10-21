@@ -34,15 +34,15 @@ basicR = {
     'split' : ["split()", Key('left')],
     'pastey' : ["paste()", Key('left')],
     'call names' : ['colnames()', Key('left')],
+    'string split' : ['strsplit()', Key('left')],
+    'list' : ['list()', Key('left')],
+    'unlist' : ['unlist()', Key('left')],
 }; Rmap.update(basicR)
 
 ggplot = {
     'jeejee plot'    : 'ggplot',
-    'plot'           : ['plot()', Key('left')],
     'jeejee save'    : ["ggsave(, plot = last_plot(), width=NA, height=NA, units='cm', dpi=300)"] + [Key('left')] * 63,
-    'add'            : [Key('escape'), 'A +', Key('enter')],
     'aesthetic'      : ['aes()', Key('left')],
-    'coal'           : 'col',
     'size'           : 'size',
     'shape'          : 'shape',
     'fill'           : 'fill',

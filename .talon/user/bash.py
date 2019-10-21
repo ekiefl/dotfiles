@@ -54,6 +54,8 @@ builtins = {
     'ellis'         : 'ls ',
     'remove'        : 'rm ',
     'cat'           : 'cat ',
+    'image cat'           : 'imgcat ',
+    'work log'           : 'worklog ',
     'grep'          : 'grep ',
     'diff'          : 'diff ',
     'turn off tls' : ['tlsRUN=0', Key('enter')],
