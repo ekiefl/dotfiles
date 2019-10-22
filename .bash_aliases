@@ -115,6 +115,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %4c %8z %6m %8e %8d %l %L %g'; echo ; squeue --partition=meren -o '%10i %45j %5u %5C %13m %8T %10M %9l %6D %R'"
     alias qe="squeue --user=ekiefl -o '%10i %30j %5u %8T %10M %9l %6D %R %5C %13m %15N'"
     alias sc="scancel"
+    alias si="sinteractive --partition=meren --time=08:00:00"
 
     # convenience variables only
     export a="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio"
@@ -125,7 +126,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export ao="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
-    export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -e={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100"
+    export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log},{log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100"
 
     export jortatap="/project2/meren/PEOPLE/ekiefl/JORTATAP"
 fi
