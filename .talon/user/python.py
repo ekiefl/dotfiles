@@ -3,6 +3,10 @@ from .user_context import Context
 from talon import ctrl
 import string
 
+from .mouse import initial_pos_click
+
+LEADER = 'space'
+
 def parse_word(word):
     word = word.lstrip('\\').split('\\', 1)[0]
     word = mapping.get(word, word)
@@ -82,12 +86,22 @@ basicpython  = {
 
     "os"           : "os",
     "cyst argh"           : "sys.argv",
+
+    "docstring template": [
+        "\"\"\"\n",
+        Key('backspace'),
+        "One_line_description\n\nParameters\n==========\nargument : argument_type, optional\n\tdescription\n\n",
+        Key('backspace'),
+        "Returns\n=======\noutput : type\n\tdescription"
+    ],
 }; pythonmap.update(basicpython)
 
 vim_python_map = {
     # jedi
     'pop'               :  Key('ctrl-n'),
     'autopop'              :  [Key('esc'), ':call TogglePopup()', Key('enter')],
+    'help'              :  [Key('esc'), initial_pos_click, 'R'],
+    'go to | go here' :  [Key('esc'), initial_pos_click, Key('%s' % LEADER), "d"],
 }; pythonmap.update(vim_python_map)
 
 pandasmap = {
@@ -117,5 +131,3 @@ argparse = {
 
 
 ctx.keymap(pythonmap)
-
-

@@ -87,6 +87,9 @@ builtins = {
     'F G'           : ['fg', Key("enter")],
     'ground'        : [Key("esc"), Key("ctrl-z")],
     'bartsch'       : 'bash ',
+    'screen return'       : 'sr ',
+    'screen new'       : 'ss ',
+    'screen ellis'       : ['sls', Key('enter')],
 }; bashmap.update(builtins)
 
 
@@ -107,6 +110,7 @@ programs = {
                         lambda x: time.sleep(1),
                         '1', Key('enter')],
     'deactivate'   : 'deactivate ',
+    'conda deactivate'   : 'conda deactivate ',
     "(vim | fim)"  : "vim ",
     "anvy"         : ["anvi-", Key("tab"), Key("tab"), "y"],
     "tls"         : ["tls -q -r -N 20 -P 3 -R 5 -D 3 -M 6 -g fancy_grid", Key("enter")],
@@ -175,6 +179,7 @@ names_map = {
 anvio_programs = [os.path.basename(x) for x in glob.glob('/Users/evan/Software/anvio/bin/*') \
                                                + glob.glob('/Users/evan/Software/anvio/sandbox/*') \
                                                if 'README' not in x]
+anvio_programs.extend(['anvi-activate-master', 'anvi-activate-evan'])
 anvio_map = {p.replace('-',' '): p+' ' for p in anvio_programs}; bashmap.update(anvio_map)
 
 directory_marking = {}

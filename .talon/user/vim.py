@@ -152,6 +152,7 @@ primitive_commands = {
     'settings no paste'     : [":set", Key("space"), "nopaste", Key("enter")],
 
     # search stuff
+    'search' :  [Key('esc'), initial_pos_click, '*'],
     'cancel hits' :  ["/asde", Key("enter")],
     'nex'         :  Key("n"),
     'bex'         :  Key("N"),
@@ -425,7 +426,7 @@ def HereToHereCommand(m):
         actions_dict = {
             'selection_type': Str("V"),
             'selection_movement': Str("'{}".format(marker3)),
-            'selection_ending_stroke': [Str("\\se"), Key('esc')],
+            'selection_ending_stroke': [Str(",se"), Key('esc')],
         }
 
     elif command_prefix == 'steal':
@@ -597,7 +598,6 @@ mouse_map = {
                                             ' | '.join(list(target_required_text_selectors.keys())),
                                             ' | '.join(list(movement_targets.keys()))): TeleportCommand,
     '(%s) (here to here | to here | here)' % (' | '.join(here_to_here_commands)): HereToHereCommand,
-    'go to | go here' :  [Key('esc'), initial_pos_click, Key('%s' % LEADER), "d"],
 }; vimmap.update(mouse_map)
 
 common_names = {
