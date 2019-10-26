@@ -67,6 +67,18 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 
 " -----------------------------------------------------------------
+" }}} csv.vim  {{{  # make opening csv files enjoyable
+" -----------------------------------------------------------------
+" Install instructions here: https://www.vim.org/scripts/script.php?script_id=2830
+
+let g:csv_highlight_column = 'y'
+aug CSV_Editing
+    au!
+    au BufRead,BufWritePost *.csv :%ArrangeColumn
+    au BufWritePre *.csv :%UnArrangeColumn
+aug end
+
+" -----------------------------------------------------------------
 " }}} gruvbox  {{{  # retro color scheme
 " -----------------------------------------------------------------
 
@@ -123,6 +135,7 @@ let NERDTreeShowLineNumbers=1
 " }}} Nvim-R {{{  #  turn vim into an R environment
 " -----------------------------------------------------------------
 
+let maplocalleader = ','
 let R_assign=0 " dont replace _ with <-, i am a big boy
 
 " -----------------------------------------------------------------
@@ -173,6 +186,8 @@ endif
 let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
 let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
+let g:airline#extensions#csv#enabled = 1
+let g:airline#extensions#csv#column_display = 'Name'
 
 " -----------------------------------------------------------------
 " }}} vim-fugitive {{{  # everything git
@@ -380,15 +395,14 @@ autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 " -----------------------------------------------------------------
 " TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{
 " -----------------------------------------------------------------
-"
-"function SetupPaste()
+tnoremap jk <C-w>N
+
 "    silent! normal a<C-w>""
-"    "exe '<C-w>""'
 "    "sleep 1
 "    "terminal! <C-w>N
 "endfunction
-"
-""autocmd BufEnter * if &buftype ==# 'terminal' | nnoremap p a<C-w>""<C-w>N | endif
+
+"autocmd BufEnter * if &buftype ==# 'terminal' | execute "silent :startinsert" | endif
 ""autocmd BufLeave * if &buftype ==# 'terminal' | nnoremap p p | endif
 "
 "function InitShell()

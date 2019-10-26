@@ -109,7 +109,6 @@ fi
 
 # specific to barhal
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
-    alias anvio="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/"
     alias cl="clusterize"
     alias clh="column -t ~/.clusterize_history | tail"
     alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %4c %8z %6m %8e %8d %l %L %g'; echo ; squeue --partition=meren -o '%10i %45j %5u %5C %13m %8T %10M %9l %6D %R'"
@@ -117,13 +116,17 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias sc="scancel"
     alias si="sinteractive --partition=meren --time=08:00:00"
 
-    # convenience variables only
-    export a="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio"
-    export ab="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/bin"
-    export as="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/sandbox"
-    export ac="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio"
-    export at="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests"
-    export ao="/project2/meren/VIRTUAL-ENVS/anvio-master/anvio/anvio/tests/sandbox/test-output"
+    alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
+    alias anvi-activate-evan="conda activate anvio-evan; set_anvio_paths /home/ekiefl/.conda/envs/anvio-evan"
+    function set_anvio_paths {
+        export a="$1/anvio"
+        export ab="$1/anvio/bin"
+        export as="$1/anvio/sandbox"
+        export ac="$1/anvio/anvio"
+        export at="$1/anvio/anvio/tests"
+        export ao="$1/anvio/anvio/tests/sandbox/test-output"
+    }
+
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log},{log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100"
