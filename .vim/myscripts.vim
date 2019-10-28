@@ -3,6 +3,48 @@ function! ReturnToOriginalPosition(string)
     execute "normal! mq" . a:string . "\<esc>`q"
 endfunction
 
+" adds shebang to new files
+" https://github.com/LinuxSDA/HashBang/blob/master/Hashbang
+function! Hashbang(portable, permission, RemExt)
+let shells = { 
+        \    'awk': "awk",
+        \     'sh': "bash",
+        \    'mak': "make",
+        \     'js': "node",
+        \     'py': "python",
+        \      'R': "Rscript",
+        \     'rb': "ruby",
+        \    }
+
+let extension = expand("%:e")
+
+if has_key(shells,extension)
+    let fileshell = shells[extension]
+
+    if a:portable
+        let line =  "#! /usr/bin/env " . fileshell 
+    else 
+        let line = "#! " . system("which " . fileshell)
+    endif
+
+    0put = line
+
+    if a:permission
+        :autocmd BufWritePost * :autocmd VimLeave * :!chmod u+x %
+    endif
+
+
+    if a:RemExt
+        :autocmd BufWritePost * :autocmd VimLeave * :!mv % "%:p:r"
+    endif
+
+endif
+
+endfunction
+
+:autocmd BufNewFile *.* :call Hashbang(1,1,0)
+
+
 
 " Generalization of vi" that can select between delimiters the cursor is not yet between. 
 " If a count is not specified 1 is assumed.

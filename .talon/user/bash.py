@@ -54,6 +54,7 @@ builtins = {
     'ellis'         : 'ls ',
     'remove'        : 'rm ',
     'cat'           : 'cat ',
+    'dot file'           : '~/.',
     'image cat'           : 'imgcat ',
     'work log'           : 'worklog ',
     'grep'          : 'grep ',
