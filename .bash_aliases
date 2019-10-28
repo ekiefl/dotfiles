@@ -111,7 +111,9 @@ fi
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias cl="clusterize"
     alias clh="column -t ~/.clusterize_history | tail"
-    alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %4c %8z %6m %8e %8d %l %L %g'; echo ; squeue --partition=meren -o '%10i %45j %5u %5C %13m %8T %10M %9l %6D %R'"
+    alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %C %6m %8e %8d'; echo ; \
+             squeue --partition=meren -o '%11i %35j %5u %5C %13m %8T %10M %9l %6D %R'; echo ; \
+             squeue --partition=meren --user=$USER -O 'arrayjobid:13,name:35,stdout:120'"
     alias qe="squeue --user=ekiefl -o '%10i %30j %5u %8T %10M %9l %6D %R %5C %13m %15N'"
     alias sc="scancel"
     alias si="sinteractive --partition=meren --time=08:00:00"
