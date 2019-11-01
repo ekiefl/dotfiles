@@ -32,6 +32,7 @@ endif
 silent! if plug#begin()
 
     Plug        'ekiefl/auto-pairs'
+    Plug      'chrisbra/csv.vim'
     Plug      'ctrlpvim/ctrlp.vim'
     Plug       'morhetz/gruvbox'
     Plug   'davidhalter/jedi-vim'
