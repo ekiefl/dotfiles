@@ -1,7 +1,7 @@
 # find by typing `uname -n`
 export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79"
 export barhal_server="barhal-01.bpcservers.private"
-export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local"
+export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local:midway2-0701.rcc.local:midway2-0705.rcc.local:midway2-0706.rcc.local"
 
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
@@ -97,6 +97,9 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
 
     # source the SOURMASH_REDUNDANCY_PAPER project
     source /project2/meren/PEOPLE/ekiefl/SOURMASH_REDUNDANCY_PAPER/PROJECT_ENVIRONMENT.sh
+
+    # proper vim colors in screens
+    export TERM=xterm-256color
 fi
 
 # -----------------------------------------------------------------------------

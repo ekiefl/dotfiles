@@ -81,7 +81,7 @@ aug end
 " -----------------------------------------------------------------
 " }}} gruvbox  {{{  # retro color scheme
 " -----------------------------------------------------------------
-
+set term=xterm-256color
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'medium' " soft, medium and hard.
 set background=dark " dark or light
@@ -307,7 +307,6 @@ so ~/.vim/myscripts.vim
 " This defines how fast page up and page down functionality scrolls. A reasonable default is 5000
 let g:scroll_factor = 15000
 
-set term=xterm-256color
 
 set nobackup
 set nowritebackup
@@ -357,6 +356,13 @@ set hidden " unknown what this does
 set number relativenumber " hybrid line numbering
 "set number " absolute numbering
 highlight LineNr ctermfg=174
+
+" drag to resize window works in screen now
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 
 " snakemake syntax highlighting
 au BufNewFile,BufRead Snakefile set syntax=snakemake
@@ -425,3 +431,10 @@ tnoremap jk <C-w>N
 " -----------------------------------------------------------------
 " }}}
 " -----------------------------------------------------------------
+
+" something overwrites this other than gruvbox, gotta put it at end of file
+" avoids annoying issue where things that are not text have black background
+" by making the background black. Not ideal but looks kind of good. I could get
+" used to it.
+highlight Normal ctermbg=NONE
+
