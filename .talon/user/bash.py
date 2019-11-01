@@ -19,7 +19,7 @@ bashmap_midway = {}
 
 from .vim import common_to_bash # There is commonality because my bash inputrc is vim-styled
 from .std import lower_upper_digits
-from .mouse import initial_pos_dubclick
+from .mouse import initial_pos_dubclick, initial_pos_click, advanced_click
 
 import os
 import time
@@ -39,6 +39,7 @@ mouse_map = {
 }; bashmap.update(mouse_map)
 
 iterm_map = { # This belongs in its own script file
+    "sell": advanced_click(0, initial_pos_click, 'alt'),
     "fourth"  : Key('cmd-l'),
     "back"    : Key('cmd-h'),
     "tab new" : Key('cmd-t'),
@@ -107,9 +108,8 @@ programs = {
     "midwayer test"  : ["midwayer", Key("enter"),
                         lambda x: time.sleep(1),
                         'password',
-                        Key('enter'),
-                        lambda x: time.sleep(1),
-                        '1', Key('enter')],
+                        Key('enter ctrl-c'),
+                        ],
     'deactivate'   : 'deactivate ',
     'conda deactivate'   : 'conda deactivate ',
     "(vim | fim)"  : "vim ",
@@ -163,7 +163,7 @@ names_map = {
     'snap anvio sandbox' : ["$as/"],
     'snap anvio bin'     : ["$ab/"],
     'snap anvio tests'   : ["$at/"],
-    'snap anvio code'     : ["$ac/"],
+    'snap [anvio] codebase'     : ["$ac/"],
     'snap jorta tap'    : ["$jortatap/"],
     'snap desktop'       : ["$desktop/"],
     'snap documents'     : ["$documents/"],

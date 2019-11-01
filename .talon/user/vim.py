@@ -36,16 +36,15 @@ common_to_bash = {
 }; vimmap.update(common_to_bash)
 
 cursor_movement = {
-    # line search
     'flexy' : '0',
-
-    # line movement
     'fly' : 'G',
+    'select all': [Key('esc'), 'ggVG'],
 
     # variations of slap
     'slapper' : Key('escape shift-a enter'),
     'coder' : Key('escape shift-a : enter tab'),
     'slender' : Key('escape shift-a enter tab'),
+    'sloper' : Key('escape shift-a enter backspace'),
 
     'coker' : [Key('escape shift-a'), ' {}', Key('left enter')], # no tab is necessary with auto pairs plug
 }; vimmap.update(cursor_movement)
