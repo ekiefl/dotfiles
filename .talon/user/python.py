@@ -67,6 +67,7 @@ basicpython  = {
     "continue"         : "continue",
     "break"         : "break",
     "elif"         : "elif ",
+    "while"         : "while ",
     "try"          : ["try:", Key("enter"), Key("tab")],
     "except"       : "except",
     "finally"      : ["finally: ", Key("enter"), Key("tab")],
