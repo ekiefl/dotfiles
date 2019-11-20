@@ -52,6 +52,7 @@ builtins = {
     "man"        : "man ",
     "sudo"          : "sudo ",
     'cd'            : 'cd ',
+    'cd hiss'            : ['cd --', Key('enter')],
     'ellis'         : 'ls ',
     'remove'        : 'rm ',
     'cat'           : 'cat ',

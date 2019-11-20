@@ -20,6 +20,11 @@ if [ -f ~/.bash_aliases ]; then
     source ~/.bash_aliases
 fi
 
+# Define your aliases here ...
+if [ -f ~/.bash_utils ]; then
+    source ~/.bash_utils
+fi
+
 # autocorrects small mistakes
 shopt -s cdspell
 
