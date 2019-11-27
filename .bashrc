@@ -46,11 +46,6 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     # python paths
     export PYTHONPATH="${PYTHONPATH}:/Users/evan/Software/pymol-v1.8.6.0-Darwin-x86_64/modules"
 
-    # pyenv
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-
     # empty talon.log
     rm ~/.talon/talon.log
     touch ~/.talon/talon.log
@@ -61,6 +56,22 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     function worklog {
         echo "$(date): $@" >> ~/.worklog
     }
+
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/Users/evan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/evan/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/evan/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/evan/anaconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+
 fi
 
 # -----------------------------------------------------------------------------
