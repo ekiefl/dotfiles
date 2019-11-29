@@ -38,6 +38,8 @@ alias ss="screen -S"
 alias sls="screen -ls"
 alias sx="screen -x"
 alias sr="screen -r"
+alias ah="anvi-help"
+alias d="deactivate && conda deactivate"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {
@@ -50,7 +52,7 @@ function title {
 
 # specific to my macbook
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
-    alias anvio="source ~/virtual-envs/anvio-master/bin/activate"
+    alias anvio="conda activate anvio-master && source ~/virtual-envs/anvio-master/bin/activate"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
     alias pymol="/Applications/MacPyMOL.app/Contents/MacOS/MacPyMOL"
     alias run_dragon="/Applications/Talon.app/Contents/Resources/run_dragon"

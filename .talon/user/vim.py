@@ -30,8 +30,6 @@ common_to_bash = {
     "gif"       : "F",
     "til"       : "t",
     "lit"       : "T",
-    "bane"      : "ge",
-    "ship bane" : "gE",
     "die line"  : "dd",
 }; vimmap.update(common_to_bash)
 
