@@ -132,6 +132,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log},{log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100"
+    export pul="/project2/meren/PEOPLE/ekiefl/PUL_FUN"
 
     export jortatap="/project2/meren/PEOPLE/ekiefl/JORTATAP"
 fi

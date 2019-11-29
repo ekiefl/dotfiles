@@ -70,13 +70,12 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 " -----------------------------------------------------------------
 " }}} csv.vim  {{{  # make opening csv files enjoyable
 " -----------------------------------------------------------------
-" Install instructions here: https://www.vim.org/scripts/script.php?script_id=2830
 
 let g:csv_highlight_column = 'y'
 aug CSV_Editing
-    au!
-    au BufRead,BufWritePost *.csv :%ArrangeColumn
-    au BufWritePre *.csv :%UnArrangeColumn
+au!
+au BufRead,BufWritePost *.csv :%ArrangeColumn
+au BufWritePre *.csv :%UnArrangeColumn
 aug end
 
 " -----------------------------------------------------------------

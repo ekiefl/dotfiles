@@ -95,9 +95,6 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
 
     cd /project2/meren/VIRTUAL-ENVS/anvio-master/anvio; git pull; cd -
 
-    # source the SOURMASH_REDUNDANCY_PAPER project
-    source /project2/meren/PEOPLE/ekiefl/SOURMASH_REDUNDANCY_PAPER/PROJECT_ENVIRONMENT.sh
-
     # proper vim colors in screens
     export TERM=xterm-256color
 fi
