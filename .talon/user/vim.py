@@ -156,12 +156,6 @@ primitive_commands = {
     'sore'        :  [":s///g"] + [Key("left")]*3,
     'globsore'    :  [":%s///g"] + [Key("left")]*3,
 
-    # Folding stuff
-    'cold':  [initial_pos_click, 'zA'],
-    'mold': [initial_pos_click, 'za'],
-    'monster': [initial_pos_click, 'zAzmzo'],
-    'enrolled': [initial_pos_click, 'zR'],
-
     'para' : [Key("escape"), "o", Key("enter")],
 }; vimmap.update(primitive_commands)
 

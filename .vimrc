@@ -39,7 +39,6 @@ silent! if plug#begin()
     Plug        'sjbach/lusty'
     Plug    'scrooloose/nerdtree'
     Plug      'jalvesaq/Nvim-R'
-    Plug     'tmhedberg/SimpylFold'
     Plug 'vim-syntastic/syntastic'
     Plug     'godlygeek/tabular'
     Plug    'majutsushi/tagbar'
@@ -105,7 +104,11 @@ let g:jedi#auto_close_doc = 0
 " normally removes INSERT/VISUAL/NORMAL mode info,
 " but not with airline plugin
 :set noshowmode
-let g:jedi#show_call_signatures = '2' " place in cmd line
+
+" causes immense lag in insert mode.
+"let g:jedi#show_call_signatures = '2' " place in cmd line
+
+let g:jedi#show_call_signatures = "0"
 
 " toggle autopopup on an off (useful when files are big)
 function TogglePopup()
@@ -138,18 +141,7 @@ let NERDTreeShowLineNumbers=1
 
 let maplocalleader = ','
 let R_assign=0 " dont replace _ with <-, i am a big boy
-
-" -----------------------------------------------------------------
-" }}} SimpylFold {{{  # folding
-" -----------------------------------------------------------------
-
-let g:SimpylFold_fold_import = 0
-let g:SimpylFold_fold_docstring = 0
-hi Folded ctermfg=109
-set nofoldenable
-set foldmethod=indent
-nnoremap q<tab> zA
-nnoremap <tab> za
+nnoremap <localleader>, {V}\se
 
 " -----------------------------------------------------------------
 " }}} syntastic {{{  # syntax check for python
@@ -190,6 +182,7 @@ let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
 let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
 let g:airline#extensions#csv#enabled = 1
 let g:airline#extensions#csv#column_display = 'Name'
+set nolist
 
 " -----------------------------------------------------------------
 " }}} vim-fugitive {{{  # everything git
