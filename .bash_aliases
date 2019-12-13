@@ -77,6 +77,7 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     export ac="/Users/evan/Software/anvio/anvio"
     export at="/Users/evan/Software/anvio/anvio/tests"
     export ao="/Users/evan/Software/anvio/anvio/tests/sandbox/test-output"
+    export asp="/Users/evan/Dropbox/anvio-structure-paper/" # temp
     export d="/Users/evan/Desktop"
     export documents="/Users/evan/Documents"
     export dotfiles="/Users/evan/Software/dotfiles"
