@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/usr/local/Cellar/modeller/9.19/modlib/modeller'
 let g:netrw_dirhist_2='/usr/local/Cellar/modeller/9.19/modlib/modeller/top_interpreter'
 let g:netrw_dirhist_3='/usr/local/Cellar/modeller/9.19/modlib/modeller'
 let g:netrw_dirhist_4='/Users/evan/virtual-envs/anvio-master/lib/python3.6/site-packages/Bio/PDB'
 let g:netrw_dirhist_5='/Users/evan/Software/aenea/project_root/aenea-grammars/_vim'
 let g:netrw_dirhist_6='/Users/evan/virtual-envs/aenea/lib/python2.7/site-packages/dragonfly'
+let g:netrw_dirhist_7='/Users/evan/Software/anvio/anvio'
