@@ -121,9 +121,12 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias qe="squeue --user=ekiefl -o '%11i %35j %5C %13m %8T %10M %9l %6D %R'"
     alias sc="scancel"
     alias si="sinteractive --partition=meren --time=08:00:00"
+    alias sii="sinteractive --partition=meren --time=00:00:00"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
     alias anvi-activate-evan="conda activate anvio-evan; set_anvio_paths /home/ekiefl/.conda/envs/anvio-evan"
+    alias aam="anvi-activate-master"
+    alias aae="anvi-activate-evan"
     function set_anvio_paths {
         export a="$1/anvio"
         export ab="$1/anvio/bin"
@@ -133,6 +136,8 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
         export ao="$1/anvio/anvio/tests/sandbox/test-output"
     }
 
+    export sags="/project2/meren/RESOURCES/PUBLIC/GENOMES/OCEAN/PACHIADAKI_SAGS"
+    export temp=$sags
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100 --rerun-incomplete"

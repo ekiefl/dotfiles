@@ -93,6 +93,11 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     module load vim/8.1
     module load rstudio/1.2.1335
 
+    # add some programs to the PATH variable
+    export PATH=$PATH:/project2/meren/RESOURCES/PUBLIC/SOFTWARE
+    export PATH=$PATH:/project2/meren/RESOURCES/PUBLIC/SOFTWARE/seqtk
+    export PATH=$PATH:/project2/meren/RESOURCES/PUBLIC/SOFTWARE/trimal/source
+
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/software/Anaconda3-5.3.0-el7-x86_64/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
