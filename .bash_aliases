@@ -111,7 +111,7 @@ fi
 # }}} MIDWAY {{{
 # -----------------------------------------------------------------------------
 
-# specific to barhal
+# specific to midway
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias cl="clusterize"
     alias clh="column -t ~/.clusterize_history | tail"
