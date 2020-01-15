@@ -70,10 +70,18 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 " }}} csv.vim  {{{  # make opening csv files enjoyable
 " -----------------------------------------------------------------
 
+function ToggleCSV()
+    :set nolist
+    :CSVTable
+endfunction
+nnoremap <leader>cs :call ToggleCSV()<cr>
+
 let g:csv_highlight_column = 'y'
 aug CSV_Editing
 au!
+"au BufRead,BufWritePost *.csv :set nolist " required for tab-indented .csv
 au BufRead,BufWritePost *.csv :%ArrangeColumn
+"au BufWritePre *.csv :set list
 au BufWritePre *.csv :%UnArrangeColumn
 aug end
 
