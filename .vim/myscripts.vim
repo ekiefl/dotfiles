@@ -3,6 +3,42 @@ function! ReturnToOriginalPosition(string)
     execute "normal! mq" . a:string . "\<esc>`q"
 endfunction
 
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+
+function! SearchAndReplace(...)
+  let global = a:1
+
+  if global
+      let span = "%"
+  else
+      let span = ""
+  endif
+
+  call inputsave()
+  let search = input('Search for: ')
+  call inputrestore()
+  if empty(search)
+    return
+  endif
+
+  call inputsave()
+  let replace = input('Replace with: ')
+  call inputrestore()
+  if empty(replace)
+    return
+  endif
+
+
+  execute "normal! :" . span . "s/" . search . "/" . replace . "/g\<cr>"
+endfunction
+
+nnoremap <leader>s :call SearchAndReplace(0)<cr>
+nnoremap <leader>g :call SearchAndReplace(1)<cr>
+
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+"
 " adds shebang to new files
 " https://github.com/LinuxSDA/HashBang/blob/master/Hashbang
 function! Hashbang(portable, permission, RemExt)
@@ -44,7 +80,8 @@ endfunction
 
 :autocmd BufNewFile *.* :call Hashbang(1,1,0)
 
-
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
 " Generalization of vi" that can select between delimiters the cursor is not yet between. 
 " If a count is not specified 1 is assumed.
@@ -73,7 +110,9 @@ function! SmartInner(count, backwards, delimiter, inner_or_outer)
     execute 'normal! ' . number . dir . a:delimiter . 'v' . a:inner_or_outer . a:delimiter
     endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+
 " Smooth Scroll (from http://www.vim.org/scripts/script.php?script_id=1601, script version 1.0)
 "
 " Remamps 
@@ -113,12 +152,13 @@ function! SmoothScroll(dir, windiv, factor)
       endwhile
    endwhile
 endfunction
-map <S-j> :call SmoothScroll("d", 2, 2)
-map <S-k> :call SmoothScroll("u", 2, 2)
-map <S-d> :call SmoothScroll("d", 1, 1)
-map <S-u> :call SmoothScroll("u", 1, 1)
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <S-j> :call SmoothScroll("d", 2, 2)<cr>
+map <S-k> :call SmoothScroll("u", 2, 2)<cr>
+map <S-d> :call SmoothScroll("d", 1, 1)<cr>
+map <S-u> :call SmoothScroll("u", 1, 1)<cr>
+
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
 "augroup send_to_term
 "  autocmd!
