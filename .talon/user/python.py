@@ -105,6 +105,10 @@ vim_python_map = {
     'go to | go here' :  [Key('esc'), initial_pos_click, Key('%s' % LEADER), "d"],
 }; pythonmap.update(vim_python_map)
 
+pdb_map = {
+    'set trace': 'import pdb; pdb.set_trace()',
+}; pythonmap.update(pdb_map)
+
 pandasmap = {
     "loke" : ["loc[]", Key("left")],
     "iloke" : ["iloc[]", Key("left")],

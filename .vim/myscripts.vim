@@ -33,8 +33,8 @@ function! SearchAndReplace(...)
   execute "normal! :" . span . "s/" . search . "/" . replace . "/g\<cr>"
 endfunction
 
-nnoremap <leader>s :call SearchAndReplace(0)<cr>
-nnoremap <leader>g :call SearchAndReplace(1)<cr>
+nnoremap <leader>ss :call SearchAndReplace(0)<cr>
+nnoremap <leader>gg :call SearchAndReplace(1)<cr>
 
 " -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
