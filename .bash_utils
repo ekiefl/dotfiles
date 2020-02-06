@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# -----------------------------------------------------------------------------
+
 # do ". acd_func.sh"
 # acd_func 1.0.5, 10-nov-2004
 # petar marinov, http:/geocities.com/h2428, this is public domain
@@ -63,3 +65,38 @@ if [[ $BASH_VERSION > "2.05a" ]]; then
   bind -x "\"\C-w\":cd_func -- ;"
 fi
 
+# -----------------------------------------------------------------------------
+
+# run a command for a given commit and repo
+with () {
+    # the repo directory
+    REPO=$1
+    # the commit hash
+    COMMIT=$2
+    # the command you want to run
+    CMD=${@:3:500}
+
+    WD=$(pwd)
+    cd $REPO
+    CURRENT_STATE=$(git branch | awk '/\*/ { print $2; }')
+
+    # try checking out. If fatal, git stash, then checkout
+    if git checkout $COMMIT; then
+        NO_STASH=1
+    else
+        git stash
+        NO_STASH=0
+        git checkout $COMMIT
+    fi
+
+    cd $WD
+    eval $CMD
+    cd $REPO
+
+    git checkout $CURRENT_STATE
+    if [ "$NO_STASH" -eq "0" ]; then
+        git stash pop
+    fi
+
+    cd $WD
+}

@@ -271,9 +271,9 @@ set clipboard=unnamed
 vnoremap <c-y> "*y
 
 " ' is so much easier to type than ` for markers, that I switch them here
-nnoremap ' `
+nnoremap , `
 nnoremap ` '
-vnoremap ' `
+vnoremap , `
 vnoremap ` '
 
 " select what was just pasted
@@ -283,6 +283,7 @@ nnoremap gp `[v`]
 nnoremap <M ^d0
 " related: some times you just want to move a line up (mnemonic: Move Up)
 nnoremap MU ^d0i<bs><space><esc>
+nnoremap Mu ^d0i<bs><esc>
 
 " when exiting insert mode, the marker r is made
 inoremap <esc> <esc>mr

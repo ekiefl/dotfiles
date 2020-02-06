@@ -17,6 +17,7 @@ vimmap = {}
 DISABLE_WINDOW_SWAPPING = True
 
 LEADER = 'space'
+marker_operation = ','
 
 # hacky ways for repeat commands that take numbers as variables (there is another one of these in std)
 vimmap.update({'%d buff' % k: [Key('escape')] + [Key('shift-l'), lambda m: time.sleep(0.1)]*k for k in range(2, 10)})
@@ -262,41 +263,41 @@ def TeleportCommand(m):
     if teleport_operator == "psych":
         actions_dict = {
             'preprend': Str('y'),
-            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key)), Str('pa')]
+            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key)), Str('pa')]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Str("'{}".format(marker_key)), Str('pa')])
+                        else [Str("{}{}".format(marker_operation, marker_key)), Str('pa')])
         }
 
     elif teleport_operator == "big-psych":
         actions_dict = {
             'preprend': Str('y'),
-            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key)), Str('Pa')]
+            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key)), Str('Pa')]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Str("'{}".format(marker_key)), Str('Pa')])
+                        else [Str("{}{}".format(marker_operation, marker_key)), Str('Pa')])
         }
 
     elif teleport_operator == "steal":
         actions_dict = {
             'preprend': Str('y'),
-            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key))]
+            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key))]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Str("'{}".format(marker_key))])
+                        else [Str("{}{}".format(marker_operation, marker_key))])
         }
 
     elif teleport_operator == "slice":
         actions_dict = {
             'preprend': Str('d'),
-            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key)), Str('pa')]
+            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key)), Str('pa')]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Str("'{}".format(marker_key)), Str('pa')])
+                        else [Str("{}{}".format(marker_operation, marker_key)), Str('pa')])
         }
 
     elif teleport_operator == "kill":
         actions_dict = {
             'preprend': Str('d'),
-            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key))]
+            'append': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key))]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Str("'{}".format(marker_key))])
+                        else [Str("{}{}".format(marker_operation, marker_key))])
         }
 
     elif teleport_operator == "kit":
@@ -314,9 +315,9 @@ def TeleportCommand(m):
     elif teleport_operator == "clippy":
         actions_dict = {
             'preprend': Str('v'),
-            'append': ([Key("ctrl-y"), Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker_key))]
+            'append': ([Key("ctrl-y"), Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker_key))]
                         if not DISABLE_WINDOW_SWAPPING
-                        else [Key('ctrl-y'), Str("'{}".format(marker_key))])
+                        else [Key('ctrl-y'), Str("{}{}".format(marker_operation, marker_key))])
         }
 
     else:
@@ -387,107 +388,107 @@ def HereToHereCommand(m):
     if command_prefix == 'phipps':
         actions_dict = {
             'selection_type': Str("v"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
         }
 
     elif command_prefix == 'block':
         actions_dict = {
             'selection_type': Key("ctrl-v"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
         }
 
     elif command_prefix == 'bar':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
         }
 
     elif command_prefix == 'kill':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("d"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     # .R files only.
     elif command_prefix == 'run':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': [Str(",se"), Key('esc')],
         }
 
     elif command_prefix == 'steal':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("y"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     elif command_prefix == 'triple-quote':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("S3\""),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     elif command_prefix == 'clippy':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Key("ctrl-y"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     elif command_prefix == 'psych':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("y"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
             'after_return_to_start': Str("p"),
         }
 
     elif command_prefix == 'big-psych':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("y"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
             'after_return_to_start': Str("P"),
         }
 
     elif command_prefix == 'stack':
         actions_dict = {
             'selection_type': Str("V"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Str("y"),
             'after_stroke': Str("'>p".format(marker1)),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     elif command_prefix == 'linecert':
         actions_dict = {
             'before_selection': Str('^'),
             'selection_type': Key("ctrl-v"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Key("^ shift-i"),
         }
 
@@ -495,22 +496,22 @@ def HereToHereCommand(m):
         actions_dict = {
             'before_selection': Str('^'),
             'selection_type': Key("ctrl-v"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Key("shift-i # space esc"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
     elif command_prefix == 'uncomment':
         actions_dict = {
             'before_selection': Str('^'),
             'selection_type': Key("ctrl-v"),
-            'selection_movement': Str("'{}".format(marker3)),
+            'selection_movement': Str("{}{}".format(marker_operation, marker3)),
             'selection_ending_stroke': Key("^ right d"),
-            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("'{}".format(marker1))]
+            'return_to_start': ([Str(':call win_gotoid(winA)'), Key('enter'), Str("{}{}".format(marker_operation, marker1))]
                                  if not DISABLE_WINDOW_SWAPPING
-                                 else [Str("'{}".format(marker1))]),
+                                 else [Str("{}{}".format(marker_operation, marker1))]),
         }
 
 
@@ -541,7 +542,7 @@ def HereToHereCommand(m):
         ]
 
     elif command_variant_name == 'to here':
-        actions_dict['return_to_cursor'] = Str("'{}".format(marker1))
+        actions_dict['return_to_cursor'] = Str("{}{}".format(marker_operation, marker1))
         action_order = [
             'make_marker1',
             'final_pos_click',
