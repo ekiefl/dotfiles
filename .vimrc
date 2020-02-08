@@ -39,6 +39,7 @@ silent! if plug#begin()
     Plug        'sjbach/lusty'
     Plug    'scrooloose/nerdtree'
     Plug      'jalvesaq/Nvim-R'
+    Plug     'rust-lang/rust.vim'
     Plug 'vim-syntastic/syntastic'
     Plug     'godlygeek/tabular'
     Plug    'majutsushi/tagbar'
@@ -74,7 +75,7 @@ function ToggleCSV()
     :set nolist
     :CSVTable
 endfunction
-nnoremap <leader>cs :call ToggleCSV()<cr>
+nnoremap <leader>ee :call ToggleCSV()<cr>
 
 let g:csv_highlight_column = 'y'
 aug CSV_Editing
@@ -149,6 +150,12 @@ let NERDTreeShowLineNumbers=1
 let maplocalleader = ','
 let R_assign=0 " dont replace _ with <-, i am a big boy
 nnoremap <localleader>, {V}\se
+"
+" -----------------------------------------------------------------
+" }}} rust.vim {{{  # make vim a workable IDE environment for rust
+" -----------------------------------------------------------------
+
+let g:rustfmt_autosave = 1
 
 " -----------------------------------------------------------------
 " }}} syntastic {{{  # syntax check for python
@@ -220,6 +227,9 @@ nnoremap <Leader>gp :Gpush<CR>
 " this allows scripts in the ~/.vim/ftplugin/ folder to be sourced
 " if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
 filetype plugin on
+
+" I keep pathogen around even though I prefer Plugged. Check ~/.vim/bundle to see what I maintain
+execute pathogen#infect()
 
 " this fixes insert mode arrow keys mapping to A B C D
 if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'

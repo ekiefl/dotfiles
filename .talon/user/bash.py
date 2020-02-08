@@ -85,7 +85,7 @@ builtins = {
     'run ellis LA'  : ['ls -la', Key('enter')],
     'tailff'        : 'tail -f ',
     'column'        : 'column -t ',
-    'F G'           : ['fg', Key("enter")],
+    'F G'           : ['fg', Key("enter"), lambda m: time.sleep(0.25), Key("shift-l"), lambda m: time.sleep(0.1), Key("shift-h")],
     'ground'        : [Key("esc"), Key("ctrl-z")],
     'bartsch'       : 'bash ',
     "screen"        : "screen ",
