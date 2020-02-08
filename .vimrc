@@ -15,8 +15,8 @@
 " tar -zxvf ctags-5.8.tar.gz
 " cd ctags && ./configure && make && sudo make install
 
-" my leader is space:
 let mapleader = "\<Space>"
+let maplocalleader = ','
 
 " -----------------------------------------------------------------
 " }}} VIM-PLUG {{{
@@ -103,11 +103,12 @@ inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
 let g:jedi#use_splits_not_buffers = ''
 let g:jedi#popup_on_dot = 0
-let g:jedi#documentation_command = 'R'
+let g:jedi#documentation_command = '<localleader>rh'
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#completions_command = "<C-N>"
-let g:jedi#auto_close_doc = 0
+let g:jedi#auto_close_doc = 1
 
+:inoremap <buffer> <localleader>rh <esc>mf%:call jedi#show_documentation()<cr><c-w>j`fa
 " req'd for g:jedi#show_call_signatures=2
 " normally removes INSERT/VISUAL/NORMAL mode info,
 " but not with airline plugin
@@ -115,7 +116,6 @@ let g:jedi#auto_close_doc = 0
 
 " causes immense lag in insert mode.
 "let g:jedi#show_call_signatures = '2' " place in cmd line
-
 let g:jedi#show_call_signatures = "0"
 
 " toggle autopopup on an off (useful when files are big)
@@ -147,14 +147,14 @@ let NERDTreeShowLineNumbers=1
 " }}} Nvim-R {{{  #  turn vim into an R environment
 " -----------------------------------------------------------------
 
-let maplocalleader = ','
 let R_assign=0 " dont replace _ with <-, i am a big boy
-nnoremap <localleader>, {V}\se
-"
+
 " -----------------------------------------------------------------
 " }}} rust.vim {{{  # make vim a workable IDE environment for rust
 " -----------------------------------------------------------------
 
+" See ~/.vim/ftplugin/rust.vim for rust filetype specific settings
+let g:rust_clip_command = 'pbcopy'
 let g:rustfmt_autosave = 1
 
 " -----------------------------------------------------------------
@@ -275,6 +275,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+inoremap <C-J> <esc><C-W><C-J>
+inoremap <C-K> <esc><C-W><C-K>
+inoremap <C-L> <esc><C-W><C-L>
+inoremap <C-H> <esc><C-W><C-H>
 
 " CTRL-Y copies to the sys clipboard
 set clipboard=unnamed
@@ -289,14 +293,17 @@ vnoremap ` '
 " select what was just pasted
 nnoremap gp `[v`]
 
+" select current body
+nnoremap ,, {V}
+
 " << back-indents in command mode <M back-idents to 0
 nnoremap <M ^d0
 " related: some times you just want to move a line up (mnemonic: Move Up)
 nnoremap MU ^d0i<bs><space><esc>
 nnoremap Mu ^d0i<bs><esc>
 
-" when exiting insert mode, the marker r is made
-inoremap <esc> <esc>mr
+" when exiting insert mode, the marker f is made
+inoremap <esc> <esc>mf
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -370,7 +377,7 @@ set number relativenumber " hybrid line numbering
 "set number " absolute numbering
 highlight LineNr ctermfg=174
 
-" drag to resize window works in screen now
+" So that drag resizing window works in `screen`
 if has("mouse_sgr")
     set ttymouse=sgr
 else
