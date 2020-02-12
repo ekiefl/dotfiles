@@ -43,6 +43,7 @@ silent! if plug#begin()
     Plug 'vim-syntastic/syntastic'
     Plug     'godlygeek/tabular'
     Plug    'majutsushi/tagbar'
+    Plug      'jalvesaq/vimcmdline'
     Plug   'vim-airline/vim-airline'
     Plug   'vim-airline/vim-airline-themes'
     Plug         'tpope/vim-fugitive'
@@ -275,10 +276,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-inoremap <C-J> <esc><C-W><C-J>
-inoremap <C-K> <esc><C-W><C-K>
-inoremap <C-L> <esc><C-W><C-L>
-inoremap <C-H> <esc><C-W><C-H>
 
 " CTRL-Y copies to the sys clipboard
 set clipboard=unnamed
