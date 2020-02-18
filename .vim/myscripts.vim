@@ -121,8 +121,10 @@ function! MultiLineInner(count, backwards, delimiter, inner_or_outer)
     " which direction are we going to search? (determined by a:backwards)
     :if a:backwards
     :   let dir = "?"
+    :   let movement = "k$"
     :else
     :   let dir = "/"
+    :   let movement = "j0"
     :endif
 
     " since the left/right are the same for quotes, you have to search through more
@@ -135,7 +137,7 @@ function! MultiLineInner(count, backwards, delimiter, inner_or_outer)
 
     let search_num = repeat(dir . a:delimiter . "\<cr>", number)
 
-    execute 'normal! ' . search_num . 'v' . a:inner_or_outer . a:delimiter
+    execute 'normal! ' . movement . search_num . 'v' . a:inner_or_outer . a:delimiter
     endfunction
 
 " -----------------------------------------------------------------------------

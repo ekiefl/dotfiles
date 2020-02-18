@@ -122,7 +122,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias qe="squeue --user=ekiefl -o '%11i %35j %5C %13m %8T %10M %9l %6D %R'"
     alias sc="scancel"
     alias si="sinteractive --partition=meren --time=08:00:00"
-    alias sii="sinteractive --partition=meren --time=00:00:00"
+    alias sii="sinteractive --partition=meren --time=00:00:00 --nodelist midway-l16b-28"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
     alias anvi-activate-evan="conda activate anvio-evan; set_anvio_paths /home/ekiefl/.conda/envs/anvio-evan"
