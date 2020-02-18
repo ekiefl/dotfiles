@@ -110,6 +110,34 @@ function! SmartInner(count, backwards, delimiter, inner_or_outer)
     execute 'normal! ' . number . dir . a:delimiter . 'v' . a:inner_or_outer . a:delimiter
     endfunction
 
+
+function! MultiLineInner(count, backwards, delimiter, inner_or_outer)
+    " if number was not supplied, assume one
+    :let number = a:count
+    :if number == 0
+    :   let number = 1
+    :endif
+
+    " which direction are we going to search? (determined by a:backwards)
+    :if a:backwards
+    :   let dir = "?"
+    :else
+    :   let dir = "/"
+    :endif
+
+    " since the left/right are the same for quotes, you have to search through more
+    :if a:delimiter == "'"
+    :   let number = 2 * number
+    :endif
+    :if a:delimiter == '"'
+    :   let number = 2 * number
+    :endif
+
+    let search_num = repeat(dir . a:delimiter . "\<cr>", number)
+
+    execute 'normal! ' . search_num . 'v' . a:inner_or_outer . a:delimiter
+    endfunction
+
 " -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
 

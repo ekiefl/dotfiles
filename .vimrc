@@ -65,8 +65,8 @@ endif
 " -----------------------------------------------------------------
 
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+nnoremap <leader>f :CtrlP<CR>
 
 " -----------------------------------------------------------------
 " }}} csv.vim  {{{  # make opening csv files enjoyable
@@ -400,6 +400,15 @@ for delimiter in delimiterList
         execute "nnoremap van" . delimiter . " :<C-U>call SmartInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
         execute "nnoremap vil" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
         execute "nnoremap val" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+
+        execute "onoremap ji"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ki"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ja"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "onoremap ka"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vji" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vki" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vja" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vka" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
     else
         execute 'onoremap in'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "i")<CR>'
         execute 'onoremap an'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "a")<CR>'
@@ -409,6 +418,15 @@ for delimiter in delimiterList
         execute 'nnoremap van' . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "a")<CR>'
         execute 'nnoremap vil' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "i")<CR>'
         execute 'nnoremap val' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+
+        execute "onoremap ji"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ki"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ja"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "onoremap ka"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vji" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vki" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vja" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vka" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
     endif
 endfor
 
