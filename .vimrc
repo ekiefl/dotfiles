@@ -388,6 +388,8 @@ au BufNewFile,BufRead *.smk set syntax=snakemake
 " FASTA fasta highlighting
 au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 
+onoremap u t_
+
 " operate inside or outside delimiters when cursor is not between
 let delimiterList = ['(', ')', '[', ']', '<', '>', '{', '}', '"', "'"]
 for delimiter in delimiterList
@@ -401,14 +403,14 @@ for delimiter in delimiterList
         execute "nnoremap vil" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
         execute "nnoremap val" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
 
-        execute "onoremap di"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
-        execute "onoremap gi"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
-        execute "onoremap da"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
-        execute "onoremap ga"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
-        execute "nnoremap vdi" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
-        execute "nnoremap vgi" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
-        execute "nnoremap vda" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
-        execute "nnoremap vga" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+        execute "onoremap ji"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ki"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ja"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "onoremap ka"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vji" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vki" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vja" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vka" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
     else
         execute 'onoremap in'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "i")<CR>'
         execute 'onoremap an'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "a")<CR>'
@@ -419,14 +421,14 @@ for delimiter in delimiterList
         execute 'nnoremap vil' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "i")<CR>'
         execute 'nnoremap val' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "a")<CR>'
 
-        execute "onoremap di"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
-        execute "onoremap gi"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
-        execute "onoremap da"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
-        execute "onoremap ga"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
-        execute "nnoremap vdi" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
-        execute "nnoremap vgi" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
-        execute "nnoremap vda" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
-        execute "nnoremap vga" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+        execute "onoremap ji"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ki"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ja"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "onoremap ka"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vji" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vki" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vja" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vka" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
     endif
 endfor
 
@@ -436,7 +438,7 @@ autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 " -----------------------------------------------------------------
 " TERMINAL-MODE; CURRENTLY WAITING FOR BETTER SUPPORT {{{
 " -----------------------------------------------------------------
-tnoremap jk <C-w>N
+tnoremap kj <C-w>N
 
 "    silent! normal a<C-w>""
 "    "sleep 1
@@ -460,7 +462,7 @@ tnoremap jk <C-w>N
 "    setlocal nonumber norelativenumber
 "endfunction
 "
-"tnoremap <esc> <C-\><C-n>
+""tnoremap <esc> <C-\><C-n>
 "nnoremap <leader>s :call InitShell()<CR>
 
 " -----------------------------------------------------------------
