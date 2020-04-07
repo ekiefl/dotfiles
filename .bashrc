@@ -114,8 +114,6 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     # get rid of bash prompt prefix
     conda config --set changeps1 False
 
-    cd /project2/meren/VIRTUAL-ENVS/anvio-master/anvio; git pull; cd -
-
     # proper vim colors in screens
     export TERM=xterm-256color
 fi

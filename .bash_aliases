@@ -128,7 +128,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias sii="sinteractive --partition=meren --time=00:00:00 --nodelist midway-l16b-28"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
-    alias anvi-activate-evan="conda activate anvio-evan; set_anvio_paths /home/ekiefl/.conda/envs/anvio-evan"
+    alias anvi-activate-evan="conda activate /project2/meren/PEOPLE/ekiefl/anvio-evan/; set_anvio_paths /project2/meren/PEOPLE/ekiefl/anvio-evan"
     alias aam="anvi-activate-master"
     alias aae="anvi-activate-evan"
     function set_anvio_paths {
@@ -140,7 +140,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
         export ao="$1/anvio/anvio/tests/sandbox/test-output"
     }
 
-    export sags="/project2/meren/RESOURCES/PUBLIC/GENOMES/OCEAN/PACHIADAKI_SAGS"
+    export sags="/project2/meren/PEOPLE/ekiefl/JORTATAP/V01/PACHIADAKI_SAGS"
     export temp=$sags
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
