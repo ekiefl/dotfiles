@@ -89,6 +89,7 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     export jortatap="/Users/evan/Academics/Research/Meren/JORTATAP"
     export m="/Users/evan/Academics/Research/Meren"
     export software="/Users/evan/Software"
+    export ekiefl="/Users/evan/Software/ekiefl.github.io"
     export table2md="csvtomd"
     export talon="/Applications/Talon.app/Contents/Resources/talon_plugins"
     export talonscripts="/Users/evan/.talon/user"
