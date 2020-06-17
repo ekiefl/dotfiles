@@ -3866,7 +3866,7 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1680, 1050}}</string>
+		<string>{{0, 0}, {1440, 2560}}</string>
 		<key>topLeft</key>
 		<string>{269, 595}</string>
 	</dict>
@@ -3879,7 +3879,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>591810030.69446003</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>30</integer>
+	<integer>41</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -4632,16 +4632,15 @@
 	<true/>
 	<key>NoSyncSearchHistory2</key>
 	<array>
+		<string>Error</string>
+		<string>lii</string>
+		<string>metaph</string>
+		<string>NoneType</string>
+		<string>Nonet</string>
+		<string>Icon</string>
 		<string>direction: f</string>
 		<string>0x1232e8048</string>
 		<string>0x1232d8048</string>
-		<string>&lt;Coverage'</string>
-		<string>00006_0017</string>
-		<string>00006_0371</string>
-		<string>0000_0371</string>
-		<string>Gene direction: f</string>
-		<string>Oh boy</string>
-		<string>0000_0017</string>
 	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>519933162.62432498</real>
@@ -4786,7 +4785,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-04T18:51:12Z</date>
+	<date>2020-04-14T14:00:09Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
@@ -4794,7 +4793,7 @@
 	<key>Selection Respects Soft Boundaries</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

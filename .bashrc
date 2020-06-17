@@ -57,6 +57,9 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
         echo "$(date): $@" >> ~/.worklog
     }
 
+    # Add ruby to path
+    export PATH="/Users/evan/.gem/ruby/2.7.0/bin:$PATH"
+
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/Users/evan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -121,3 +124,6 @@ fi
 # -----------------------------------------------------------------------------
 # }}}
 # -----------------------------------------------------------------------------
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
