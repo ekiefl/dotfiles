@@ -35,13 +35,12 @@ silent! if plug#begin()
     Plug      'chrisbra/csv.vim'
     Plug      'ctrlpvim/ctrlp.vim'
     Plug       'morhetz/gruvbox'
-    "Plug   'davidhalter/jedi-vim'
+    Plug   'davidhalter/jedi-vim'
     Plug        'sjbach/lusty'
     Plug    'scrooloose/nerdtree'
     Plug      'jalvesaq/Nvim-R'
     Plug     'rust-lang/rust.vim'
     Plug 'vim-syntastic/syntastic'
-    Plug         'zxqfl/tabnine-vim'
     Plug     'godlygeek/tabular'
     Plug    'majutsushi/tagbar'
     Plug      'jalvesaq/vimcmdline'
@@ -104,35 +103,35 @@ inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " This says whether jedi is active or not
-let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 1
 
-"let g:jedi#use_splits_not_buffers = ''
-"let g:jedi#popup_on_dot = 0
-"let g:jedi#documentation_command = '<localleader>rh'
+let g:jedi#use_splits_not_buffers = ''
+let g:jedi#popup_on_dot = 0
+let g:jedi#documentation_command = '<localleader>rh'
 "let g:jedi#smart_auto_mappings = 0
-"let g:jedi#completions_command = '<C-space>'
-"let g:jedi#auto_close_doc = 1
+let g:jedi#completions_command = '<C-space>'
+let g:jedi#auto_close_doc = 1
 "
-":inoremap <buffer> <localleader>rh <esc>mf%:call jedi#show_documentation()<cr><c-w>j`fa
-"" req'd for g:jedi#show_call_signatures=2
-"" normally removes INSERT/VISUAL/NORMAL mode info,
-"" but not with airline plugin
-":set noshowmode
+:inoremap <buffer> <localleader>rh <esc>mf%:call jedi#show_documentation()<cr><c-w>j`fa
+" req'd for g:jedi#show_call_signatures=2
+" normally removes INSERT/VISUAL/NORMAL mode info,
+" but not with airline plugin
+:set noshowmode
 "
 "" causes immense lag in insert mode.
 ""let g:jedi#show_call_signatures = '2' " place in cmd line
-"let g:jedi#show_call_signatures = "0"
-"
-"" toggle autopopup on an off (useful when files are big)
-"function TogglePopup()
-"    let popup_status = g:jedi#popup_on_dot
-"    if popup_status == 0
-"        let g:jedi#popup_on_dot = 1
-"    else
-"        let g:jedi#popup_on_dot = 0
-"    endif
-"endfunction
-"nnoremap <leader>. :call TogglePopup()<cr>
+let g:jedi#show_call_signatures = "0"
+
+" toggle autopopup on an off (useful when files are big)
+function TogglePopup()
+    let popup_status = g:jedi#popup_on_dot
+    if popup_status == 0
+        let g:jedi#popup_on_dot = 1
+    else
+        let g:jedi#popup_on_dot = 0
+    endif
+endfunction
+nnoremap <leader>. :call TogglePopup()<cr>
 
 " -----------------------------------------------------------------
 " }}} lusty  {{{  # grep all buffers (<leader>lg)
@@ -170,7 +169,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['python']
+let g:syntastic_python_checkers = ['python', 'pyflakes']
 let g:syntastic_html_checkers = []
 let g:syntastic_scss_checkers = []
 let g:syntastic_enable_highlighting = 1

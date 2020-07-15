@@ -345,24 +345,7 @@
                 "delay_milliseconds_before_open_device": 1000
             },
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": {
-                        "key_code": "page_down"
-                    },
-                    "to": {
-                        "pointing_button": "button1"
-                    }
-                },
-                {
-                    "from": {
-                        "key_code": "page_up"
-                    },
-                    "to": {
-                        "pointing_button": "button2"
-                    }
-                }
-            ],
+            "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
                 "country_code": 0,
