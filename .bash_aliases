@@ -129,8 +129,12 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
               squeue --partition=meren -o '%11i %35j %8u %5C %13m %8T %10M %9l %6D %R'; echo ; \
               squeue --partition=meren -O 'arrayjobid:13,name:35,stdout:120'"
     alias sc="scancel"
-    alias si="sinteractive --partition=meren --time=08:00:00"
-    alias sii="sinteractive --partition=meren --time=00:00:00 --nodelist midway-l16b-28"
+
+    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G"
+    alias sai="sinteractive --partition=meren --time=03:00:00 --mem=50G --nodelist midway2-0701,midway2-0705,midway2-0706" # specifically for anvi-interactive sessions
+    alias sii="sinteractive --partition=meren --time=00:00:00"
+
+    alias jupe="/project2/cmsc25025/run_ipython.sh"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
     alias anvi-activate-evan="conda activate /project2/meren/PEOPLE/ekiefl/anvio-evan/; set_anvio_paths /project2/meren/PEOPLE/ekiefl/anvio-evan"
