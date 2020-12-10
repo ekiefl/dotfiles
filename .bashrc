@@ -92,9 +92,9 @@ fi
 
 if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     # load modules
-    module load Anaconda3/5.3.0
     module load vim/8.1
-    module load rstudio/1.2.1335
+    #module load rstudio/1.2.1335 # use to work but now fails upon command: `R`
+    module load R
 
     # add some programs to the PATH variable
     export PATH=$PATH:/project2/meren/RESOURCES/PUBLIC/SOFTWARE

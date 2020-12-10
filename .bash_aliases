@@ -5,7 +5,6 @@ shopt -s expand_aliases
 # -----------------------------------------------------------------------------
 
 # abbreviations
-alias python="python3"
 alias p="python"
 alias tlf="tail -f"
 alias rmrf="rm -rf"
@@ -54,6 +53,7 @@ function title {
 
 # specific to my macbook
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
+    #alias python="python3"
     alias anvio="conda activate anvio-master && source ~/virtual-envs/anvio-master/bin/activate"
     alias pool="conda activate pool"
     alias maple="conda activate maple"
@@ -130,11 +130,23 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
               squeue --partition=meren -O 'arrayjobid:13,name:35,stdout:120'"
     alias sc="scancel"
 
-    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G"
-    alias sai="sinteractive --partition=meren --time=03:00:00 --mem=50G --nodelist midway2-0701,midway2-0705,midway2-0706" # specifically for anvi-interactive sessions
-    alias sii="sinteractive --partition=meren --time=00:00:00"
+    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G --nodelist midway-l16b-28 --exclude midway2-0701,midway2-0705,midway2-0706"
+    alias sai="sinteractive --partition=meren --time=03:00:00 --mem=50G --nodelist midway2-0701,midway2-0705,midway2-0706 --exclude midway-l16b-28" # specifically for anvi-interactive sessions
 
-    alias jupe="/project2/cmsc25025/run_ipython.sh"
+    # upside stuff
+    function go_upside {
+        conda deactivate
+        module load cmake hdf5_hl eigen gcc
+        conda activate upside
+        export PATH=$PATH:~/upside_scripts
+    }
+    function stop_upside {
+        conda deactivate
+        module unload cmake hdf5_hl eigen gcc
+    }
+    export jupe="let ipnport=($UID-6025)%65274; ipnip=$(dig +short myip.opendns.com @resolver1.opendns.com); jupyter notebook --ip=$ipnip --port=$ipnport --no-browser"
+    alias upside="go_upside"
+    alias downside="stop_upside"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
     alias anvi-activate-evan="conda activate /project2/meren/PEOPLE/ekiefl/anvio-evan/; set_anvio_paths /project2/meren/PEOPLE/ekiefl/anvio-evan"
@@ -150,7 +162,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     }
 
     export sags="/project2/meren/PEOPLE/ekiefl/JORTATAP/V01/PACHIADAKI_SAGS"
-    export temp=$sags
+    export dev="/project2/meren/PROJECTS/3DEV_PAPER"
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100 --rerun-incomplete"
