@@ -248,6 +248,12 @@ let $BASH_ENV = "~/.bash_aliases"
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
 
 set nowrap
+" move through wrapped lines
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+
 set ai
 set history=750
 set undolevels=750
