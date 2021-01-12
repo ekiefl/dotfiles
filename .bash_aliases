@@ -41,6 +41,7 @@ alias sx="screen -x"
 alias sr="screen -r"
 alias ah="anvi-help"
 alias d="deactivate && conda deactivate"
+alias ca="conda activate"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {

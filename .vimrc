@@ -253,6 +253,9 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+noremap <silent> 0 g0
+noremap <silent> $ g$
+noremap <silent> ^ g^
 
 set ai
 set history=750
@@ -301,7 +304,7 @@ vnoremap ` '
 nnoremap gp `[v`]
 
 " select current body
-nnoremap ,, {V}
+nnoremap ,, {jV}k
 
 " << back-indents in command mode <M back-idents to 0
 nnoremap <M ^d0
