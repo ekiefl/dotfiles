@@ -42,6 +42,8 @@ alias sr="screen -r"
 alias ah="anvi-help"
 alias d="deactivate && conda deactivate"
 alias ca="conda activate"
+alias js="bundle exec jekyll serve"
+alias jsi="bundle exec jekyll serve --incremental"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {

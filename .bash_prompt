@@ -4,7 +4,7 @@ export lsRUN=1 # Show an ls
 
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     export PS1="\[\e[1;32m\]▶▶ \[\e[0m\]"
-    export tlsRUN=0
+    export tlsRUN=1
     export lsRUN=0
 elif [[ "$barhal_server" =~ "$(uname -n)" ]]; then
     export PS1="\[\e[1;37m\]▶▶ \[\e[0m\]"

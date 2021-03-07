@@ -173,6 +173,7 @@ let g:syntastic_python_checkers = ['python', 'pyflakes']
 let g:syntastic_html_checkers = []
 let g:syntastic_scss_checkers = []
 let g:syntastic_enable_highlighting = 1
+let g:syntastic_python_python_exec = 'python3'
 
 " -----------------------------------------------------------------
 " }}} tabular {{{  # tabularize lines
@@ -253,9 +254,6 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-noremap <silent> 0 g0
-noremap <silent> $ g$
-noremap <silent> ^ g^
 
 set ai
 set history=750
