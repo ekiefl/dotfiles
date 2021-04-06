@@ -18,5 +18,3 @@ tryCatch({
 }, error = function(e) {
     print("Some of the autoload libraries could not be loaded")
 })
-
-print("we are in here")

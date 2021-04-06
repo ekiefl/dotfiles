@@ -344,7 +344,7 @@
             "parameters": {
                 "delay_milliseconds_before_open_device": 1000
             },
-            "selected": true,
+            "selected": false,
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
@@ -423,8 +423,8 @@
                     "identifiers": {
                         "is_keyboard": true,
                         "is_pointing_device": false,
-                        "product_id": 720,
-                        "vendor_id": 3163
+                        "product_id": 1957,
+                        "vendor_id": 1118
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": false,
@@ -593,7 +593,7 @@
                         "product_id": 1957,
                         "vendor_id": 1118
                     },
-                    "ignore": true,
+                    "ignore": false,
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": []
                 }
@@ -700,7 +700,7 @@
             "parameters": {
                 "delay_milliseconds_before_open_device": 1000
             },
-            "selected": false,
+            "selected": true,
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
