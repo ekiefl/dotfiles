@@ -56,7 +56,6 @@ function title {
 
 # specific to my macbook
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
-    #alias python="python3"
     alias anvio="conda activate anvio-dev"
     alias pt="conda activate pool"
     alias maple="conda activate maple"
