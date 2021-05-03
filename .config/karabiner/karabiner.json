@@ -226,7 +226,28 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": false,
-                    "simple_modifications": []
+                    "simple_modifications": [
+                        {
+                            "from": {
+                                "key_code": "keypad_7"
+                            },
+                            "to": {
+                                "mouse_key": {
+                                    "vertical_wheel": 64
+                                }
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "keypad_9"
+                            },
+                            "to": {
+                                "mouse_key": {
+                                    "vertical_wheel": -64
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     "disable_built_in_keyboard_if_exists": false,
@@ -344,7 +365,7 @@
             "parameters": {
                 "delay_milliseconds_before_open_device": 1000
             },
-            "selected": false,
+            "selected": true,
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
@@ -700,7 +721,7 @@
             "parameters": {
                 "delay_milliseconds_before_open_device": 1000
             },
-            "selected": true,
+            "selected": false,
             "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,

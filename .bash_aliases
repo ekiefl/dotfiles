@@ -40,7 +40,7 @@ alias sls="screen -ls"
 alias sx="screen -x"
 alias sr="screen -r"
 alias ah="anvi-help"
-alias d="deactivate && conda deactivate"
+alias d="conda deactivate"
 alias ca="conda activate"
 alias js="bundle exec jekyll serve"
 alias jsi="bundle exec jekyll serve --incremental"
@@ -57,7 +57,7 @@ function title {
 # specific to my macbook
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     #alias python="python3"
-    alias anvio="conda activate anvio-master && source ~/virtual-envs/anvio-master/bin/activate"
+    alias anvio="conda activate anvio-dev"
     alias pt="conda activate pool"
     alias maple="conda activate maple"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
@@ -76,7 +76,6 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
 
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
-    export anvenv="/Users/evan/virtual-envs/anvio-master/bin/activate"
     export pt="/Users/evan/Software/pool"
     export maple="/Users/evan/Software/maple"
     export a="/Users/evan/Software/anvio"
