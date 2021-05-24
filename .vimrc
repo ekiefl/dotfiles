@@ -4,7 +4,7 @@
 
 " git clone https://github.com/vim/vim.git
 " cd vim/
-" PATH="/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/bin:${PATH}" # This is the place on that must match the config directory
+" PATH="/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/bin:${PATH}" # I found this did not work with a conda installation of python. So I used a brew installation
 " rm src/auto/config.cache
 " ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --with-python3-config-dir=/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/config-3.7m-darwin/ --enable-cscope --enable-rubyinterp
 " make
@@ -13,7 +13,7 @@
 " install ctags:
 " wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
 " tar -zxvf ctags-5.8.tar.gz
-" cd ctags && ./configure && make && sudo make install
+" cd ctags-5.8 && ./configure && make && sudo make install
 
 let mapleader = "\<Space>"
 let maplocalleader = ','
@@ -165,6 +165,11 @@ let g:rustfmt_autosave = 1
 " }}} syntastic {{{  # syntax check for python
 " -----------------------------------------------------------------
 
+function ToggleSyntastic()
+    :SyntasticToggleMode
+endfunction
+nnoremap <leader>st :call ToggleSyntastic()<cr>
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -211,7 +216,7 @@ set nolist
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gvdiffsplit<CR>
-nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gp :Git push<CR>
 
 " -----------------------------------------------------------------
 " }}} vim-gitgutter {{{  # + useful for partial file staging
@@ -254,6 +259,9 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+
+noremap <silent> 0 g0
+noremap <silent> $ g$
 
 set ai
 set history=750

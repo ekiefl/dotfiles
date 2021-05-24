@@ -57,8 +57,7 @@ function title {
 # specific to my macbook
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate anvio-dev"
-    alias pt="conda activate pool"
-    alias maple="conda activate maple"
+    alias pt="conda activate pooltool"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
     alias pymol="/Applications/MacPyMOL.app/Contents/MacOS/MacPyMOL"
     alias run_dragon="/Applications/Talon.app/Contents/Resources/run_dragon"
@@ -75,7 +74,7 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
 
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
-    export pt="/Users/evan/Software/pool"
+    export pt="/Users/evan/Software/pooltool"
     export maple="/Users/evan/Software/maple"
     export a="/Users/evan/Software/anvio"
     export ab="/Users/evan/Software/anvio/bin"
