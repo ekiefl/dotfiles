@@ -1,2 +1,3 @@
 # dotfiles
-yadm-managed dotfile repo
+[yadm](https://yadm.io/#)-managed dotfile repo
+
