@@ -131,7 +131,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
               squeue --partition=meren -O 'arrayjobid:13,name:35,stdout:120'"
     alias sc="scancel"
 
-    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G --nodelist midway-l16b-28 --exclude midway2-0701,midway2-0705,midway2-0706"
+    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G --nodelist midway2-0355 --exclude midway2-0701,midway2-0705,midway2-0706,midway-l16b-28"
     alias sai="sinteractive --partition=meren --time=03:00:00 --mem=50G --nodelist midway2-0701,midway2-0705,midway2-0706 --exclude midway-l16b-28" # specifically for anvi-interactive sessions
 
     # upside stuff
