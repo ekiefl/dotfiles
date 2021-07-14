@@ -46,6 +46,7 @@ silent! if plug#begin()
     Plug      'jalvesaq/vimcmdline'
     Plug   'vim-airline/vim-airline'
     Plug   'vim-airline/vim-airline-themes'
+    Plug        'qpkorr/vim-bufkill'
     Plug         'tpope/vim-fugitive'
     Plug      'airblade/vim-gitgutter'
     Plug         'tpope/vim-surround'
@@ -210,6 +211,15 @@ let g:airline#extensions#csv#column_display = 'Name'
 set nolist
 
 " -----------------------------------------------------------------
+" }}} vim-bufkill {{{  # kill buffers without closing the associated window
+" -----------------------------------------------------------------
+
+" Normally I close buffers with <leader>c. If you don't want the window
+" to close, use <leader>C instead (thanks to this plugin)
+
+map <leader>C :BW!<CR>
+
+" -----------------------------------------------------------------
 " }}} vim-fugitive {{{  # everything git
 " -----------------------------------------------------------------
 
@@ -236,7 +246,7 @@ nnoremap <Leader>gp :Git push<CR>
 " -----------------------------------------------------------------
 
 " this allows scripts in the ~/.vim/ftplugin/ folder to be sourced
-" if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
+" e.g. if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
 filetype plugin on
 
 " I keep pathogen around even though I prefer Plugged. Check ~/.vim/bundle to see what I maintain
@@ -300,7 +310,7 @@ nnoremap <C-H> <C-W><C-H>
 set clipboard=unnamed
 vnoremap <c-y> "*y
 
-" ' is so much easier to type than ` for markers, that I switch them here
+" , is so much easier to type than ` for markers, that I switch them here
 nnoremap , `
 nnoremap ` '
 vnoremap , `
