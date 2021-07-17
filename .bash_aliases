@@ -60,7 +60,7 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     alias anvio="conda activate anvio-dev"
     alias pt="conda activate pooltool"
     alias illumina="source ~/virtual-envs/illumina-utils-master/bin/activate"
-    alias pymol="/Applications/MacPyMOL.app/Contents/MacOS/MacPyMOL"
+    alias pymol="pymol=/Applications/PyMOL.app/Contents/MacOS/PyMOL"
     alias run_dragon="/Applications/Talon.app/Contents/Resources/run_dragon"
     alias barhali="ssh -L 8120:localhost:8120 -L 8121:localhost:8121 -L 8122:localhost:8122 -L 8123:localhost:8123 barhal | tee /dev/tty | python3 ~/.ssh/run_webbrowser.py"
     alias midwayer="ssh midway"
