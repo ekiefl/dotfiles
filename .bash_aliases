@@ -45,6 +45,7 @@ alias d="conda deactivate"
 alias ca="conda activate"
 alias js="bundle exec jekyll serve"
 alias jsi="bundle exec jekyll serve --incremental"
+alias my_home="uname -n"
 
 # changes title of the window from `old` to `new (old)` via `title new`
 function title {
@@ -124,7 +125,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias clh="column -t ~/.clusterize_history | tail"
     alias q="sinfo --partition=meren -N -o '%N %P %11T %20E %C %8m %8e %8d'; echo ; \
              squeue --partition=meren -o '%11i %35j %8u %5C %13m %8T %10M %9l %6D %R'; echo ; \
-             squeue --partition=meren --user=$USER -O 'arrayjobid:13,name:35,stdout:120'"
+             squeue --partition=meren --user=$USER -o 'arrayjobid:13,name:35,stdout:120'"
     alias qe="squeue --user=ekiefl -o '%11i %35j %5C %13m %8T %10M %9l %6D %R'"
     alias qq="sinfo --partition=meren -N -o '%N %P %11T %20E %C %6m %8e %8d'; echo ; \
               squeue --partition=meren -o '%11i %35j %8u %5C %13m %8T %10M %9l %6D %R'; echo ; \
@@ -169,6 +170,29 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100 --rerun-incomplete"
 
     export jortatap="/project2/meren/PEOPLE/ekiefl/JORTATAP"
+fi
+
+# -----------------------------------------------------------------------------
+# }}} MIDWAY3 {{{
+# -----------------------------------------------------------------------------
+
+# specific to midway
+if [[ "$midway3_server" =~ "$(uname -n)" ]]; then
+    alias clh="column -t ~/.clusterize_history | tail"
+    alias q="sinfo --partition=gpu -N -o '%N %P %11T %20E %C %8m %8e %8d'; echo ; \
+             squeue --partition=gpu -o '%11i %35j %8u %5C %13m %8T %10M %9l %6D %R'; echo ; \
+             squeue --partition=gpu --user=$USER -O 'arrayjobid:13,name:35,stdout:120'"
+    alias qe="squeue --user=ekiefl -o '%11i %35j %5C %13m %8T %10M %9l %6D %R'"
+    alias qq="sinfo --partition=gpu -N -o '%N %P %11T %20E %C %6m %8e %8d'; echo ; \
+              squeue --partition=gpu -o '%11i %35j %8u %5C %13m %8T %10M %9l %6D %R'; echo ; \
+              squeue --partition=gpu -O 'arrayjobid:13,name:35,stdout:120'"
+    alias sc="scancel"
+
+    alias si="sinteractive --partition=meren --time=08:00:00 --mem=100G --nodelist midway2-0355 --exclude midway2-0701,midway2-0705,midway2-0706,midway-l16b-28"
+    alias sai="sinteractive --partition=meren --time=03:00:00 --mem=50G --nodelist midway2-0701,midway2-0705,midway2-0706 --exclude midway-l16b-28" # specifically for anvi-interactive sessions
+
+    export jupe="let ipnport=($UID-6025)%65274; ipnip=$(dig +short myip.opendns.com @resolver1.opendns.com); jupyter notebook --ip=$ipnip --port=$ipnport --no-browser"
+    export af="/scratch/midway3/ekiefl/SAR11_AF"
 fi
 
 # -----------------------------------------------------------------------------

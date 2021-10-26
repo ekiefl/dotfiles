@@ -2,6 +2,7 @@
 export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307"
 export barhal_server="barhal-01.bpcservers.private"
 export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local:midway2-0701.rcc.local:midway2-0705.rcc.local:midway2-0706.rcc.local"
+export midway3_server="midway3-login1.rcc.local:midway3-login2.rcc.local"
 
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
@@ -116,6 +117,34 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
 
     # get rid of bash prompt prefix
     conda config --set changeps1 False
+
+    # proper vim colors in screens
+    export TERM=xterm-256color
+fi
+
+# -----------------------------------------------------------------------------
+# }}} MIDWAY3 {{{
+# -----------------------------------------------------------------------------
+
+if [[ "$midway3_server" =~ "$(uname -n)" ]]; then
+    #module load rstudio/1.2.1335 # use to work but now fails upon command: `R`
+    module load R
+
+    function go_alphafold {
+        if hash conda 2>/dev/null; then
+            conda deactivate
+        else
+            :
+        fi
+        module load python/anaconda-2021.05
+        module load nvhpc
+        source activate alphafold
+    }
+    function stop_alphafold {
+        conda deactivate
+        module unload python/anaconda-2021.05
+        module unload nvhpc
+    }
 
     # proper vim colors in screens
     export TERM=xterm-256color
