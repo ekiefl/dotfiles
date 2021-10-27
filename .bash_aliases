@@ -166,6 +166,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
 
     export sags="/project2/meren/PEOPLE/ekiefl/JORTATAP/V01/PACHIADAKI_SAGS"
     export dev="/project2/meren/PROJECTS/3DEV_PAPER"
+    export dev2="/project2/meren/PROJECTS/KIEFL_2021"
     export ml="/project2/meren/"
     export ek="/project2/meren/PEOPLE/ekiefl"
     export snake="anvi-run-workflow -w FIXME -c config.json --additional-params --cluster \"clusterize -j={rule} -o={log} -n={threads} -x\" --jobs FIXME --resource nodes=FIXME --latency-wait 100 --rerun-incomplete"
