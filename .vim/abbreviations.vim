@@ -2,6 +2,26 @@
 :iabbrev dsdsds https://github.com/merenlab/anvio/issues/1282
 :iabbrev ppp import ipdb; ipdb.set_trace()
 
+:iabbrev commandi 
+\<CR><div class="extra-info" style="{{ command_style }}" markdown="1">
+\<CR><span class="extra-info-header">Command #X</span>
+\<CR>```<esc>lc$
+\<CR><commandhere>
+\<CR>```<esc>lc$
+\<CR>‣ **Time:** 90 min  
+\<CR>‣ **Storage:** 28.3 Gb  
+\<CR>‣ **Memory:** 40 Gb  
+\<CR>‣ **Cluster:** Yes
+\<CR></div>
+
+:iabbrev stepi 
+\<CR><div class="extra-info" markdown="1">
+\<CR><span class="extra-info-header">Step X Info</span>
+\<CR>‣ **Prerequisite steps:** None  
+\<CR>‣ **Prerequisite files:** None  
+\<CR>‣ **Checkpoint datapack:** None  
+\<CR></div>
+
 :iabbrev anvi-analyze-syntenyi {% include PROGRAM name="anvi-analyze-synteny" %}
 :iabbrev anvi-cluster-contigsi {% include PROGRAM name="anvi-cluster-contigs" %}
 :iabbrev anvi-compute-completenessi {% include PROGRAM name="anvi-compute-completeness" %}

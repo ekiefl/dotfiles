@@ -22,7 +22,7 @@ fi
 
 export tlsd=0
 export tlsf=0
-export tlsq=1
+export tlsq=0
 export tlsr=1
 export tlsA=0
 export tlsm=0
