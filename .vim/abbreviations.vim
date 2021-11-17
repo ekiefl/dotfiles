@@ -1,6 +1,7 @@
 :iabbrev @@ kiefl.evan@gmail.com
 :iabbrev dsdsds https://github.com/merenlab/anvio/issues/1282
 :iabbrev ppp import ipdb; ipdb.set_trace()
+:iabbrev ooo import pdb; pdb.set_trace()
 
 :iabbrev commandi 
 \<CR><div class="extra-info" style="{{ command_style }}" markdown="1">

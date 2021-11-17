@@ -152,7 +152,7 @@ if [[ "$midway_server" =~ "$(uname -n)" ]]; then
     alias downside="stop_upside"
 
     alias anvi-activate-master="conda activate /project2/meren/VIRTUAL-ENVS/anvio-master/; set_anvio_paths /project2/meren/VIRTUAL-ENVS/anvio-master"
-    alias anvi-activate-evan="conda activate /project2/meren/PEOPLE/ekiefl/anvio-evan/; set_anvio_paths /project2/meren/PEOPLE/ekiefl/anvio-evan"
+    alias anvi-activate-evan="conda activate /project2/meren/PEOPLE/ekiefl/anvio-evan; set_anvio_paths /project2/meren/PEOPLE/ekiefl/anvio-evan"
     alias aam="anvi-activate-master"
     alias aae="anvi-activate-evan"
     function set_anvio_paths {
