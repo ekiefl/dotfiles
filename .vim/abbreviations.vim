@@ -2,24 +2,23 @@
 :iabbrev dsdsds https://github.com/merenlab/anvio/issues/1282
 :iabbrev ppp import ipdb; ipdb.set_trace()
 :iabbrev ooo import pdb; pdb.set_trace()
+:iabbrev fm FIXME
 
 :iabbrev commandi 
-\<CR><div class="extra-info" style="{{ command_style }}" markdown="1">
+\<div class="extra-info" style="{{ command_style }}" markdown="1">
 \<CR><span class="extra-info-header">Command #X</span>
-\<CR>```<esc>lc$
+\<CR>```<esc>lc$bash
 \<CR><commandhere>
 \<CR>```<esc>lc$
-\<CR>‣ **Time:** 90 min  
-\<CR>‣ **Storage:** 28.3 Gb  
-\<CR>‣ **Memory:** 40 Gb  
-\<CR>‣ **Cluster:** Yes
+\<CR>‣ **Time:** Minimal  
+\<CR>‣ **Storage:** Minimal  
+\<CR>‣ **Memory:** Minimal  
 \<CR></div>
 
 :iabbrev stepi 
 \<CR><div class="extra-info" markdown="1">
 \<CR><span class="extra-info-header">Step X Info</span>
 \<CR>‣ **Prerequisite steps:** None  
-\<CR>‣ **Prerequisite files:** None  
 \<CR>‣ **Checkpoint datapack:** None  
 \<CR></div>
 
