@@ -26,3 +26,19 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/evan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/evan/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/evan/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/evan/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
