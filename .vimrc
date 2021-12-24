@@ -250,6 +250,7 @@ nnoremap <Leader>gp :Git push<CR>
 filetype plugin on
 
 " I keep pathogen around even though I prefer Plugged. Check ~/.vim/bundle to see what I maintain
+" with pathogen
 execute pathogen#infect()
 
 " this fixes insert mode arrow keys mapping to A B C D
@@ -379,6 +380,20 @@ inoremap <C-a> <C-o><S-i>
 
 " how far away from max cursor position is from window
 set so=1
+
+" this allows me to scroll up and down without requiring the cursor to move. great
+" since 90% of coding is just reading code
+let g:cursor_frozen = 0
+function ToggleEasyScroll()
+    if g:cursor_frozen == 0
+        set so=999
+        let g:cursor_frozen = 1
+    else
+        set so=1
+        let g:cursor_frozen = 0
+    endif
+endfunction
+nnoremap <leader>s :call ToggleEasyScroll()<cr>
 
 " show cursorline, causes some amout of lag issues, even with ttyfast and lazyredraw
 "set cursorline

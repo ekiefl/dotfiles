@@ -78,9 +78,11 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
     export pt="/Users/evan/Software/pooltool"
-    export ptt="/Users/evan/Software/pooltool/tests"
+    export ptt="/Users/evan/Software/pooltool/pooltool/tests"
     export ptc="/Users/evan/Software/pooltool/pooltool"
     export pta="/Users/evan/Software/pooltool/pooltool/ani"
+    export pa="/Users/evan/Software/pool_ai"
+    export pac="/Users/evan/Software/pool_ai/pool_ai"
     export maple="/Users/evan/Software/maple"
     export a="/Users/evan/Software/anvio"
     export ab="/Users/evan/Software/anvio/bin"
