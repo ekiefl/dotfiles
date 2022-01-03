@@ -67,6 +67,7 @@ endif
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = '__pycache__\|DS_Store\|git'
 nnoremap <leader>f :CtrlP<CR>
 
 " -----------------------------------------------------------------
@@ -393,7 +394,7 @@ function ToggleEasyScroll()
         let g:cursor_frozen = 0
     endif
 endfunction
-nnoremap <leader>s :call ToggleEasyScroll()<cr>
+nnoremap <leader>ll :call ToggleEasyScroll()<cr>
 
 " show cursorline, causes some amout of lag issues, even with ttyfast and lazyredraw
 "set cursorline
