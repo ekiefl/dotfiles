@@ -22,6 +22,10 @@
 \<CR>‣ **Checkpoint datapack:** None  
 \<CR></div>
 
+:iabbrev showi 
+\<CR><details markdown="1"><summary>Show/Hide Script</summary>
+\<CR></details>
+
 :iabbrev anvi-analyze-syntenyi {% include PROGRAM name="anvi-analyze-synteny" %}
 :iabbrev anvi-cluster-contigsi {% include PROGRAM name="anvi-cluster-contigs" %}
 :iabbrev anvi-compute-completenessi {% include PROGRAM name="anvi-compute-completeness" %}

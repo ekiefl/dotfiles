@@ -67,7 +67,7 @@ endif
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_custom_ignore = '__pycache__\|DS_Store\|git'
+let g:ctrlp_custom_ignore = '__pycache__\|DS_Store\|git\|build'
 nnoremap <leader>f :CtrlP<CR>
 
 " -----------------------------------------------------------------
@@ -194,7 +194,7 @@ let g:syntastic_python_python_exec = 'python3'
 
 let g:tagbar_left = 1
 let g:tagbar_show_linenumbers = 0
-let g:tagbar_width = 30
+let g:tagbar_width = 38
 map <leader>t :TagbarToggle<CR>
 
 " -----------------------------------------------------------------
