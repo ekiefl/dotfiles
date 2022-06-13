@@ -17,7 +17,7 @@ elif [[ "$midway3_server" =~ "$(uname -n)" ]]; then
     export tlsRUN=0
     export lsRUN=1
 elif [[ "$abc" =~ "$(uname -n)" ]]; then
-    export PS1="[\[\e[1;32m\]\w\[\e[0m\]] \[\e[1;36m\]▶▶ \[\e[0m\]"
+    export PS1="[\[\e[1;32m\]\w\[\e[0m\]] \[\e[1;32m\]▶▶ \[\e[0m\]"
     export tlsRUN=0
     export lsRUN=0
 else

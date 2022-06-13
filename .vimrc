@@ -51,7 +51,17 @@ silent! if plug#begin()
     Plug      'airblade/vim-gitgutter'
     Plug         'tpope/vim-surround'
 
-  call plug#end()
+    " for abc
+    Plug 'embear/vim-localvimrc'
+    Plug 'vim-autoformat/vim-autoformat'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'lakshayg/vim-bazel'
+
+    call plug#end()
 endif
 
 " -----------------------------------------------------------------
