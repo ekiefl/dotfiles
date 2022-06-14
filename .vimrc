@@ -40,7 +40,6 @@ silent! if plug#begin()
     Plug    'scrooloose/nerdtree'
     Plug      'jalvesaq/Nvim-R'
     Plug     'rust-lang/rust.vim'
-    Plug 'vim-syntastic/syntastic'
     Plug     'godlygeek/tabular'
     Plug    'majutsushi/tagbar'
     Plug      'jalvesaq/vimcmdline'
@@ -174,25 +173,6 @@ let g:rust_clip_command = 'pbcopy'
 let g:rustfmt_autosave = 1
 
 " -----------------------------------------------------------------
-" }}} syntastic {{{  # syntax check for python
-" -----------------------------------------------------------------
-
-function ToggleSyntastic()
-    :SyntasticToggleMode
-endfunction
-nnoremap <leader>st :call ToggleSyntastic()<cr>
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['python', 'pyflakes']
-let g:syntastic_html_checkers = []
-let g:syntastic_scss_checkers = []
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_python_python_exec = 'python3'
-
-" -----------------------------------------------------------------
 " }}} tabular {{{  # tabularize lines
 " -----------------------------------------------------------------
 
@@ -234,8 +214,8 @@ map <leader>C :BW!<CR>
 " }}} vim-fugitive {{{  # everything git
 " -----------------------------------------------------------------
 
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gb :Git blame<CR>
+nnoremap <Leader>gs :Git status<CR>
 nnoremap <Leader>gd :Gvdiffsplit<CR>
 nnoremap <Leader>gp :Git push<CR>
 
