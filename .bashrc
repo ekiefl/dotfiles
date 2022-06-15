@@ -45,8 +45,7 @@ source ~/.iterm2_shell_integration.bash
 # -----------------------------------------------------------------------------
 
 if [[ "$abc" =~ "$(uname -n)" ]]; then
-    #export PATH=~/.bin:$PATH
-    eval "$(direnv hook bash)"
+    source ~/.bashrc_abc
 fi
 
 # -----------------------------------------------------------------------------
