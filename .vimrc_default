@@ -76,9 +76,6 @@ set background=dark " dark or light
 " }}} jedi-vim  {{{  # python autocompletion
 " -----------------------------------------------------------------
 
-inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
-
 " This says whether jedi is active or not
 let g:jedi#completions_enabled = 1
 
@@ -154,7 +151,7 @@ let g:tagbar_width = 38
 map <leader>t :TagbarToggle<CR>
 
 " -----------------------------------------------------------------
-" }}} vim-airline {{{  # beefs the status bar
+" }}} vim-airline {{{  # beefs the status bar, adds tab view at top
 " -----------------------------------------------------------------
 
 if !exists('g:airline_symbols')
@@ -163,8 +160,6 @@ endif
 let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
 let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
-let g:airline#extensions#csv#enabled = 1
-let g:airline#extensions#csv#column_display = 'Name'
 set nolist
 
 " -----------------------------------------------------------------
@@ -196,7 +191,7 @@ nnoremap <Leader>gp :Git push<CR>
 " }}} vim-surround {{{  # surround selections with enclosing chars
 " -----------------------------------------------------------------
 
-" :'<'>S<enclosing_charater>
+" :'<'>S<enclosing_character>
 
 " -----------------------------------------------------------------
 " }}} 
@@ -208,6 +203,9 @@ execute pathogen#infect()
 
 " when running :! commands, this gives access to your aliases
 let $BASH_ENV = "~/.bash_aliases"
+
+" Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
+autocmd BufEnter * execute "silent !title vim " . expand("%:t")
 
 " source abbreviations
 so ~/.vim/abbreviations.vim

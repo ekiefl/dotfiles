@@ -36,9 +36,6 @@ let maplocalleader = ','
 " e.g. if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
 filetype plugin on
 
-" Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
-autocmd BufEnter * execute "silent !title vim " . expand("%:t")
-
 set nowrap
 " move through wrapped lines
 nnoremap j gj
@@ -114,6 +111,11 @@ autocmd BufReadPost *
 \ exe "normal g'\"" |
 \ endif |
 \ endif
+
+" When cycling through an autocomplete menu (any autocomplete menu),
+" use ctrl j and k to move through, rather than ctrl n and p
+inoremap <expr> <C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 
 set tabstop=4
 set softtabstop=4
