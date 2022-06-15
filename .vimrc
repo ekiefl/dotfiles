@@ -26,6 +26,202 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 " -----------------------------------------------------------------
+" }}} GLOBAL BASICS {{{
+" -----------------------------------------------------------------
+
+let mapleader = "\<Space>"
+let maplocalleader = ','
+
+" this allows scripts in the ~/.vim/ftplugin/ folder to be sourced
+" e.g. if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
+filetype plugin on
+
+" Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
+autocmd BufEnter * execute "silent !title vim " . expand("%:t")
+
+set nowrap
+" move through wrapped lines
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+
+noremap <silent> 0 g0
+noremap <silent> $ g$
+
+set ai
+set history=750
+set undolevels=750
+set iskeyword+=_,$,@,%,#,-
+syntax on
+set hlsearch
+set number
+set list
+set mouse=v
+
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>fq :q!<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>e :e
+nnoremap :w<CR> <nop>
+nnoremap :q<CR> <nop>
+nnoremap :e <nop>
+nnoremap <Leader>x :xa<CR>
+
+" easily edit and source vimrc (and bash)
+nnoremap <leader>ev :split ~/.vimrc<cr>
+nnoremap <leader>eb :split ~/.bashrc<cr>
+nnoremap <leader>ea :split ~/.bash_aliases<cr>
+nnoremap <leader>ep :split ~/.bash_prompt<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
+nnoremap <leader>et :e ~/.talon/user/<cr>
+
+" moving around splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" CTRL-Y copies to the sys clipboard
+set clipboard=unnamed
+vnoremap <c-y> "*y
+
+" , is so much easier to type than ` for markers, that I switch them here
+nnoremap , `
+nnoremap ` '
+vnoremap , `
+vnoremap ` '
+
+" select what was just pasted
+nnoremap gp `[v`]
+
+" select current body
+nnoremap ,, {jV}k
+
+" << back-indents in command mode <M back-idents to 0
+nnoremap <M ^d0
+" related: some times you just want to move a line up (mnemonic: Move Up)
+nnoremap MU ^d0i<bs><space><esc>
+nnoremap Mu ^d0i<bs><esc>
+
+" when exiting insert mode, the marker f is made
+inoremap <esc> <esc>mf
+
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if ! exists("g:leave_my_cursor_position_alone") |
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\ exe "normal g'\"" |
+\ endif |
+\ endif
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+set backspace=indent,eol,start
+
+set nobackup
+set nowritebackup
+set noswapfile
+
+map <leader>me :set mouse=v<CR>
+map <leader>mm :set mouse=a<CR>
+set mouse=a
+"hi SpellBad cterm=underline
+
+set noruler
+set laststatus=2
+
+" no automatic word wrap, but `gq` wraps to textwidth
+set textwidth=100
+set fo-=t
+
+" add end and start of line bash equivalents
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o><S-i>
+
+" how far away from max cursor position is from window
+set so=1
+
+" show cursorline, causes some amout of lag issues, even with ttyfast and lazyredraw
+"set cursorline
+set ttyfast
+set lazyredraw
+
+" redraw when windowed buffers are entered
+nnoremap <leader>rd :redraw!<CR>
+autocmd BufWinEnter * execute "redraw!"
+
+" shift-h and shift-l switch buffer in normal mode
+nnoremap <s-h> :bp!<CR>
+nnoremap <s-l> :bn!<CR>
+
+" close a buffer without second thought
+map <leader>c :bw!<CR>
+
+set hidden " unknown what this does
+
+set number relativenumber " hybrid line numbering
+"set number " absolute numbering
+highlight LineNr ctermfg=174
+
+" snakemake syntax highlighting
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake
+
+" FASTA fasta highlighting
+au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
+
+onoremap u t_
+
+" operate inside or outside delimiters when cursor is not between
+let delimiterList = ['(', ')', '[', ']', '<', '>', '{', '}', '"', "'"]
+for delimiter in delimiterList
+    if delimiter == '"'
+        execute "onoremap in"  . delimiter . " :<C-U>call SmartInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap an"  . delimiter . " :<C-U>call SmartInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "onoremap il"  . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap al"  . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vin" . delimiter . " :<C-U>call SmartInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap van" . delimiter . " :<C-U>call SmartInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vil" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap val" . delimiter . " :<C-U>call SmartInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+
+        execute "onoremap ji"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ki"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "onoremap ja"  . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "onoremap ka"  . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vji" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vki" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'i')<CR>"
+        execute "nnoremap vja" . delimiter . " :<C-U>call MultiLineInner(v:count, 0, '" . delimiter . "', 'a')<CR>"
+        execute "nnoremap vka" . delimiter . " :<C-U>call MultiLineInner(v:count, 1, '" . delimiter . "', 'a')<CR>"
+    else
+        execute 'onoremap in'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute 'onoremap an'  . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute 'onoremap il'  . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute 'onoremap al'  . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+        execute 'nnoremap vin' . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute 'nnoremap van' . delimiter . ' :<C-U>call SmartInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute 'nnoremap vil' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute 'nnoremap val' . delimiter . ' :<C-U>call SmartInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+
+        execute "onoremap ji"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ki"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "onoremap ja"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "onoremap ka"  . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vji" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vki" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "i")<CR>'
+        execute "nnoremap vja" . delimiter . ' :<C-U>call MultiLineInner(v:count, 0, "' . delimiter . '", "a")<CR>'
+        execute "nnoremap vka" . delimiter . ' :<C-U>call MultiLineInner(v:count, 1, "' . delimiter . '", "a")<CR>'
+    endif
+endfor
+
+" Terminal mode
+tnoremap kj <C-w>N
+
+" -----------------------------------------------------------------
 " CHOOSE YOUR CHARACTER {{{
 " -----------------------------------------------------------------
 
