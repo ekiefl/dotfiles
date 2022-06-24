@@ -137,8 +137,8 @@ set noruler
 set laststatus=2
 
 " no automatic word wrap, but `gq` wraps to textwidth
-set textwidth=100
-set fo-=t
+set textwidth=88
+set fo+=t
 
 " add end and start of line bash equivalents
 inoremap <C-e> <C-o>$
@@ -167,7 +167,7 @@ set hidden " unknown what this does
 
 set number relativenumber " hybrid line numbering
 "set number " absolute numbering
-highlight LineNr ctermfg=174
+:highlight LineNr ctermfg=173
 
 " snakemake syntax highlighting
 au BufNewFile,BufRead Snakefile set syntax=snakemake
