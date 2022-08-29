@@ -21,7 +21,7 @@ elif [[ "$abc" =~ "$(uname -n)" ]]; then
     export tlsRUN=0
     export lsRUN=1
 elif [[ "$spml" =~ "$(uname -n)" ]]; then
-    export PS1="[\[\e[1;34m\]\w\[\e[0m\]] \[\e[1;34m\]▶▶ \[\e[0m\]"
+    export PS1="[\[\e[1;38m\]\w\[\e[0m\]] \[\e[1;38m\]▶▶ \[\e[0m\]"
     export tlsRUN=0
     export lsRUN=1
 else
