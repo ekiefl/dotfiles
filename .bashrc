@@ -3,7 +3,8 @@ export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307:
 export barhal_server="barhal-01.bpcservers.private"
 export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local:midway2-0701.rcc.local:midway2-0705.rcc.local:midway2-0706.rcc.local"
 export midway3_server="midway3-login1.rcc.local:midway3-login2.rcc.local"
-export abc="AB-FVFHL03BQ05P:ip-172-31-62-139"
+export abc="AB-FVFHL03BQ05P"
+export spml="ip-172-31-62-139"
 
 # -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
@@ -45,6 +46,14 @@ source ~/.iterm2_shell_integration.bash
 # -----------------------------------------------------------------------------
 
 if [[ "$abc" =~ "$(uname -n)" ]]; then
+    source ~/.bashrc_abc
+fi
+
+# -----------------------------------------------------------------------------
+# }}} SPML {{{
+# -----------------------------------------------------------------------------
+
+if [[ "$spml" =~ "$(uname -n)" ]]; then
     source ~/.bashrc_abc
 fi
 
