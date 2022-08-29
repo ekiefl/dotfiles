@@ -42,15 +42,16 @@ nnoremap <leader>gg :call SearchAndReplace(1)<cr>
 " adds shebang to new files
 " https://github.com/LinuxSDA/HashBang/blob/master/Hashbang
 function! Hashbang(portable, permission, RemExt)
-let shells = { 
-        \    'awk': "awk",
-        \     'sh': "bash",
-        \    'mak': "make",
-        \     'js': "node",
-        \     'py': "python",
-        \      'R': "Rscript",
-        \     'rb': "ruby",
-        \    }
+let shells = {}
+"let shells = { 
+"        \    'awk': "awk",
+"        \     'sh': "bash",
+"        \    'mak': "make",
+"        \     'js': "node",
+"        \     'py': "python",
+"        \      'R': "Rscript",
+"        \     'rb': "ruby",
+"        \    }
 
 let extension = expand("%:e")
 

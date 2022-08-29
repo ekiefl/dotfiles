@@ -138,7 +138,7 @@ set laststatus=2
 
 " no automatic word wrap, but `gq` wraps to textwidth
 set textwidth=88
-set fo+=t
+set fo-=t
 
 " add end and start of line bash equivalents
 inoremap <C-e> <C-o>$
