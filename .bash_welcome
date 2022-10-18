@@ -18,6 +18,10 @@ elif [[ "$abc" =~ "$(uname -n)" ]]; then
     echo ""
     echo "You're in abc. Welcome!"
     echo ""
+elif [[ "$spml" =~ "$(uname -n)" ]]; then
+    echo ""
+    echo "You're in SPML. Welcome!"
+    echo ""
 else
     echo "You're here. Welcome!"
 fi
