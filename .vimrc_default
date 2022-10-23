@@ -1,175 +1,46 @@
+let mapleader = "\<Space>"
+let maplocalleader = ','
 
 " -----------------------------------------------------------------
-" }}} VIM-PLUG {{{
+" VIM-PLUG {{{
 " -----------------------------------------------------------------
 
 " declare plugins
 
 silent! if plug#begin()
 
-    Plug        'ekiefl/auto-pairs'
-    Plug      'chrisbra/csv.vim'
-    Plug      'ctrlpvim/ctrlp.vim'
-    Plug       'morhetz/gruvbox'
-    Plug   'davidhalter/jedi-vim'
-    Plug        'sjbach/lusty'
-    Plug    'scrooloose/nerdtree'
-    Plug      'jalvesaq/Nvim-R'
-    Plug     'rust-lang/rust.vim'
-    Plug     'godlygeek/tabular'
-    Plug    'majutsushi/tagbar'
-    Plug      'jalvesaq/vimcmdline'
-    Plug   'vim-airline/vim-airline'
-    Plug   'vim-airline/vim-airline-themes'
-    Plug        'qpkorr/vim-bufkill'
-    Plug         'tpope/vim-fugitive'
-    Plug      'airblade/vim-gitgutter'
-    Plug         'tpope/vim-surround'
+    " as recommended
+    Plug 'embear/vim-localvimrc'
+    Plug 'vim-autoformat/vim-autoformat'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'lakshayg/vim-bazel'
+    Plug 'tpope/vim-fugitive'
+
+    " essential function
+    Plug 'ekiefl/auto-pairs'
+    Plug 'tpope/vim-surround'
+
+    " aesthetic
+    Plug 'sainnhe/everforest'
+    Plug 'morhetz/gruvbox'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+    " nice to have
+    Plug 'preservim/tagbar'
+    Plug 'scrooloose/nerdtree'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'sjbach/lusty'
+
+    " R IDE
+    Plug 'jalvesaq/Nvim-R', { 'tag': 'v0.9.14' }
 
     call plug#end()
 endif
-
-" -----------------------------------------------------------------
-" }}} auto-pairs  {{{  # pairs chars, see ~/.vim/after/indent/python.vim
-" -----------------------------------------------------------------
-
-" pressing enter at {|} where | is cursor position not working?
-" https://github.com/jiangmiao/auto-pairs/issues/215
-"
-" -----------------------------------------------------------------
-" }}} ctrlp.vim  {{{  # fuzzy file/buf search
-" -----------------------------------------------------------------
-
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_custom_ignore = '__pycache__\|DS_Store\|git\|build'
-nnoremap <leader>f :CtrlP<CR>
-
-" -----------------------------------------------------------------
-" }}} csv.vim  {{{  # make opening csv files enjoyable
-" -----------------------------------------------------------------
-
-function ToggleCSV()
-    :set nolist
-    :CSVTable
-endfunction
-nnoremap <leader>ee :call ToggleCSV()<cr>
-
-let g:csv_highlight_column = 'y'
-aug CSV_Editing
-au!
-"au BufRead,BufWritePost *.csv :set nolist " required for tab-indented .csv
-au BufRead,BufWritePost *.csv :%ArrangeColumn
-"au BufWritePre *.csv :set list
-au BufWritePre *.csv :%UnArrangeColumn
-aug end
-
-" -----------------------------------------------------------------
-" }}} gruvbox  {{{  # retro color scheme
-" -----------------------------------------------------------------
-set term=xterm-256color
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'medium' " soft, medium and hard.
-set background=dark " dark or light
-
-" -----------------------------------------------------------------
-" }}} jedi-vim  {{{  # python autocompletion
-" -----------------------------------------------------------------
-
-" This says whether jedi is active or not
-let g:jedi#completions_enabled = 1
-
-let g:jedi#use_splits_not_buffers = ''
-let g:jedi#popup_on_dot = 0
-let g:jedi#documentation_command = '<localleader>rh'
-"let g:jedi#smart_auto_mappings = 0
-let g:jedi#completions_command = '<C-space>'
-let g:jedi#auto_close_doc = 1
-"
-:inoremap <buffer> <localleader>rh <esc>mf%:call jedi#show_documentation()<cr><c-w>j`fa
-" req'd for g:jedi#show_call_signatures=2
-" normally removes INSERT/VISUAL/NORMAL mode info,
-" but not with airline plugin
-:set noshowmode
-"
-"" causes immense lag in insert mode.
-""let g:jedi#show_call_signatures = '2' " place in cmd line
-let g:jedi#show_call_signatures = "0"
-
-" toggle autopopup on an off (useful when files are big)
-function TogglePopup()
-    let popup_status = g:jedi#popup_on_dot
-    if popup_status == 0
-        let g:jedi#popup_on_dot = 1
-    else
-        let g:jedi#popup_on_dot = 0
-    endif
-endfunction
-nnoremap <leader>. :call TogglePopup()<cr>
-
-" -----------------------------------------------------------------
-" }}} lusty  {{{  # grep all buffers (<leader>lg)
-" -----------------------------------------------------------------
-
-" suppress 'you don't have ruby so lusty wont work' msg
-let g:LustyJugglerSuppressRubyWarning = 1
-
-" -----------------------------------------------------------------
-" }}} nerdtree  {{{  # file explorer
-" -----------------------------------------------------------------
-
-map <leader>o :NERDTree<CR>
-let NERDTreeShowLineNumbers=1
-
-" -----------------------------------------------------------------
-" }}} Nvim-R {{{  #  turn vim into an R environment
-" -----------------------------------------------------------------
-
-let R_assign=0 " dont replace _ with <-, i am a big boy
-
-" -----------------------------------------------------------------
-" }}} rust.vim {{{  # make vim a workable IDE environment for rust
-" -----------------------------------------------------------------
-
-" See ~/.vim/ftplugin/rust.vim for rust filetype specific settings
-let g:rust_clip_command = 'pbcopy'
-let g:rustfmt_autosave = 1
-
-" -----------------------------------------------------------------
-" }}} tabular {{{  # tabularize lines
-" -----------------------------------------------------------------
-
-" :'<'>Tab /<delimiter>
-
-" -----------------------------------------------------------------
-" }}} tagbar {{{  # search files using tags (e.g. methods, classes)
-" -----------------------------------------------------------------
-
-let g:tagbar_left = 1
-let g:tagbar_show_linenumbers = 0
-let g:tagbar_width = 38
-map <leader>t :TagbarToggle<CR>
-
-" -----------------------------------------------------------------
-" }}} vim-airline {{{  # beefs the status bar, adds tab view at top
-" -----------------------------------------------------------------
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_theme='simple'
-let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
-let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
-set nolist
-
-" -----------------------------------------------------------------
-" }}} vim-bufkill {{{  # kill buffers without closing the associated window
-" -----------------------------------------------------------------
-
-" Normally I close buffers with <leader>c. If you don't want the window
-" to close, use <leader>C instead (thanks to this plugin)
-
-map <leader>C :BW!<CR>
 
 " -----------------------------------------------------------------
 " }}} vim-fugitive {{{  # everything git
@@ -181,11 +52,50 @@ nnoremap <Leader>gd :Gvdiffsplit<CR>
 nnoremap <Leader>gp :Git push<CR>
 
 " -----------------------------------------------------------------
-" }}} vim-gitgutter {{{  # + useful for partial file staging
+" }}} vim-lsp {{{
 " -----------------------------------------------------------------
 
-" [c and ]c to find git chunks. <leader>hp to preview hunk in new
-" window, saving window stages the hunk
+" To get things running for your project, you must run the following
+" pip install "python-lsp-server[all]"
+" pip install pylsp-mypy
+" Then in vim run :LspInstallServer
+
+nnoremap <Leader>d :LspDefinition<CR>
+nnoremap <localleader>d :LspPeekDefinition<CR>
+nnoremap <localleader>rh :LspHover<CR>
+
+nnoremap <Leader>st :LspDocumentDiagnostics<CR>
+nnoremap <Leader>n :LspNextDiagnostic -wrap=0<CR>
+nnoremap <Leader>p :LspPreviousDiagnostic -wrap=0<CR>
+
+nnoremap <Leader>a :LspDocumentFormat<CR>
+
+autocmd FileType python setlocal tagfunc=lsp#tagfunc
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 0
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+let g:lsp_diagnostics_highlights_delay = 200
+let g:lsp_diagnostics_signs_error = {'text': 'E>'}
+let g:lsp_diagnostics_signs_warning = {'text': 'W>'}
+let g:lsp_signature_help_delay = 100
+
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'pylsp',
+    \ 'cmd': {server_info->['pylsp']},
+    \ 'allowlist': ['python'],
+    \ })
+let g:lsp_settings_filetype_python = "pylsp"
+
+let g:asyncomplete_enable_for_all = 1
+
+" -----------------------------------------------------------------
+" }}} auto-pairs  {{{  # pairs chars, see ~/.vim/after/indent/python.vim
+" -----------------------------------------------------------------
+
+" pressing enter at {|} where | is cursor position not working?
+" https://github.com/jiangmiao/auto-pairs/issues/215
 
 " -----------------------------------------------------------------
 " }}} vim-surround {{{  # surround selections with enclosing chars
@@ -194,12 +104,91 @@ nnoremap <Leader>gp :Git push<CR>
 " :'<'>S<enclosing_character>
 
 " -----------------------------------------------------------------
-" }}} 
+" }}} gruvbox/everforest  {{{  # color schemes
 " -----------------------------------------------------------------
 
-" I keep pathogen around even though I prefer Plugged. Check ~/.vim/bundle to see what I maintain
-" with pathogen
-execute pathogen#infect()
+set term=xterm-256color
+" comment to get a more grey background, comment out if using light scheme
+"highlight Normal ctermbg=None
+
+" gruvbox settings
+let g:gruvbox_contrast_dark = 'hard' " soft, medium and hard.
+let g:gruvbox_contrast_light = 'hard' " soft, medium and hard.
+
+" everforest settings
+let g:everforest_disable_italic_comment = 1
+let g:everforest_background = 'hard'
+let g:everforest_better_performance = 1
+
+set background=dark " dark or light
+colorscheme everforest " gruvbox/everforest
+
+" -----------------------------------------------------------------
+" }}} vim-airline {{{  # beefs the status bar
+" -----------------------------------------------------------------
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_theme='everforest'
+let g:airline#extensions#tabline#enabled = 1 " shows buffer tabs
+let g:airline#extensions#tagbar#flags = 'f' " add full tag (shows method AND class in python)
+let g:airline#extensions#csv#enabled = 1
+let g:airline#extensions#csv#column_display = 'Name'
+set nolist
+
+" -----------------------------------------------------------------
+" }}} tagbar {{{  # search files using tags (e.g. methods, classes)
+" -----------------------------------------------------------------
+
+let g:tagbar_left = 1
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_width = 38
+map <leader>t :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+
+set updatetime=250
+
+" -----------------------------------------------------------------
+" }}} nerdtree  {{{  # file explorer
+" -----------------------------------------------------------------
+
+map <leader>o :NERDTree<CR>
+let NERDTreeShowLineNumbers=1
+
+" -----------------------------------------------------------------
+" }}} ctrlp.vim  {{{  # fuzzy file/buf search (<leader>f)
+" -----------------------------------------------------------------
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = '__pycache__\|DS_Store\|git\|build'
+nnoremap <leader>f :CtrlP<CR>
+
+" -----------------------------------------------------------------
+" }}} lusty  {{{  # grep all buffers (<leader>lg)
+" -----------------------------------------------------------------
+
+" suppress 'you don't have ruby so lusty wont work' msg
+let g:LustyJugglerSuppressRubyWarning = 1
+
+" -----------------------------------------------------------------
+" }}} vim-autoformat  {{{
+" -----------------------------------------------------------------
+
+let g:formatdef_isort= '"isort -"'
+let g:formatters_python = ["isort", "black"]
+let g:run_all_formatters_python = 1
+
+" -----------------------------------------------------------------
+" }}} Nvim-R {{{  #  turn vim into an R environment
+" -----------------------------------------------------------------
+
+let R_assign=0 " dont replace _ with <-, i am a big boy
+
+" -----------------------------------------------------------------
+" }}} Settings {{{
+" -----------------------------------------------------------------
 
 " when running :! commands, this gives access to your aliases
 let $BASH_ENV = "~/.bash_aliases"
@@ -207,17 +196,15 @@ let $BASH_ENV = "~/.bash_aliases"
 " Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
 
+nnoremap <leader>ev :split ~/.vimrc<cr>
+nnoremap <leader>eb :split ~/.bashrc<cr>
+nnoremap <leader>ea :split ~/.bash_aliases<cr>
+
 " source abbreviations
 so ~/.vim/abbreviations.vim
 so ~/.vim/myscripts.vim
 
-" vimpyter
-autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+set list " use $ sign at end of line
 
-" something overwrites this other than gruvbox, gotta put it at end of file
-" avoids annoying issue where things that are not text have black background
-" by making the background black. Not ideal but looks kind of good. I could get
-" used to it.
+highlight LineNr ctermfg=grey
 highlight Normal ctermbg=NONE
-
-
