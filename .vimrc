@@ -44,7 +44,6 @@ vnoremap j gj
 vnoremap k gk
 
 noremap <silent> 0 g0
-noremap <silent> $ g$
 
 set ai
 set history=750
