@@ -78,8 +78,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" CTRL-Y copies to the sys clipboard
+" I have set up my clipboards so that when I yank in vim, it places the yanked text into
+" my OS clipboard, so that when I cmd+v, it pastes what I yanked. and conversely, when I
+" add something to my clipboard with cmd+v, I populate my vim clipboard with it as well
+" so when I vim paste it pastes what was in my OS clipboard
 set clipboard=unnamed
+
+" CTRL-Y copies to the sys clipboard
 vnoremap <c-y> "*y
 
 " , is so much easier to type than ` for markers, that I switch them here
