@@ -146,6 +146,7 @@ let g:tagbar_show_linenumbers = 0
 let g:tagbar_width = 38
 map <leader>t :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_sort = 0
 
 set updatetime=250
 

@@ -113,7 +113,8 @@ with () {
 gitsed () {
     ORIG=$1
     REPLACE=$2
-    git grep -l "${ORIG}" | xargs sed -i "" -e "s/${ORIG}/${REPLACE}/g"
+    SUBDIR=$3
+    git grep -l "${ORIG}" ${SUBDIR} | xargs sed -i "" -e "s/${ORIG}/${REPLACE}/g"
 }
 
 # ----------------------------------------------------------------------
