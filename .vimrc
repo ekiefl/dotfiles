@@ -84,8 +84,8 @@ nnoremap <C-H> <C-W><C-H>
 " so when I vim paste it pastes what was in my OS clipboard
 set clipboard=unnamed
 
-" CTRL-Y copies to the sys clipboard
-vnoremap <c-y> "*y
+" Yank filepath of current buffer
+nnoremap <c-y> :let @+ = expand('%:p')<cr>
 
 " , is so much easier to type than ` for markers, that I switch them here
 nnoremap , `
