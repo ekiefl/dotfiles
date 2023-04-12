@@ -5,39 +5,6 @@ endfunction
 
 " -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
-
-function! SearchAndReplace(...)
-  let global = a:1
-
-  if global
-      let span = "%"
-  else
-      let span = ""
-  endif
-
-  call inputsave()
-  let search = input('Search for: ')
-  call inputrestore()
-  if empty(search)
-    return
-  endif
-
-  call inputsave()
-  let replace = input('Replace with: ')
-  call inputrestore()
-  if empty(replace)
-    return
-  endif
-
-
-  execute "normal! :" . span . "s/" . search . "/" . replace . "/g\<cr>"
-endfunction
-
-nnoremap <leader>ss :call SearchAndReplace(0)<cr>
-nnoremap <leader>gg :call SearchAndReplace(1)<cr>
-
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
 "
 " adds shebang to new files
 " https://github.com/LinuxSDA/HashBang/blob/master/Hashbang

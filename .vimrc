@@ -78,6 +78,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Resize split
+nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
 " I have set up my clipboards so that when I yank in vim, it places the yanked text into
 " my OS clipboard, so that when I cmd+v, it pastes what I yanked. and conversely, when I
 " add something to my clipboard with cmd+v, I populate my vim clipboard with it as well

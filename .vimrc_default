@@ -39,6 +39,9 @@ silent! if plug#begin()
     " R IDE
     Plug 'jalvesaq/Nvim-R', { 'tag': 'v0.9.14' }
 
+    " Jupyter
+    Plug 'untitled-ai/jupyter_ascending.vim'
+
     call plug#end()
 endif
 
@@ -50,6 +53,10 @@ nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gd :Gvdiffsplit<CR>
 nnoremap <Leader>gp :Git push<CR>
+nnoremap <Leader>gg :buffer G<CR>
+
+:command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
+nnoremap <C-f> :Ggr <cword><CR>
 
 " -----------------------------------------------------------------
 " }}} vim-lsp {{{
@@ -68,11 +75,10 @@ nnoremap <Leader>st :LspDocumentDiagnostics<CR>
 nnoremap <Leader>n :LspNextDiagnostic -wrap=0<CR>
 nnoremap <Leader>p :LspPreviousDiagnostic -wrap=0<CR>
 
-nnoremap <Leader>a :LspDocumentFormat<CR>
-
 autocmd FileType python setlocal tagfunc=lsp#tagfunc
 
 let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_echo_delay = 0
 let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
@@ -180,6 +186,9 @@ let g:LustyJugglerSuppressRubyWarning = 1
 let g:formatdef_isort= '"isort -"'
 let g:formatters_python = ["isort", "black"]
 let g:run_all_formatters_python = 1
+
+nnoremap <Leader>a :Autoformat<CR>
+
 
 " -----------------------------------------------------------------
 " }}} Nvim-R {{{  #  turn vim into an R environment
