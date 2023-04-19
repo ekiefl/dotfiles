@@ -118,6 +118,20 @@ gitsed () {
 }
 
 # ----------------------------------------------------------------------
+#  }}} Make a conda environment. Remove existing if it exists  {{{
+# ----------------------------------------------------------------------
+
+cm () {
+    NAME=$1
+    conda deactivate
+    conda env remove --name $NAME
+    conda create -y -n $NAME python=3.8.10
+    conda activate $NAME
+    pip install "python-lsp-server[all]"
+    pip install pylsp-mypy
+}
+
+# ----------------------------------------------------------------------
 #  }}} Unknown {{{
 # ----------------------------------------------------------------------
 

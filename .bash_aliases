@@ -1,11 +1,10 @@
 shopt -s expand_aliases
 
-# -----------------------------------------------------------------------------
+#t -----------------------------------------------------------------------------
 # SHARED BY ALL {{{
 # -----------------------------------------------------------------------------
 
 # abbreviations
-alias p="python"
 alias tlf="tail -f"
 alias rmrf="rm -rf"
 alias tarp="tar -zcvf"
@@ -97,8 +96,11 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
     export pm="/Users/evan/Software/poolml"
+    export pmc="/Users/evan/Software/poolml/poolml"
+    export pms="/Users/evan/Software/poolml/poolml/data/scratch"
+    export pmd="/Users/evan/Software/poolml/poolml/data"
+    export pmdd="/Users/evan/Software/poolml/poolml/data/scratch/dump"
     export pt="/Users/evan/Software/poolml/pooltool"
-    export ptt="/Users/evan/Software/poolml/pooltool/pooltool/tests"
     export ptc="/Users/evan/Software/poolml/pooltool/pooltool"
     export pta="/Users/evan/Software/poolml/pooltool/pooltool/ani"
     export pti="/Users/evan/Software/poolml/pooltool/pooltool/ani/image"

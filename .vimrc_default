@@ -161,6 +161,7 @@ set updatetime=250
 " -----------------------------------------------------------------
 
 map <leader>o :NERDTree<CR>
+map <leader>r :NERDTreeFind<CR>
 let NERDTreeShowLineNumbers=1
 
 " -----------------------------------------------------------------
