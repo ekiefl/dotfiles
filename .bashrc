@@ -1,5 +1,5 @@
 # find by typing `uname -n`
-export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307:Evans-MBP.example.com"
+export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307:Evans-MBP.example.com:Kourtneys-MacBook-Air.local"
 export barhal_server="barhal-01.bpcservers.private"
 export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local:midway2-0701.rcc.local:midway2-0705.rcc.local:midway2-0706.rcc.local"
 export midway3_server="midway3-login1.rcc.local:midway3-login2.rcc.local"
@@ -81,14 +81,22 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/Users/evan/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ -d "/Users/evan/anaconda3" ]; then
+        CONDA_PATH="/Users/evan/anaconda3"
+    elif [ -d "/Users/evan/miniconda3" ]; then
+        CONDA_PATH="/Users/evan/miniconda3"
+    else
+        echo "No conda installation found."
+    fi
+
+    __conda_setup="$("$CONDA_PATH/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/Users/evan/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/Users/evan/anaconda3/etc/profile.d/conda.sh"
+        if [ -f "$CONDA_PATH/etc/profile.d/conda.sh" ]; then
+            . "$CONDA_PATH/etc/profile.d/conda.sh"
         else
-            export PATH="/Users/evan/anaconda3/bin:$PATH"
+            export PATH="$CONDA_PATH/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -179,3 +187,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

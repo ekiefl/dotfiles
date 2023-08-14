@@ -90,8 +90,8 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
 
     # overwrites
     alias readlink="greadlink"
-    alias vim="/usr/local/bin/vim"
-    alias vi="/usr/local/bin/vim"
+    alias vim="/usr/bin/vim"
+    alias vi="/usr/bin/vim"
 
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
