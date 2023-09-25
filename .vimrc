@@ -1,20 +1,9 @@
 " -----------------------------------------------------------------
-" COMPILING A COMPATIBLE VIM {{{
+" INSTALLING A COMPATIBLE VIM {{{
 " -----------------------------------------------------------------
-
-" git clone https://github.com/vim/vim.git
-" cd vim/
-" PATH="/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/bin:${PATH}" # I found this did not work with a conda installation of python. So I used a brew installation
-" rm src/auto/config.cache
-" ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --with-python3-config-dir=/usr/local/Cellar/python3/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/config-3.7m-darwin/ --enable-cscope --enable-rubyinterp
-" make
-" sudo make install
 "
-" install ctags:
-" wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
-" tar -zxvf ctags-5.8.tar.gz
-" cd ctags-5.8 && ./configure && make && sudo make install
-
+" brew install vim
+"
 " -----------------------------------------------------------------
 " }}} SETUP PLUG {{{
 " -----------------------------------------------------------------
@@ -70,7 +59,6 @@ nnoremap <leader>eb :split ~/.bashrc<cr>
 nnoremap <leader>ea :split ~/.bash_aliases<cr>
 nnoremap <leader>ep :split ~/.bash_prompt<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
-nnoremap <leader>et :e ~/.talon/user/<cr>
 
 " moving around splits
 nnoremap <C-J> <C-W><C-J>
@@ -105,6 +93,7 @@ nnoremap ,, {jV}k
 
 " << back-indents in command mode <M back-idents to 0
 nnoremap <M ^d0
+
 " related: some times you just want to move a line up (mnemonic: Move Up)
 nnoremap MU ^d0i<bs><space><esc>
 nnoremap Mu ^d0i<bs><esc>
@@ -139,7 +128,6 @@ set noswapfile
 map <leader>me :set mouse=v<CR>
 map <leader>mm :set mouse=a<CR>
 set mouse=a
-"hi SpellBad cterm=underline
 
 set noruler
 set laststatus=2

@@ -8,16 +8,7 @@ let maplocalleader = ','
 " declare plugins
 
 silent! if plug#begin()
-
     " as recommended
-    Plug 'embear/vim-localvimrc'
-    Plug 'vim-autoformat/vim-autoformat'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'lakshayg/vim-bazel'
     Plug 'tpope/vim-fugitive'
 
     " essential function
@@ -36,12 +27,6 @@ silent! if plug#begin()
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'sjbach/lusty'
 
-    " R IDE
-    Plug 'jalvesaq/Nvim-R', { 'tag': 'v0.9.14' }
-
-    " Jupyter
-    Plug 'untitled-ai/jupyter_ascending.vim'
-
     call plug#end()
 endif
 
@@ -57,44 +42,6 @@ nnoremap <Leader>gg :buffer G<CR>
 
 :command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
 nnoremap <C-f> :Ggr <cword><CR>
-
-" -----------------------------------------------------------------
-" }}} vim-lsp {{{
-" -----------------------------------------------------------------
-
-" To get things running for your project, you must run the following
-" pip install "python-lsp-server[all]"
-" pip install pylsp-mypy
-" Then in vim run :LspInstallServer
-
-nnoremap <Leader>d :LspDefinition<CR>
-nnoremap <localleader>d :LspPeekDefinition<CR>
-nnoremap <localleader>rh :LspHover<CR>
-
-nnoremap <Leader>st :LspDocumentDiagnostics<CR>
-nnoremap <Leader>n :LspNextDiagnostic -wrap=0<CR>
-nnoremap <Leader>p :LspPreviousDiagnostic -wrap=0<CR>
-
-autocmd FileType python setlocal tagfunc=lsp#tagfunc
-
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_diagnostics_echo_delay = 0
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-let g:lsp_diagnostics_highlights_delay = 200
-let g:lsp_diagnostics_signs_error = {'text': 'E>'}
-let g:lsp_diagnostics_signs_warning = {'text': 'W>'}
-let g:lsp_signature_help_delay = 100
-
-au User lsp_setup call lsp#register_server({
-    \ 'name': 'pylsp',
-    \ 'cmd': {server_info->['pylsp']},
-    \ 'allowlist': ['python'],
-    \ })
-let g:lsp_settings_filetype_python = "pylsp"
-
-let g:asyncomplete_enable_for_all = 1
 
 " -----------------------------------------------------------------
 " }}} auto-pairs  {{{  # pairs chars, see ~/.vim/after/indent/python.vim
@@ -181,23 +128,6 @@ nnoremap <leader>f :CtrlP<CR>
 let g:LustyJugglerSuppressRubyWarning = 1
 
 " -----------------------------------------------------------------
-" }}} vim-autoformat  {{{
-" -----------------------------------------------------------------
-
-let g:formatdef_isort= '"isort -"'
-let g:formatters_python = ["isort", "black"]
-let g:run_all_formatters_python = 1
-
-nnoremap <Leader>a :Autoformat<CR>
-
-
-" -----------------------------------------------------------------
-" }}} Nvim-R {{{  #  turn vim into an R environment
-" -----------------------------------------------------------------
-
-let R_assign=0 " dont replace _ with <-, i am a big boy
-
-" -----------------------------------------------------------------
 " }}} Settings {{{
 " -----------------------------------------------------------------
 
@@ -206,10 +136,6 @@ let $BASH_ENV = "~/.bash_aliases"
 
 " Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
-
-nnoremap <leader>ev :split ~/.vimrc<cr>
-nnoremap <leader>eb :split ~/.bashrc<cr>
-nnoremap <leader>ea :split ~/.bash_aliases<cr>
 
 " source abbreviations
 so ~/.vim/abbreviations.vim

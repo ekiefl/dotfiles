@@ -1,2 +1,0 @@
-
-" pull up help 
