@@ -102,6 +102,10 @@ if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     unset __conda_setup
     # <<< conda initialize <<<
 
+    if [ -n "${_CONDA_EXE}" ]; then
+        export CONDA_ENV_PROMPT_PREFIX="[\[\033[01;31m\]%s\[\033[00m\]]"
+    fi
+
 fi
 
 # -----------------------------------------------------------------------------
