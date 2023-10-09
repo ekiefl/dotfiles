@@ -130,38 +130,3 @@ cm () {
     pip install "python-lsp-server[all]"
     pip install pylsp-mypy
 }
-
-# ----------------------------------------------------------------------
-#  }}} Unknown {{{
-# ----------------------------------------------------------------------
-
-function named() {
-    printf "\e]1337;SetBadgeFormat=%s\a" $(echo "$1" | base64)
-    echo -ne "\033]0;"$1"\007"
-}
-
-# ----------------------------------------------------------------------
-#  }}} du -sh with more decimals {{{
-# ----------------------------------------------------------------------
-
-dushh () {
-    du -Lsbc $1 | awk '
-        function hr(bytes) {
-            hum[1024**4]="TiB";
-            hum[1024**3]="GiB";
-            hum[1024**2]="MiB";
-            hum[1024]="kiB";
-            for (x = 1024**4; x >= 1024; x /= 1024) {
-                if (bytes >= x) {
-                    return sprintf("%8.3f %s", bytes/x, hum[x]);
-                }
-            }
-            return sprintf("%4d     B", bytes);
-        }
-
-        {
-            print hr($1) "\t" $2
-        }
-    '
-}
-

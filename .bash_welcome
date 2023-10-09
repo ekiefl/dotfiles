@@ -1,29 +1,15 @@
 #!/bin/bash
 
-if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
+if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     echo ""
-    echo "sup"
+    echo "You're in MACHINE1. Welcome!"
     echo ""
-elif [[ "$barhal_server" =~ "$(uname -n)" ]]; then
+elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
     echo ""
-    echo "You're in barhal. Welcome!"
-    echo ""
-elif [[ "$midway_server" =~ "$(uname -n)" ]]; then
-    echo ""
-    echo "You're in midway 2. Welcome!"
-    echo ""
-elif [[ "$midway3_server" =~ "$(uname -n)" ]]; then
-    echo ""
-    echo "You're in midway 3. Welcome!"
-    echo ""
-elif [[ "$abc" =~ "$(uname -n)" ]]; then
-    echo ""
-    echo "You're in abc. Welcome!"
-    echo ""
-elif [[ "$spml" =~ "$(uname -n)" ]]; then
-    echo ""
-    echo "You're in SPML. Welcome!"
+    echo "You're in MACHINE2. Welcome!"
     echo ""
 else
-    echo "You're here. Welcome!"
+    echo ""
+    echo "Welcome home"
+    echo ""
 fi
