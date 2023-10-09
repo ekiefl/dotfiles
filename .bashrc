@@ -1,5 +1,5 @@
 # find by typing `uname -n`
-export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307:Evans-MBP.example.com:Kourtneys-MacBook-Air.local"
+export my_2016_macbook="Evans-MacBook-Pro.local:Evans-MBP-9e79:Evans-MBP.APT307:Evans-MBP.example.com:Kourtneys-MacBook-Air.local:Evans-MBP.attlocal.net"
 export barhal_server="barhal-01.bpcservers.private"
 export midway_server="midway2-login1.rcc.local:midway2-login2.rcc.local:midway-l16b-28.rcc.local:midway2-0701.rcc.local:midway2-0705.rcc.local:midway2-0706.rcc.local"
 export midway3_server="midway3-login1.rcc.local:midway3-login2.rcc.local"
@@ -191,5 +191,3 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -9,8 +9,6 @@ else
     echo 'yadm binary not found. dotfiles were not pulled. install here: https://github.com/TheLocehiliosan/yadm'
 fi
 
-eval $(/opt/homebrew/bin/brew shellenv)
-
 # bashrc contains all else
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc

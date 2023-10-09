@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ "$my_2016_macbook" =~ "$(uname -n)" ]]; then
     echo ""
     echo "sup"
