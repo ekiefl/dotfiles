@@ -33,6 +33,11 @@ alias ca="conda activate"
 alias js="bundle exec jekyll serve"
 alias jsi="bundle exec jekyll serve --incremental"
 
+# changes title of the window from `old` to `new (old)` via `title new`
+function title {
+    echo -ne "\033]0;"$*"\007"
+}
+
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     echo "hi"
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then

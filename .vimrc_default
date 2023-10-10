@@ -137,7 +137,6 @@ let $BASH_ENV = "~/.bash_aliases"
 " Manage the window title for talon contexts, i.e. what kind of file is being edited, what mode is vim in?
 autocmd BufEnter * execute "silent !title vim " . expand("%:t")
 
-" source abbreviations
 so ~/.vim/abbreviations.vim
 so ~/.vim/myscripts.vim
 

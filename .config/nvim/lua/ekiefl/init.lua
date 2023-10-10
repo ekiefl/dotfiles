@@ -1,2 +1,3 @@
+require("ekiefl.packer")
 require("ekiefl.remap")
-require("packer")
+require("ekiefl.set")

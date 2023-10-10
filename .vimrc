@@ -25,7 +25,7 @@ let maplocalleader = ','
 " e.g. if you have python specific stuff, make a ~/.vim/ftplugin/python.vim
 filetype plugin on
 
-set nowrap
+set wrap
 " move through wrapped lines
 nnoremap j gj
 nnoremap k gk
