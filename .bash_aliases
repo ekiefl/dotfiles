@@ -49,20 +49,21 @@ else
 
     # overwrites
     alias readlink="greadlink"
-    alias vim="/usr/local/bin/vim"
-    alias vi="/usr/local/bin/vim"
+    alias vim=$(which nvim)
+    alias vi=$(which nvim)
 
     # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
+    export nvim="/Users/evan/.config/nvim/"
     export pm="/Users/evan/Software/poolml"
     export pmc="/Users/evan/Software/poolml/poolml"
     export pms="/Users/evan/Software/poolml/poolml/data/scratch"
     export pmd="/Users/evan/Software/poolml/poolml/data"
     export pmdd="/Users/evan/Software/poolml/poolml/data/scratch/dump"
-    export pt="/Users/evan/Software/poolml/pooltool"
-    export ptc="/Users/evan/Software/poolml/pooltool/pooltool"
-    export pta="/Users/evan/Software/poolml/pooltool/pooltool/ani"
-    export pti="/Users/evan/Software/poolml/pooltool/pooltool/ani/image"
+    export pt="/Users/evan/Software/pooltool"
+    export ptc="/Users/evan/Software/pooltool/pooltool"
+    export pta="/Users/evan/Software/pooltool/pooltool/ani"
+    export pti="/Users/evan/Software/pooltool/pooltool/ani/image"
     export a="/Users/evan/Software/anvio"
     export ab="/Users/evan/Software/anvio/bin"
     export as="/Users/evan/Software/anvio/sandbox"

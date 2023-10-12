@@ -88,3 +88,7 @@ noremap("u", "t_", { mode = "o" })
 
 -- Retain clipboard state while pasting over something
 noremap("<leader>p", "\"_dP", { mode = "x" })
+
+-- Fly through quickfix lists
+noremap("J", ":cnext<CR>zz")
+noremap("K", ":cprev<CR>zz")
