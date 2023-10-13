@@ -25,9 +25,23 @@ return require('packer').startup(function(use)
 		  ts_update()
 	  end,}
 
-  use("theprimeagen/harpoon")
   use("tpope/vim-fugitive")
-  use("sainnhe/everforest")
+  use("neanias/everforest-nvim")
+
+  -- Requires a nerdfont. Check
+  -- https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
+  use('nvim-tree/nvim-web-devicons')
+
+  use("nvim-tree/nvim-tree.lua")
+
+  use {
+      "nvim-telescope/telescope-file-browser.nvim",
+      requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
+
+  use('feline-nvim/feline.nvim')
+  use("romgrk/barbar.nvim")
+  use("stevearc/aerial.nvim")
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',

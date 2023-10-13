@@ -46,7 +46,6 @@ noremap("$", "g$")
 noremap("<leader>eb", ":split ~/.bashrc<cr>")
 noremap("<leader>ea", ":split ~/.bash_aliases<cr>")
 noremap("<leader>ep", ":split ~/.bash_prompt<cr>")
-noremap("<leader>sv", ":luafile ~/.config/nvim/init.lua<cr>")
 
 -- Copy full path of the current file to clipboard
 noremap("<c-y>", ":let @+ = expand('%:p')<cr>")
@@ -78,9 +77,9 @@ noremap("<esc>", "<esc>mf", { mode = "i" })
 noremap("<C-e>", "<C-o>$", { mode = "i" })
 noremap("<C-a>", "<C-o><S-i>", { mode = "i" })
 
--- Quickly navigate between buffers
-noremap("<s-h>", ":bp!<CR>")
-noremap("<s-l>", ":bn!<CR>")
+-- Quickly navigate between and move around buffers
+noremap("<s-h>", ":BufferPrevious<CR>")
+noremap("<s-l>", ":BufferNext<CR>")
 noremap("<leader>c", ":bw!<CR>")
 
 -- In operator pending mode, change 'u' to target till underscore
