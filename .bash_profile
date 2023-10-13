@@ -9,6 +9,8 @@ else
     echo 'yadm binary not found. dotfiles were not pulled. install here: https://github.com/TheLocehiliosan/yadm'
 fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # bashrc contains all else
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc
@@ -17,5 +19,3 @@ fi
 export PATH="$HOME/.cargo/bin:$PATH"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
