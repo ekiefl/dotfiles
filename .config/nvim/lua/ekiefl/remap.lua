@@ -18,9 +18,6 @@ end
 
 ----------------------------------------------------------------------------------------
 
--- Explorer
-noremap("<leader>o", vim.cmd.Ex)
-
 -- Fast save, write, close
 noremap("<leader>w", ":w<CR>")
 noremap("<leader>q", ":q<CR>")

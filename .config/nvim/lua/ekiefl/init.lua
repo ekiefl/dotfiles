@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
 
-require("ekiefl.packer")
+require("ekiefl.lazy")
 require("ekiefl.remap")
 require("ekiefl.set")
