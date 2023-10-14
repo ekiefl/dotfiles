@@ -4,7 +4,7 @@ local actions = require("telescope.actions")
 
 require("telescope").setup({
     defaults = {
-        layout_strategy = "vertical",
+        layout_strategy = "horizontal",
         layout_config = { height = 0.95, width = 0.90, scroll_speed = 1 },
         mappings = {
             i = {
@@ -12,6 +12,7 @@ require("telescope").setup({
                 ["<C-j>"] = actions.move_selection_next,
                 ["<Up>"] = actions.preview_scrolling_up,
                 ["<Down>"] = actions.preview_scrolling_down,
+                ["<C-l>"] = actions.send_to_qflist + actions.open_qflist,
             },
             n = {
                 ["<Up>"] = actions.preview_scrolling_up,
@@ -72,4 +73,3 @@ vim.keymap.set('n', '<leader>lg', live_grep_git_files, {})
 
 require("telescope").load_extension("file_browser")
 require('telescope').load_extension('aerial')
-
