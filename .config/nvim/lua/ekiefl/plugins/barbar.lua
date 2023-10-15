@@ -45,13 +45,21 @@ return {
                 changed = {enabled = true, icon = '~'},
                 deleted = {enabled = true, icon = '-'},
               },
-              separator = {left = '▋', right = ''},
+              separator = {left = '█', right = ''},
               -- If true, add an additional separator at the end of the buffer list
               separator_at_end = false,
               -- Configure the icons on the bufferline when modified or pinned.
               pinned = {button = '📍', filename = true},
               -- Configure the icons on the bufferline based on the visibility of a buffer.
               -- inactive = {button = '×'},
+              filetype = {
+                -- Sets the icon's highlight group.
+                -- If false, will use nvim-web-devicons colors
+                custom_colors = true,
+
+                -- Requires `nvim-web-devicons` if `true`
+                enabled = true,
+              },
             },
 
             -- If set, the letters for each buffer in buffer-pick mode will be
@@ -60,12 +68,24 @@ return {
             -- usability (see order below)
             semantic_letters = true,
 
+            -- Exclude quickfix menu
+            exclude_ft = {'qf'},
+
+            highlight_visible = true,
+            modified = {button = '●'},
+
             -- Set the filetypes which barbar will offset itself for
             sidebar_filetypes = {
               NvimTree = true,
               aerial = true,
             },
         }
+
+        -- FIXME hardcoded to match current theme's background color
+        vim.cmd("highlight BufferCurrent guibg=#111111")
+        vim.cmd("highlight BufferCurrentMod guibg=#111111")
+        vim.cmd("highlight BufferCurrentIcon guibg=#111111")
+
     end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
 }

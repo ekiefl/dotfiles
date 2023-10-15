@@ -3,6 +3,8 @@ vim.g.mapleader = " "
 -- Insert mode block cursor
 vim.opt.guicursor = ""
 
+vim.o.termguicolors = true
+
 -- Relative numbering
 vim.opt.number = true
 vim.opt.relativenumber = true
