@@ -23,3 +23,6 @@ vim.opt.smartindent = true
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
+
+-- No need to show insert/visual mode with status bar plugin
+vim.cmd "set noshowmode"

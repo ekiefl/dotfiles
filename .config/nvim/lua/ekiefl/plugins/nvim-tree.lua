@@ -57,6 +57,7 @@ return {
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
+    vim.keymap.set("n", "<leader>O", ":NvimTreeFindFileToggle ", {})
     vim.keymap.set("n", "<leader>o", ":NvimTreeFindFileToggle!<CR>")
   end,
 }

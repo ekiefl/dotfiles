@@ -57,7 +57,7 @@ noremap("`", "'", { mode = "v" })
 noremap("gp", "`[v`]")
 
 -- Visual select block
-noremap(",,", "{jV}k")
+noremap(",,", "vip")
 
 -- In visual mode, move the selected lines downwards/upwards
 noremap("J", ":m '>+1<CR>gv=gv", { mode = "v" })

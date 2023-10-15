@@ -23,9 +23,11 @@ local GRUVBOX = {
     name = 'gruvbox',
     config = function()
         require("gruvbox").setup({
-            contrast = "",
+            -- 'hard', 'soft', or ''
+            contrast = "hard",
             palette_overrides = {
                 dark0 = "#1d2021",
+                dark0_hard = "#111111",
             },
         })
         vim.o.background = "dark" -- or "light" for light mode
