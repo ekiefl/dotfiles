@@ -18,8 +18,6 @@ return {
 
         -- Pin/unpin buffer
         map('n', '<leader>bb', '<Cmd>BufferPin<CR>', opts)
-        -- Magic buffer-picking mode
-        map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
         -- Move buffers around
         map("n", "<c-s-h>", ":BufferMovePrevious<CR>", opts)
         map("n", "<c-s-l>", ":BufferMoveNext<CR>", opts)
@@ -55,7 +53,7 @@ return {
               filetype = {
                 -- Sets the icon's highlight group.
                 -- If false, will use nvim-web-devicons colors
-                custom_colors = true,
+                custom_colors = false,
 
                 -- Requires `nvim-web-devicons` if `true`
                 enabled = true,
@@ -82,9 +80,9 @@ return {
         }
 
         -- FIXME hardcoded to match current theme's background color
-        vim.cmd("highlight BufferCurrent guibg=#111111")
-        vim.cmd("highlight BufferCurrentMod guibg=#111111")
-        vim.cmd("highlight BufferCurrentIcon guibg=#111111")
+        -- vim.cmd("highlight BufferCurrent guibg=#111111")
+        -- vim.cmd("highlight BufferCurrentMod guibg=#111111")
+        -- vim.cmd("highlight BufferCurrentIcon guibg=#111111")
 
     end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released

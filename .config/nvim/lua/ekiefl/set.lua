@@ -27,4 +27,7 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 
 -- No need to show insert/visual mode with status bar plugin
-vim.cmd "set noshowmode"
+vim.cmd("set noshowmode")
+
+-- No ~ EOF signifier in line number column
+vim.cmd("set fillchars+=eob:\\ ")

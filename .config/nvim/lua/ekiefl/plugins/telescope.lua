@@ -49,7 +49,7 @@ return {
           search_dir = def_search_dir
         end
 
-        builtin.find_files({ search_dirs = { search_dir } })
+        builtin.find_files({ search_dirs = { search_dir, vim.fn.stdpath('config') } })
       end)
     end
 
@@ -78,7 +78,7 @@ return {
         }
     end
 
-    vim.keymap.set('n', '<leader>pf', find_files_prompt, {})
+    vim.keymap.set('n', '<leader>gf', find_files_prompt, {})
     vim.keymap.set('n', '<leader>f', find_files_git, {})
     vim.keymap.set('n', '<leader>lg', live_grep_git_files, {})
   end

@@ -4,10 +4,12 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
+    "ray-x/lsp_signature.nvim",
   },
   config = function()
     -- import lspconfig plugin
     local lspconfig = require("lspconfig")
+    local lsp_signature = require("lsp_signature")
 
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -16,6 +18,9 @@ return {
 
     local opts = { noremap = true, silent = true }
     local on_attach = function(client, bufnr)
+
+      lsp_signature.on_attach(client, bufnr)
+
       vim.diagnostic.config({
           virtual_text = false,
       })
@@ -23,8 +28,11 @@ return {
       opts.buffer = bufnr
 
       -- set keybinds
+      opts.desc = "Toggle signature help"
+      vim.keymap.set({ 'n', 'i' }, '<C-k>', lsp_signature.toggle_float_win, opts)
+
       opts.desc = "Show LSP references"
-      keymap.set("n", "<leader>R", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+      keymap.set("n", "<leader>rr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
       opts.desc = "Go to definition"
       keymap.set("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts) -- go to declaration
