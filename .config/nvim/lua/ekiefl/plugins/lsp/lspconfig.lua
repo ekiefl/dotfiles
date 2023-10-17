@@ -29,7 +29,7 @@ return {
 
       -- set keybinds
       opts.desc = "Toggle signature help"
-      vim.keymap.set({ 'n', 'i' }, '<C-k>', lsp_signature.toggle_float_win, opts)
+      vim.keymap.set("i", '<C-k>', lsp_signature.toggle_float_win, opts)
 
       opts.desc = "Show LSP references"
       keymap.set("n", "<leader>rr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
