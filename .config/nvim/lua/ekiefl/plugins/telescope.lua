@@ -20,7 +20,7 @@ return {
                     ["<C-j>"] = actions.move_selection_next,
                     ["<Up>"] = actions.preview_scrolling_up,
                     ["<Down>"] = actions.preview_scrolling_down,
-                    ["<C-l>"] = actions.send_to_qflist + actions.open_qflist,
+                    ["<C-l>"] = actions.smart_send_to_qflist + actions.open_qflist,
                 },
                 n = {
                     ["<Up>"] = actions.preview_scrolling_up,

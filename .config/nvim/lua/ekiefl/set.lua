@@ -42,3 +42,5 @@ autocmd BufReadPost *
 \ endif
 ]]
 vim.api.nvim_exec(vimscript_code, false)
+
+vim.cmd("let g:sneak#s_next = 1")

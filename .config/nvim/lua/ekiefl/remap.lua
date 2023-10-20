@@ -53,6 +53,10 @@ noremap("`", "'")
 noremap(",", "`", { mode = "v" })
 noremap("`", "'", { mode = "v" })
 
+-- Backwards search repeat is normally ","
+noremap("<C-;>", ",")
+noremap("<C-;>", ",", { mode = "v" })
+
 -- Visual select what was just pasted
 noremap("gp", "`[v`]")
 

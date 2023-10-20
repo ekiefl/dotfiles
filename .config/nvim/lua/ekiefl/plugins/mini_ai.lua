@@ -15,7 +15,7 @@ return {
             -- How to search for object (first inside current line, then inside
             -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
             -- 'cover_or_nearest', 'next', 'previous', 'nearest'.
-            search_method = 'cover',
+            search_method = 'cover_or_next',
         })
 
         local opts = { noremap = true, silent = true }
@@ -28,11 +28,12 @@ return {
             for _, char in ipairs(characters) do
                 local keymap = movement .. char
                 vim.keymap.set('v', keymap, function() tor.execute_and_remember(keymap) end, opts)
+                vim.keymap.set('o', keymap, function() tor.execute_and_remember(keymap) end, opts)
             end
         end
 
-        vim.keymap.set('v', ';', tor.repeat_last_text_object, opts)
-        vim.keymap.set('v', '<C-;>', tor.inverse_repeat_last_text_object, opts)
+        vim.keymap.set('v', '.', tor.repeat_last_text_object, opts)
+        vim.keymap.set('v', '<C-.>', tor.inverse_repeat_last_text_object, opts)
 
     end
 }

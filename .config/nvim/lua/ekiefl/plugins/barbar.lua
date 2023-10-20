@@ -74,8 +74,8 @@ return {
 
             -- Set the filetypes which barbar will offset itself for
             sidebar_filetypes = {
-              NvimTree = true,
-              aerial = true,
+              -- NvimTree = true,
+              -- aerial = true,
             },
         }
 
