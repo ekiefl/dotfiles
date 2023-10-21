@@ -43,10 +43,10 @@ else
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    if [ -d "/Users/evan/anaconda3" ]; then
-        CONDA_PATH="/Users/evan/anaconda3"
-    elif [ -d "/Users/evan/miniconda3" ]; then
-        CONDA_PATH="/Users/evan/miniconda3"
+    if [ -d "$HOME/anaconda3" ]; then
+        CONDA_PATH="$HOME/anaconda3"
+    elif [ -d "$HOME/miniconda3" ]; then
+        CONDA_PATH="$HOME/miniconda3"
     else
         echo "No conda installation found."
     fi
