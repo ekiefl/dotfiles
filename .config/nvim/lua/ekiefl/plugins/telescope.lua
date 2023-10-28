@@ -9,6 +9,7 @@ return {
   config = function()
     local builtin = require('telescope.builtin')
     local actions = require("telescope.actions")
+    local utils = require("telescope.utils")
 
     require("telescope").setup({
         defaults = {
@@ -49,13 +50,22 @@ return {
           search_dir = def_search_dir
         end
 
-        builtin.find_files({ search_dirs = { search_dir, vim.fn.stdpath('config') } })
+        builtin.find_files({ search_dirs = { search_dir } })
       end)
+    end
+
+    local function find_nvim_config_files()
+        builtin.find_files({
+            search_dirs = { vim.fn.stdpath('config') },
+            cwd = vim.fn.stdpath('config'),
+            hidden = true,
+        })
     end
 
     -- Search files within the git project
     local function find_files_git()
         local curr_dir = vim.fn.fnamemodify(vim.fn.expand('%:p'), ':h')
+
     	builtin.git_files({ cwd = curr_dir, use_git_root = true });
     end
 
@@ -73,11 +83,13 @@ return {
         }
 
         builtin.live_grep{
+            cwd = utils.buffer_dir(),
             search_dirs = {vim.fn.systemlist("git rev-parse --show-toplevel")[1]},  -- git root directory
             vimgrep_arguments = rg_args,
         }
     end
 
+    vim.keymap.set('n', '<leader>gc', find_nvim_config_files, {})
     vim.keymap.set('n', '<leader>gf', find_files_prompt, {})
     vim.keymap.set('n', '<leader>f', find_files_git, {})
     vim.keymap.set('n', '<leader>lg', live_grep_git_files, {})

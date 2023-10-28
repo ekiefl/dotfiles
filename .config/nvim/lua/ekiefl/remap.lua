@@ -90,5 +90,5 @@ noremap("u", "t_", { mode = "o" })
 noremap("<leader>p", "\"_dP", { mode = "x" })
 
 -- Fly through quickfix lists
-noremap("J", ":cnext<CR>zz")
-noremap("K", ":cprev<CR>zz")
+noremap("D", ":cnext<CR>zz")
+noremap("U", ":cprev<CR>zz")

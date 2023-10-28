@@ -11,6 +11,7 @@ vim.opt.relativenumber = true
 
 -- Wrap lines
 vim.opt.wrap = true
+vim.opt.linebreak = true
 
 -- Synchronizing Vim and OS clipboards for yank/paste operations.
 vim.o.clipboard = "unnamed"
