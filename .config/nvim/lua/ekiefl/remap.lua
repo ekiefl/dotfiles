@@ -1,19 +1,19 @@
 -- Convenience remap
 local noremap = function(lhs, rhs, opts)
-    opts = opts or {}
-    local mode = opts.mode or "n"
-    local noremap = opts.noremap
-    local silent = opts.silent
+  opts = opts or {}
+  local mode = opts.mode or "n"
+  local noremap = opts.noremap
+  local silent = opts.silent
 
-    if noremap == nil then
-        noremap = true
-    end
+  if noremap == nil then
+    noremap = true
+  end
 
-    if noremap == nil then
-        silent = false
-    end
+  if noremap == nil then
+    silent = false
+  end
 
-    vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
+  vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
 end
 
 ----------------------------------------------------------------------------------------
@@ -35,9 +35,6 @@ noremap("j", "gj")
 noremap("k", "gk")
 noremap("j", "gj", { mode = "v" })
 noremap("k", "gk", { mode = "v" })
-noremap("0", "g0")
-noremap("^", "g^")
-noremap("$", "g$")
 
 -- Quickly open/edit config and shell-related files
 noremap("<leader>eb", ":split ~/.bashrc<cr>")
@@ -87,7 +84,7 @@ noremap("<leader>c", ":bw!<CR>")
 noremap("u", "t_", { mode = "o" })
 
 -- Retain clipboard state while pasting over something
-noremap("<leader>p", "\"_dP", { mode = "x" })
+noremap("<leader>p", '"_dP', { mode = "x" })
 
 -- Fly through quickfix lists
 noremap("D", ":cnext<CR>zz")
