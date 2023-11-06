@@ -1,19 +1,19 @@
 -- Convenience remap
 local noremap = function(lhs, rhs, opts)
-  opts = opts or {}
-  local mode = opts.mode or "n"
-  local noremap = opts.noremap
-  local silent = opts.silent
+    opts = opts or {}
+    local mode = opts.mode or "n"
+    local noremap = opts.noremap
+    local silent = opts.silent
 
-  if noremap == nil then
-    noremap = true
-  end
+    if noremap == nil then
+        noremap = true
+    end
 
-  if noremap == nil then
-    silent = false
-  end
+    if noremap == nil then
+        silent = false
+    end
 
-  vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
+    vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
 end
 
 ----------------------------------------------------------------------------------------
@@ -30,12 +30,6 @@ noremap("<C-K>", "<C-W><C-K>")
 noremap("<C-L>", "<C-W><C-L>")
 noremap("<C-H>", "<C-W><C-H>")
 
--- Move by visual line instead of actual line (helpful for wrapped lines)
-noremap("j", "gj")
-noremap("k", "gk")
-noremap("j", "gj", { mode = "v" })
-noremap("k", "gk", { mode = "v" })
-
 -- Quickly open/edit config and shell-related files
 noremap("<leader>eb", ":split ~/.bashrc<cr>")
 noremap("<leader>ea", ":split ~/.bash_aliases<cr>")
@@ -51,8 +45,8 @@ noremap(",", "`", { mode = "v" })
 noremap("`", "'", { mode = "v" })
 
 -- Backwards search repeat is normally ","
-noremap("<C-;>", ",")
-noremap("<C-;>", ",", { mode = "v" })
+-- noremap("<C-;>", ",")
+-- noremap("<C-;>", ",", { mode = "v" })
 
 -- Visual select what was just pasted
 noremap("gp", "`[v`]")

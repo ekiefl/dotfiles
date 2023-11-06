@@ -8,6 +8,7 @@ vim.o.termguicolors = true
 -- Relative numbering
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.o.cursorline = true
 
 -- Synchronizing Vim and OS clipboards for yank/paste operations.
 vim.o.clipboard = "unnamed"
