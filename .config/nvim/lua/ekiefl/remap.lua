@@ -18,11 +18,13 @@ end
 
 ----------------------------------------------------------------------------------------
 
--- Fast save, write, close
+-- Fast save, write, close (for closing buffer while retaining window layout, see remaps in barbar
+-- plugin)
 noremap("<leader>w", ":w<CR>")
 noremap("<leader>q", ":q<CR>")
 noremap("<leader>fq", ":qa!<CR>")
 noremap("<leader>e", ":e")
+
 
 -- Split navigation with Ctrl + hjkl
 noremap("<C-J>", "<C-W><C-J>")
@@ -72,7 +74,6 @@ noremap("<C-a>", "<C-o><S-i>", { mode = "i" })
 -- Quickly navigate between and move around buffers
 noremap("<s-h>", ":BufferPrevious<CR>")
 noremap("<s-l>", ":BufferNext<CR>")
-noremap("<leader>c", ":bw!<CR>")
 
 -- In operator pending mode, change 'u' to target till underscore
 noremap("u", "t_", { mode = "o" })

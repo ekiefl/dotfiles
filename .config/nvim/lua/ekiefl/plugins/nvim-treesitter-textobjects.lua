@@ -59,7 +59,7 @@ local M = {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ["]m"] = "@function.outer",
+                        ["<leader>j"] = "@function.outer",
                         ["]]"] = { query = "@class.outer", desc = "Next class start" },
                         --
                         -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
@@ -72,26 +72,17 @@ local M = {
                         ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
                     },
                     goto_next_end = {
-                        ["]M"] = "@function.outer",
+                        ["<leader><s-j>"] = "@function.outer",
                         ["]["] = "@class.outer",
                     },
                     goto_previous_start = {
-                        ["[m"] = "@function.outer",
+                        ["<leader>k"] = "@function.outer",
                         ["[["] = "@class.outer",
                     },
                     goto_previous_end = {
-                        ["[M"] = "@function.outer",
+                        ["<leader><s-k>"] = "@function.outer",
                         ["[]"] = "@class.outer",
                     },
-                    -- Below will go to either the start or the end, whichever is closer.
-                    -- Use if you want more granular movements
-                    -- Make it even more gradual by adding multiple queries and regex.
-                    goto_next = {
-                        ["]d"] = "@conditional.outer",
-                    },
-                    goto_previous = {
-                        ["[d"] = "@conditional.outer",
-                    }
                 },
             },
         }
