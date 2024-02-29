@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export lsRUN=1
+export lsRUN=0
 
 export PS1="\[\033[01;32m\]\w\[\033[00m\]\n\[\033[01;32m\]▶▶ \[\033[00m\]"
 

@@ -1,4 +1,4 @@
-local PREVIEW = "horizontal" -- horizontal, vertical, flex
+local PREVIEW = "vertical" -- horizontal, vertical, flex
 
 return {
     "nvim-telescope/telescope.nvim",
@@ -68,7 +68,8 @@ return {
         local function find_files_git()
             local curr_dir = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":h")
 
-            builtin.git_files({ cwd = curr_dir, use_git_root = true })
+            builtin.git_files({ use_git_root = false, recurse_submodules = true })
+            -- builtin.git_files({ cwd = curr_dir, use_git_root = false, recurse_submodules = true })
         end
 
         -- Git grep within git project
