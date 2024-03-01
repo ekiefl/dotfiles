@@ -39,8 +39,7 @@ return {
         mason_tool_installer.setup({
             ensure_installed = {
                 "stylua", -- lua formatter
-                "isort",  -- python formatter
-                "ruff",   -- python formatter
+                "ruff",   -- python formatter + linter
             },
         })
     end,
