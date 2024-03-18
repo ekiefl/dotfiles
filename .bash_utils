@@ -125,6 +125,6 @@ cm () {
     NAME=$1
     conda deactivate
     conda env remove --name $NAME
-    conda create -y -n $NAME python=3.8.10
+    conda create -y -n $NAME python=3.10
     conda activate $NAME
 }
