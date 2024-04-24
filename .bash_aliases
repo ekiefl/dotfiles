@@ -39,7 +39,7 @@ function title {
 }
 
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
-    echo "hi"
+    source ~/.arcadia/bash_aliases
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
     echo "hi"
 else

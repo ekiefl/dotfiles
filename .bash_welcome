@@ -2,7 +2,7 @@
 
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     echo ""
-    echo "You're in MACHINE1. Welcome!"
+    echo "You're in Arcadia. Welcome!"
     echo ""
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
     echo ""

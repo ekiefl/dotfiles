@@ -1,7 +1,5 @@
 # find name by typing `uname -n`
-export MACHINE1="name1:name2"
-export MACHINE1="name3:name4"
-
+export MACHINE1="evans-Apple-MacBook-Pro:name2:name3"
 export CURRENT_MACHINE="$(uname -n)"
 
 # If you're scp-ing, we're done
@@ -32,15 +30,19 @@ export LSCOLORS=gxhxCxDxBxegedabagaced
 # autocorrects small mistakes
 shopt -s cdspell
 
+# Determine whether the default implementation should be used
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
-    # You can do your machine specific initialization here
-    echo hi
+    USE_DEFAULTS=true
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
     # Maybe its a company script that's not yadm-tracked
-    source ~/.bashrc_company
+    USE_DEFAULTS=false
+    source ~/.company/bashrc
 else
-    # Fallback for unspecified machines
+    USE_DEFAULTS=true
+fi
 
+# Default implementation
+if [[ $USE_DEFAULTS == true ]]; then
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     if [ -d "$HOME/anaconda3" ]; then
