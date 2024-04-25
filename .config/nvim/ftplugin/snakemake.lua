@@ -1,3 +1,5 @@
+-- This should be an exact copy of python.lua {{{
+
 -- Wrap lines
 vim.opt.wrap = false
 vim.opt.linebreak = false
@@ -21,3 +23,7 @@ vim.cmd [[
   iabbrev ooo import pdb; pdb.set_trace()
   iabbrev iii import pytest; pytest.set_trace()
 ]]
+
+-- }}}
+
+-- Extra stuff goes here
