@@ -69,5 +69,7 @@ if [[ $USE_DEFAULTS == true ]]; then
     if [ -n "${_CONDA_EXE}" ]; then
         export CONDA_ENV_PROMPT_PREFIX="[\[\033[01;31m\]%s\[\033[00m\]]"
     fi
+
+    eval "$(pixi completion --shell bash)"
 fi
 
