@@ -1,5 +1,6 @@
 # find name by typing `uname -n`
 export MACHINE1="evans-Apple-MacBook-Pro:name2:name3"
+export MACHINE2="DESKTOP-4BU1VKD"
 export CURRENT_MACHINE="$(uname -n)"
 
 # If you're scp-ing, we're done
@@ -34,6 +35,9 @@ shopt -s cdspell
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     USE_DEFAULTS=true
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
+    USE_DEFAULTS=true
+    export PATH="$PATH:/opt/nvim-linux64/bin"
+elif [[ "$MACHINE3" =~ "$CURRENT_MACHINE" ]]; then
     # Maybe its a company script that's not yadm-tracked
     USE_DEFAULTS=false
     source ~/.company/bashrc

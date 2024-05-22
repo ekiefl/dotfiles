@@ -6,7 +6,7 @@ if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     echo ""
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
     echo ""
-    echo "You're in MACHINE2. Welcome!"
+    echo "You're in Windows Home. Welcome!"
     echo ""
 else
     echo ""

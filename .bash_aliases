@@ -41,7 +41,9 @@ function title {
 if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
     source ~/.arcadia/bash_aliases
 elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
-    echo "hi"
+    alias vim=$(which nvim)
+    alias vi=$(which nvim)
+    export software="/Users/evan/Software"
 else
     alias anvio="conda activate anvio-dev"
     alias pt="conda activate pooltool"
