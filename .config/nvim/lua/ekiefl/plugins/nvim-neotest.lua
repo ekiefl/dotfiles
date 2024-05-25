@@ -21,7 +21,11 @@ local M = {
             })
 
             -- Keybindings for Neotest
-            vim.api.nvim_set_keymap('n', '<leader>i', ":lua require('neotest').summary.toggle()<CR>",
+            vim.api.nvim_set_keymap('n', '<leader>ii', ":lua require('neotest').summary.toggle()<CR>",
+                { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>it', ":lua require('neotest').run.run(vim.fn.expand('%:p:h'))<CR>",
+                { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>id', ":lua require('neotest').run.run({ strategy = 'dap' })<CR>",
                 { noremap = true, silent = true })
         end,
     },
