@@ -2,7 +2,13 @@
 
 export lsRUN=0
 
-export PS1="\[\033[01;32m\]\w\[\033[00m\]\n\[\033[01;32m\]▶▶ \[\033[00m\]"
+if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
+    export PS1="\[\033[01;32m\]\w\[\033[00m\]\n\[\033[01;32m\]▶▶ \[\033[00m\]"
+elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
+    export PS1="\[\033[01;32m\]\w\[\033[00m\]\n\[\033[01;32m\]▶▶ \[\033[00m\]"
+else
+    export PS1="\[\033[01;36m\]\w\[\033[00m\]\n\[\033[01;36m\]▶▶ \[\033[00m\]"
+fi
 
 function prompt_command {
     if [[ $lsRUN -eq 1 ]]; then
