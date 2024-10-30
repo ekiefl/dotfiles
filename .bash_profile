@@ -25,6 +25,3 @@ fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$PATH:/Users/evan/.pixi/bin
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-export PATH=$PATH:/home/evan/.pixi/bin
