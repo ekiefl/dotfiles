@@ -1,19 +1,19 @@
 -- Convenience remap
 local noremap = function(lhs, rhs, opts)
-    opts = opts or {}
-    local mode = opts.mode or "n"
-    local noremap = opts.noremap
-    local silent = opts.silent
+	opts = opts or {}
+	local mode = opts.mode or "n"
+	local noremap = opts.noremap
+	local silent = opts.silent
 
-    if noremap == nil then
-        noremap = true
-    end
+	if noremap == nil then
+		noremap = true
+	end
 
-    if noremap == nil then
-        silent = false
-    end
+	if noremap == nil then
+		silent = false
+	end
 
-    vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
+	vim.keymap.set(mode, lhs, rhs, { noremap = noremap, silent = silent })
 end
 
 ----------------------------------------------------------------------------------------
@@ -24,7 +24,6 @@ noremap("<leader>w", ":w<CR>")
 noremap("<leader>q", ":q<CR>")
 noremap("<leader>fq", ":qa!<CR>")
 noremap("<leader>e", ":e")
-
 
 -- Split navigation with Ctrl + hjkl
 noremap("<C-J>", "<C-W><C-J>")
@@ -55,10 +54,6 @@ noremap("gp", "`[v`]")
 
 -- Visual select block
 noremap(",,", "vip")
-
--- In visual mode, move the selected lines downwards/upwards
-noremap("J", ":m '>+1<CR>gv=gv", { mode = "v" })
-noremap("K", ":m '<-2<CR>gv=gv", { mode = "v" })
 
 -- Append current line to line above (with or without space)
 noremap("MU", "mzJ`z")

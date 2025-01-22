@@ -49,8 +49,12 @@ fi
 if [[ $USE_DEFAULTS == true ]]; then
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    if [ -d "$HOME/anaconda3" ]; then
+    if [ -d "/opt/anaconda3" ]; then
+        CONDA_PATH="/opt/anaconda3"
+    elif [ -d "$HOME/anaconda3" ]; then
         CONDA_PATH="$HOME/anaconda3"
+    elif [ -d "/opt/miniconda3" ]; then
+        CONDA_PATH="/opt/miniconda3"
     elif [ -d "$HOME/miniconda3" ]; then
         CONDA_PATH="$HOME/miniconda3"
     else
@@ -77,3 +81,5 @@ if [[ $USE_DEFAULTS == true ]]; then
     eval "$(pixi completion --shell bash)"
 fi
 
+. "$HOME/.cargo/env"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

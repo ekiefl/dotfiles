@@ -5,6 +5,7 @@ local TIMEOUT = 3000
 -- (call <leader>af if you want to format)
 local NO_FORMAT_ON_SAVE = {
 	"python",
+	"yaml",
 }
 
 return {
