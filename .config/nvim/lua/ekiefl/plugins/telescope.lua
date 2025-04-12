@@ -118,8 +118,41 @@ return {
       })
     end
 
+    -- Grep in files with directory prompt
+    local function live_grep_prompt()
+      local def_search_dir = vim.fn.expand("%:p:h")
+
+      vim.ui.input({
+        prompt = string.format("Enter search directory:", def_search_dir),
+        completion = "dir", -- optional directory completion
+        default = def_search_dir,
+      }, function(search_dir)
+        if search_dir == "" then
+          search_dir = def_search_dir
+        end
+
+        local rg_args = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--follow",
+        }
+
+        builtin.live_grep({
+          cwd = search_dir,
+          search_dirs = { search_dir },
+          vimgrep_arguments = rg_args,
+        })
+      end)
+    end
+
     vim.keymap.set("n", "<leader>gc", find_nvim_config_files, {})
     vim.keymap.set("n", "<leader>gf", find_files_prompt, {})
+    vim.keymap.set("n", "<leader>gh", live_grep_prompt, {})
     vim.keymap.set("n", "<leader>f", find_files_git, {})
     vim.keymap.set("n", "<leader>lg", live_grep_git_files, {})
   end,
