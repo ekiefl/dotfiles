@@ -123,7 +123,7 @@ gitsed () {
 
 cm () {
     NAME=$1
-    PYTHON_VERSION=${2:-3.10}  # Set PYTHON_VERSION to the 2nd argument or default to "3.10" if not provided
+    PYTHON_VERSION=${2:-3.11}  # Set PYTHON_VERSION to the 2nd argument or default to "3.11" if not provided
     conda deactivate
     conda deactivate
     conda env remove --name $NAME

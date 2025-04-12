@@ -64,12 +64,36 @@ return {
       })
     end
 
+    -- Helper function to get git root based on current buffer
+    local function get_git_root()
+      local buffer_dir = utils.buffer_dir()
+      local cmd = string.format("cd %s && git rev-parse --show-toplevel 2>/dev/null || echo ''", vim.fn.shellescape(buffer_dir))
+      local git_root = vim.fn.trim(vim.fn.system(cmd))
+      
+      if git_root ~= "" then
+        return git_root
+      end
+      
+      -- Fallback to nvim's startup directory if no git repo found for current buffer
+      cmd = "git rev-parse --show-toplevel 2>/dev/null || echo ''"
+      git_root = vim.fn.trim(vim.fn.system(cmd))
+      
+      return git_root ~= "" and git_root or vim.fn.getcwd()
+    end
+
     -- Search files within the git project
     local function find_files_git()
-      local curr_dir = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":h")
-
-      builtin.git_files({ use_git_root = false, recurse_submodules = true })
-      -- builtin.git_files({ cwd = curr_dir, use_git_root = false, recurse_submodules = true })
+      local git_root = get_git_root()
+      
+      if git_root ~= "" then
+        builtin.git_files({ 
+          cwd = git_root,
+          recurse_submodules = true 
+        })
+      else
+        -- Fallback to normal find_files if not in a git repo
+        builtin.find_files()
+      end
     end
 
     -- Git grep within git project
@@ -85,9 +109,11 @@ return {
         "--follow",
       }
 
+      local git_root = get_git_root()
+      
       builtin.live_grep({
         cwd = utils.buffer_dir(),
-        search_dirs = { vim.fn.systemlist("git rev-parse --show-toplevel")[1] }, -- git root directory
+        search_dirs = { git_root },
         vimgrep_arguments = rg_args,
       })
     end
