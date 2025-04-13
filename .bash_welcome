@@ -1,10 +1,8 @@
-#!/bin/bash
-
-if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
+if [[ "$MACHINE1" == *"$CURRENT_MACHINE"* ]]; then
     echo ""
     echo "You're in Arcadia. Welcome!"
     echo ""
-elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
+elif [[ "$MACHINE2" == *"$CURRENT_MACHINE"* ]]; then
     echo ""
     echo "You're in Windows Home. Welcome!"
     echo ""

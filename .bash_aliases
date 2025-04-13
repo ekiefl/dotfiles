@@ -1,5 +1,4 @@
-shopt -s expand_aliases
-
+# General
 alias tlf="tail -f"
 alias tarp="tar -zcvf"
 alias untarp="tar -zxvf"
@@ -8,53 +7,61 @@ alias rl="readlink -f"
 alias ll="ls -la"
 alias h="head -n"
 alias t="tail -n"
+
+# Aliases for editing config files
 alias eu="vim ~/.bash_utils"
 alias ea="vim ~/.bash_aliases"
 alias ei="vim ~/.inputrc"
-alias eb="vim ~/.bashrc"
+alias eb="vim ~/.zhrc"
 alias ep="vim ~/.bash_prompt"
-alias ev="vim ~/.vimrc"
-alias sb="source ~/.bash_profile"
+alias sb="source ~/.zprofile"
+
+# Git aliases
 alias gs="git status"
 alias ga="git add"
 alias gd="git diff"
 alias gc="git checkout"
 alias gb="git branch"
-alias gu="git add -u; git commit -m '$(date)'; git push"
-alias yu="yadm add -u; yadm commit -m '$(date)'; yadm push origin master"
+
+# Yadm aliases
+alias yu="yadm add -u; yadm commit -m \"\$(date)\"; yadm push origin master"
 alias ys="yadm status"
 alias yd="yadm diff"
+
+# Screen aliases
 alias ss="screen -S"
 alias sls="screen -ls"
 alias sx="screen -x"
 alias sr="screen -r"
+
+# Conda aliases
 alias d="conda deactivate"
 alias ca="conda activate"
+
+# Jekyll aliases
 alias js="bundle exec jekyll serve"
 alias jsi="bundle exec jekyll serve --incremental"
 
-# changes title of the window from `old` to `new (old)` via `title new`
-function title {
+title() {
     echo -ne "\033]0;"$*"\007"
 }
 
-if [[ "$MACHINE1" =~ "$CURRENT_MACHINE" ]]; then
-    source ~/.arcadia/bash_aliases
-elif [[ "$MACHINE2" =~ "$CURRENT_MACHINE" ]]; then
+if [[ "$MACHINE1" == *"$CURRENT_MACHINE"* ]]; then
+    if [ -f ~/.arcadia/bash_aliases ]; then
+        source ~/.arcadia/bash_aliases
+    fi
+elif [[ "$MACHINE2" == *"$CURRENT_MACHINE"* ]]; then
     alias vim=$(which nvim)
-    alias vi=$(which nvim)
     export software="/Users/evan/Software"
 else
     alias anvio="conda activate anvio-dev"
     alias pt="conda activate pooltool"
     alias pm="conda activate poolml"
 
-    # overwrites
     alias readlink="greadlink"
     alias vim=$(which nvim)
     alias vi=$(which nvim)
 
-    # convenience variables (these are the only exports allowed in ~/.bash_aliases)
     export academics="/Users/evan/Academics"
     export nvim="/Users/evan/.config/nvim/"
     export pm="/Users/evan/Software/poolml"
@@ -76,3 +83,4 @@ else
     export software="/Users/evan/Software"
     export ekiefl="/Users/evan/Software/ekiefl.github.io"
 fi
+

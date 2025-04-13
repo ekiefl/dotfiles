@@ -1,109 +1,136 @@
-#!/bin/bash
-
-# ----------------------------------------------------------------------
-#  Enables "cd --" "cd -[0-9]" syntax {{{
-# ----------------------------------------------------------------------
-
-# do ". acd_func.sh"
-# acd_func 1.0.5, 10-nov-2004
-# petar marinov, http:/geocities.com/h2428, this is public domain
-
-cd_func ()
-{
-  local x2 the_new_dir adir index
-  local -i cnt
-
-  if [[ $1 ==  "--" ]]; then
-    dirs -v
-    return 0
-  fi
-
-  the_new_dir=$1
-  [[ -z $1 ]] && the_new_dir=$HOME
-
-  if [[ ${the_new_dir:0:1} == '-' ]]; then
-    #
-    # Extract dir N from dirs
-    index=${the_new_dir:1}
-    [[ -z $index ]] && index=1
-    adir=$(dirs +$index)
-    [[ -z $adir ]] && return 1
-    the_new_dir=$adir
-  fi
-
-  #
-  # '~' has to be substituted by ${HOME}
-  [[ ${the_new_dir:0:1} == '~' ]] && the_new_dir="${HOME}${the_new_dir:1}"
-
-  #
-  # Now change to the new dir and add to the top of the stack
-  pushd "${the_new_dir}" > /dev/null
-  [[ $? -ne 0 ]] && return 1
-  the_new_dir=$(pwd)
-
-  #
-  # Trim down everything beyond 11th entry
-  popd -n +11 2>/dev/null 1>/dev/null
-
-  #
-  # Remove any other occurence of this dir, skipping the top of the stack
-  for ((cnt=1; cnt <= 10; cnt++)); do
-    x2=$(dirs +${cnt} 2>/dev/null)
-    [[ $? -ne 0 ]] && return 0
-    [[ ${x2:0:1} == '~' ]] && x2="${HOME}${x2:1}"
-    if [[ "${x2}" == "${the_new_dir}" ]]; then
-      popd -n +$cnt 2>/dev/null 1>/dev/null
-      cnt=cnt-1
-    fi
-  done
-
-  return 0
-}
-
-alias cd=cd_func
-
-if [[ $BASH_VERSION > "2.05a" ]]; then
-  # ctrl+w shows the menu
-  bind -x "\"\C-w\":cd_func -- ;"
-fi
-
 # ----------------------------------------------------------------------
 #  }}} Run a command for a given commit and repo {{{
 # ----------------------------------------------------------------------
 
-with () {
-    # the repo directory
-    REPO=$1
-    # the commit hash
-    COMMIT=$2
-    # the command you want to run
-    CMD=${@:3:500}
+# Function to run a command in the context of a specific git commit within a repository.
+# Temporarily checks out the commit, runs the command from the original directory,
+# and then restores the original git state and working directory.
+#
+# Usage: with <repo_path> <commit_hash> <command> [args...]
+# Example: with /path/to/my/repo a1b2c3d git log -n 1
+with() {
+    # Check if enough arguments are provided
+    if [ "$#" -lt 3 ]; then
+        # Print usage message to standard error
+        echo "Usage: with <repo_path> <commit_hash> <command> [args...]" >&2
+        return 1 # Return error code
+    fi
 
-    WD=$(pwd)
-    cd $REPO
-    CURRENT_STATE=$(git branch | awk '/\*/ { print $2; }')
+    local REPO="$1"
+    local COMMIT="$2"
+    local WD # Variable for original working directory
+    local CURRENT_STATE # Variable for original git state (branch/commit)
+    local NO_STASH # Flag to track if stash was used (1 = no stash, 0 = stash used)
+    local cmd_exit_code
 
-    # try checking out. If fatal, git stash, then checkout
-    if git checkout $COMMIT; then
-        NO_STASH=1
+    # Remove the first two arguments (REPO and COMMIT) from the positional parameters ($@)
+    shift 2
+    # Now, "$@" contains the command and its arguments to be executed
+
+    # Get the physical current working directory (safer with symlinks)
+    WD=$(pwd -P)
+    if [ -z "$WD" ]; then
+        echo "Error: Could not get current working directory." >&2
+        return 1
+    fi
+
+    # --- Prepare Git Repo ---
+    # Change to the repository directory
+    if ! cd "$REPO"; then
+        echo "Error: Could not change directory to '$REPO'." >&2
+        return 1
+    fi
+
+    # Get the current branch name or commit hash (if detached HEAD)
+    # Try symbolic-ref first (for branches), fall back to rev-parse (for commits/detached HEAD)
+    CURRENT_STATE=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse HEAD 2>/dev/null)
+    if [ -z "$CURRENT_STATE" ]; then
+        echo "Error: Could not determine current git state in '$REPO'." >&2
+        cd "$WD" # Attempt to return to original directory
+        return 1
+    fi
+
+    # Try checking out the target commit quietly.
+    if git checkout "$COMMIT" --quiet 2>/dev/null; then
+        NO_STASH=1 # No stash was needed
     else
-        git stash
-        NO_STASH=0
-        git checkout $COMMIT
+        # If checkout failed (likely due to local changes), try stashing first.
+        echo "Attempting to stash local changes in '$REPO'..." >&2
+        if git stash push -m "with_function_stash_$(date +%s)" --quiet && git checkout "$COMMIT" --quiet; then
+            NO_STASH=0 # Stash was needed and successful
+        else
+            echo "Error: Could not checkout commit '$COMMIT', even after attempting to stash." >&2
+            # Attempt to restore original state before exiting
+            git checkout "$CURRENT_STATE" --quiet 2>/dev/null # Best effort restore
+            cd "$WD"
+            return 1
+        fi
     fi
 
-    cd $WD
-    echo -e "=======================================================================\n"
-    eval $CMD
-    echo -e "\n======================================================================="
-    cd $REPO
-
-    git checkout $CURRENT_STATE
-    if [ "$NO_STASH" -eq "0" ]; then
-        git stash pop
+    # --- Execute Command ---
+    # Change back to the original working directory to run the command
+    if ! cd "$WD"; then
+       echo "Error: Could not change back to original directory '$WD' to run command." >&2
+       # Attempt to restore git state before exiting
+       cd "$REPO" && git checkout "$CURRENT_STATE" --quiet 2>/dev/null
+       if [ "$NO_STASH" -eq 0 ]; then
+           # Try to pop stash if we created one, ignoring errors as we are already failing
+           git stash pop --quiet 2>/dev/null
+       fi
+       cd "$WD" # Final attempt to return
+       return 1
     fi
 
-    cd $WD
+    echo "======================================================================="
+    echo "Running command in context of $REPO @ $COMMIT"
+    echo "Command: $@"
+    echo "-----------------------------------------------------------------------"
+
+    # Execute the command and its arguments directly and safely using "$@"
+    # This correctly handles spaces and special characters in the command/args.
+    "$@"
+    cmd_exit_code=$? # Capture the exit code of the user's command
+
+    echo "======================================================================="
+    echo "Command finished with exit code: $cmd_exit_code"
+
+    # --- Restore Git Repo State ---
+    # Change back to the repository to restore state
+    if ! cd "$REPO"; then
+        echo "Error: Could not change back to repo '$REPO' to restore state." >&2
+        # Cannot reliably restore git state if we can't cd back
+        cd "$WD" # Go back to original WD at least
+        # State is potentially inconsistent, return error
+        # Consider returning cmd_exit_code or a specific error code? Returning 1 for now.
+        return 1
+    fi
+
+    # Restore the original git state (branch or commit)
+    if ! git checkout "$CURRENT_STATE" --quiet; then
+       echo "Warning: Could not checkout original state '$CURRENT_STATE'. Manual check needed in '$REPO'." >&2
+       # Continue to try and pop stash if needed, but state might be wrong
+    fi
+
+    # Pop the stash if one was created
+    if [ "$NO_STASH" -eq 0 ]; then
+        echo "Popping stashed changes in '$REPO'..." >&2
+        if ! git stash pop --quiet; then
+            echo "Warning: Could not pop stash in '$REPO'. Manual check needed (git stash list)." >&2
+            # Stash might conflict now, user needs to resolve
+        fi
+    fi
+
+    # --- Finish ---
+    # Return to the original working directory
+    if ! cd "$WD"; then
+        # This is unlikely if we got here, but check anyway
+        echo "Warning: Could not change back to original directory '$WD' after completion." >&2
+        # We're likely in the repo dir still
+        return 1 # Indicate potential issue
+    fi
+
+    # Return the exit code of the command that was run
+    return $cmd_exit_code
 }
 
 # ----------------------------------------------------------------------
@@ -123,7 +150,7 @@ gitsed () {
 
 cm () {
     NAME=$1
-    PYTHON_VERSION=${2:-3.11}  # Set PYTHON_VERSION to the 2nd argument or default to "3.11" if not provided
+    PYTHON_VERSION=${2:-3.11}
     conda deactivate
     conda deactivate
     conda env remove --name $NAME
