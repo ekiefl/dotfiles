@@ -1,0 +1,1379 @@
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/filetype.lua
+Sourced 1 time
+Total time:   0.000023
+ Self time:   0.000023
+
+count  total (s)   self (s)
+                            if vim.g.did_load_filetypes then
+                              return
+                            end
+                            vim.g.did_load_filetypes = 1
+                            
+                            vim.api.nvim_create_augroup('filetypedetect', { clear = false })
+                            
+                            vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'StdinReadPost' }, {
+                              group = 'filetypedetect',
+                              callback = function(args)
+                                if not vim.api.nvim_buf_is_valid(args.buf) then
+                                  return
+                                end
+                                local ft, on_detect = vim.filetype.match({ filename = args.match, buf = args.buf })
+                                if not ft then
+                                  -- Generic configuration file used as fallback
+                                  ft = require('vim.filetype.detect').conf(args.file, args.buf)
+                                  if ft then
+                                    vim.api.nvim_buf_call(args.buf, function()
+                                      vim.api.nvim_cmd({ cmd = 'setf', args = { 'FALLBACK', ft } }, {})
+                                    end)
+                                  end
+                                else
+                                  vim.api.nvim_buf_call(args.buf, function()
+                                    vim.api.nvim_cmd({ cmd = 'setf', args = { ft } }, {})
+                                  end)
+                                  if on_detect then
+                                    on_detect(args.buf)
+                                  end
+                                end
+                              end,
+                            })
+                            
+                            -- These *must* be sourced after the autocommand above is created
+                            if not vim.g.did_load_ftdetect then
+                              vim.cmd([[
+                              augroup filetypedetect
+                              runtime! ftdetect/*.vim
+                              runtime! ftdetect/*.lua
+                              augroup END
+                              ]])
+                            end
+                            
+                            -- Set up the autocmd for user scripts.vim
+                            vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+                              group = 'filetypedetect',
+                              command = "if !did_filetype() && expand('<amatch>') !~ g:ft_ignore_pat | runtime! scripts.vim | endif",
+                            })
+                            
+                            vim.api.nvim_create_autocmd('StdinReadPost', {
+                              group = 'filetypedetect',
+                              command = 'if !did_filetype() | runtime! scripts.vim | endif',
+                            })
+                            
+                            if not vim.g.ft_ignore_pat then
+                              vim.g.ft_ignore_pat = '\\.\\(Z\\|gz\\|bz2\\|zip\\|tgz\\)$'
+                            end
+
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/syntax/syntax.vim
+Sourced 1 time
+Total time:   0.000182
+ Self time:   0.000128
+
+count  total (s)   self (s)
+                            " Vim syntax support file
+                            " Maintainer:	Bram Moolenaar <Bram@vim.org>
+                            " Last Change:	2022 Apr 12
+                            
+                            " This file is used for ":syntax on".
+                            " It installs the autocommands and starts highlighting for all buffers.
+                            
+    1              0.000001 if !has("syntax")
+                              finish
+    1              0.000000 endif
+                            
+                            " If Syntax highlighting appears to be on already, turn it off first, so that
+                            " any leftovers are cleared.
+    1              0.000001 if exists("syntax_on") || exists("syntax_manual")
+                              so <sfile>:p:h/nosyntax.vim
+    1              0.000000 endif
+                            
+                            " Load the Syntax autocommands and set the default methods for highlighting.
+    1   0.000128   0.000095 runtime syntax/synload.vim
+                            
+                            " Load the FileType autocommands if not done yet.
+    1              0.000001 if exists("did_load_filetypes")
+    1              0.000001   let s:did_ft = 1
+                            else
+                              filetype on
+                              let s:did_ft = 0
+    1              0.000000 endif
+                            
+                            " Set up the connection between FileType and Syntax autocommands.
+                            " This makes the syntax automatically set when the file type is detected
+                            " unless treesitter highlighting is enabled.
+                            " Avoid an error when 'verbose' is set and <amatch> expansion fails.
+    1              0.000000 augroup syntaxset
+    1              0.000002   au! FileType *	if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+    1              0.000000 augroup END
+                            
+                            " Execute the syntax autocommands for the each buffer.
+                            " If the filetype wasn't detected yet, do that now.
+                            " Always do the syntaxset autocommands, for buffers where the 'filetype'
+                            " already was set manually (e.g., help buffers).
+    1   0.000024   0.000003 doautoall syntaxset FileType
+    1              0.000001 if !s:did_ft
+                              doautoall filetypedetect BufRead
+    1              0.000001 endif
+
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/syntax/synload.vim
+Sourced 1 time
+Total time:   0.000029
+ Self time:   0.000029
+
+count  total (s)   self (s)
+                            " Vim syntax support file
+                            " Maintainer:	Bram Moolenaar <Bram@vim.org>
+                            " Last Change:	2022 Apr 12
+                            
+                            " This file sets up for syntax highlighting.
+                            " It is loaded from "syntax.vim" and "manual.vim".
+                            " 1. Set the default highlight groups.
+                            " 2. Install Syntax autocommands for all the available syntax files.
+                            
+    1              0.000001 if !has("syntax")
+                              finish
+    1              0.000000 endif
+                            
+                            " let others know that syntax has been switched on
+    1              0.000001 let syntax_on = 1
+                            
+                            " Line continuation is used here, remove 'C' from 'cpoptions'
+    1              0.000001 let s:cpo_save = &cpo
+    1              0.000001 set cpo&vim
+                            
+                            " First remove all old syntax autocommands.
+    1              0.000001 au! Syntax
+                            
+    1              0.000001 au Syntax *		call s:SynSet()
+                            
+    1              0.000001 fun! s:SynSet()
+                              " clear syntax for :set syntax=OFF  and any syntax name that doesn't exist
+                              syn clear
+                              if exists("b:current_syntax")
+                                unlet b:current_syntax
+                              endif
+                            
+                              0verbose let s = expand("<amatch>")
+                              if s == "ON"
+                                " :set syntax=ON
+                                if &filetype == ""
+                                  echohl ErrorMsg
+                                  echo "filetype unknown"
+                                  echohl None
+                                endif
+                                let s = &filetype
+                              elseif s == "OFF"
+                                let s = ""
+                              endif
+                            
+                              if s != ""
+                                " Load the syntax file(s).  When there are several, separated by dots,
+                                " load each in sequence.  Skip empty entries.
+                                for name in split(s, '\.')
+                                  if !empty(name)
+                                    exe "runtime! syntax/" . name . ".vim syntax/" . name . "/*.vim"
+                                    exe "runtime! syntax/" . name . ".lua syntax/" . name . "/*.lua"
+                                  endif
+                                endfor
+                              endif
+                            endfun
+                            
+                            
+                            " Handle adding doxygen to other languages (C, C++, C#, IDL, java, php, DataScript)
+    1              0.000005 au Syntax c,cpp,cs,idl,java,php,datascript
+                            	\ if (exists('b:load_doxygen_syntax') && b:load_doxygen_syntax)
+                            	\	|| (exists('g:load_doxygen_syntax') && g:load_doxygen_syntax)
+                            	\   | runtime! syntax/doxygen.vim
+                            	\ | endif
+                            
+                            
+                            " Source the user-specified syntax highlighting file
+    1              0.000001 if exists("mysyntaxfile")
+                              let s:fname = expand(mysyntaxfile)
+                              if filereadable(s:fname)
+                                execute "source " . fnameescape(s:fname)
+                              endif
+    1              0.000000 endif
+                            
+                            " Restore 'cpoptions'
+    1              0.000002 let &cpo = s:cpo_save
+    1              0.000001 unlet s:cpo_save
+
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim
+Sourced 1 time
+Total time:   0.000080
+ Self time:   0.000065
+
+count  total (s)   self (s)
+                            " The clipboard provider uses shell commands to communicate with the clipboard.
+                            " The provider function will only be registered if a supported command is
+                            " available.
+                            
+    1              0.000001 if exists('g:loaded_clipboard_provider')
+                              finish
+    1              0.000000 endif
+                            " Default to 1.  provider#clipboard#Executable() may set 2.
+                            " To force a reload:
+                            "   :unlet g:loaded_clipboard_provider
+                            "   :runtime autoload/provider/clipboard.vim
+    1              0.000001 let g:loaded_clipboard_provider = 1
+                            
+    1              0.000001 let s:copy = {}
+    1              0.000000 let s:paste = {}
+    1              0.000001 let s:clipboard = {}
+                            
+                            " When caching is enabled, store the jobid of the xclip/xsel process keeping
+                            " ownership of the selection, so we know how long the cache is valid.
+    1              0.000001 let s:selection = { 'owner': 0, 'data': [], 'stderr_buffered': v:true }
+                            
+    1              0.000001 function! s:selection.on_exit(jobid, data, event) abort
+                              " At this point this nvim instance might already have launched
+                              " a new provider instance. Don't drop ownership in this case.
+                              if self.owner == a:jobid
+                                let self.owner = 0
+                              endif
+                              " Don't print if exit code is >= 128 ( exit is 128+SIGNUM if by signal (e.g. 143 on SIGTERM))
+                              if a:data > 0 && a:data < 128
+                                echohl WarningMsg
+                                echomsg 'clipboard: error invoking '.get(self.argv, 0, '?').': '.join(self.stderr)
+                                echohl None
+                              endif
+                            endfunction
+                            
+    1              0.000002 let s:selections = { '*': s:selection, '+': copy(s:selection) }
+                            
+    1              0.000001 function! s:try_cmd(cmd, ...) abort
+                              let out = systemlist(a:cmd, (a:0 ? a:1 : ['']), 1)
+                              if v:shell_error
+                                if !exists('s:did_error_try_cmd')
+                                  echohl WarningMsg
+                                  echomsg "clipboard: error: ".(len(out) ? out[0] : v:shell_error)
+                                  echohl None
+                                  let s:did_error_try_cmd = 1
+                                endif
+                                return 0
+                              endif
+                              return out
+                            endfunction
+                            
+                            " Returns TRUE if `cmd` exits with success, else FALSE.
+    1              0.000000 function! s:cmd_ok(cmd) abort
+                              call system(a:cmd)
+                              return v:shell_error == 0
+                            endfunction
+                            
+    1              0.000000 function! s:split_cmd(cmd) abort
+                              return (type(a:cmd) == v:t_string) ? split(a:cmd, " ") : a:cmd
+                            endfunction
+                            
+    1              0.000001 let s:cache_enabled = 1
+    1              0.000000 let s:err = ''
+                            
+    1              0.000001 function! provider#clipboard#Error() abort
+                              return s:err
+                            endfunction
+                            
+    1              0.000000 function! provider#clipboard#Executable() abort
+                              if exists('g:clipboard')
+                                if type({}) isnot# type(g:clipboard)
+                                      \ || type({}) isnot# type(get(g:clipboard, 'copy', v:null))
+                                      \ || type({}) isnot# type(get(g:clipboard, 'paste', v:null))
+                                  let s:err = 'clipboard: invalid g:clipboard'
+                                  return ''
+                                endif
+                            
+                                let s:copy = {}
+                                let s:copy['+'] = s:split_cmd(get(g:clipboard.copy, '+', v:null))
+                                let s:copy['*'] = s:split_cmd(get(g:clipboard.copy, '*', v:null))
+                            
+                                let s:paste = {}
+                                let s:paste['+'] = s:split_cmd(get(g:clipboard.paste, '+', v:null))
+                                let s:paste['*'] = s:split_cmd(get(g:clipboard.paste, '*', v:null))
+                            
+                                let s:cache_enabled = get(g:clipboard, 'cache_enabled', 0)
+                                return get(g:clipboard, 'name', 'g:clipboard')
+                              elseif has('mac')
+                                let s:copy['+'] = ['pbcopy']
+                                let s:paste['+'] = ['pbpaste']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                let s:cache_enabled = 0
+                                return 'pbcopy'
+                              elseif !empty($WAYLAND_DISPLAY) && executable('wl-copy') && executable('wl-paste')
+                                let s:copy['+'] = ['wl-copy', '--type', 'text/plain']
+                                let s:paste['+'] = ['wl-paste', '--no-newline']
+                                let s:copy['*'] = ['wl-copy', '--primary', '--type', 'text/plain']
+                                let s:paste['*'] = ['wl-paste', '--no-newline', '--primary']
+                                return 'wl-copy'
+                              elseif !empty($WAYLAND_DISPLAY) && executable('waycopy') && executable('waypaste')
+                                let s:copy['+'] = ['waycopy', '-t', 'text/plain']
+                                let s:paste['+'] = ['waypaste', '-t', 'text/plain']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'wayclip'
+                              elseif !empty($DISPLAY) && executable('xsel') && s:cmd_ok('xsel -o -b')
+                                let s:copy['+'] = ['xsel', '--nodetach', '-i', '-b']
+                                let s:paste['+'] = ['xsel', '-o', '-b']
+                                let s:copy['*'] = ['xsel', '--nodetach', '-i', '-p']
+                                let s:paste['*'] = ['xsel', '-o', '-p']
+                                return 'xsel'
+                              elseif !empty($DISPLAY) && executable('xclip')
+                                let s:copy['+'] = ['xclip', '-quiet', '-i', '-selection', 'clipboard']
+                                let s:paste['+'] = ['xclip', '-o', '-selection', 'clipboard']
+                                let s:copy['*'] = ['xclip', '-quiet', '-i', '-selection', 'primary']
+                                let s:paste['*'] = ['xclip', '-o', '-selection', 'primary']
+                                return 'xclip'
+                              elseif executable('lemonade')
+                                let s:copy['+'] = ['lemonade', 'copy']
+                                let s:paste['+'] = ['lemonade', 'paste']
+                                let s:copy['*'] = ['lemonade', 'copy']
+                                let s:paste['*'] = ['lemonade', 'paste']
+                                return 'lemonade'
+                              elseif executable('doitclient')
+                                let s:copy['+'] = ['doitclient', 'wclip']
+                                let s:paste['+'] = ['doitclient', 'wclip', '-r']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'doitclient'
+                              elseif executable('win32yank.exe')
+                                if has('wsl') && getftype(exepath('win32yank.exe')) == 'link'
+                                  let win32yank = resolve(exepath('win32yank.exe'))
+                                else
+                                  let win32yank = 'win32yank.exe'
+                                endif
+                                let s:copy['+'] = [win32yank, '-i', '--crlf']
+                                let s:paste['+'] = [win32yank, '-o', '--lf']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'win32yank'
+                              elseif executable('termux-clipboard-set')
+                                let s:copy['+'] = ['termux-clipboard-set']
+                                let s:paste['+'] = ['termux-clipboard-get']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'termux-clipboard'
+                              elseif !empty($TMUX) && executable('tmux')
+                                let tmux_v = v:lua.vim.version.parse(system(['tmux', '-V']))
+                                if !empty(tmux_v) && !v:lua.vim.version.lt(tmux_v, [3,2,0])
+                                  let s:copy['+'] = ['tmux', 'load-buffer', '-w', '-']
+                                else
+                                  let s:copy['+'] = ['tmux', 'load-buffer', '-']
+                                endif
+                                let s:paste['+'] = ['tmux', 'save-buffer', '-']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'tmux'
+                              endif
+                            
+                              let s:err = 'clipboard: No clipboard tool. :help clipboard'
+                              return ''
+                            endfunction
+                            
+    1              0.000001 function! s:clipboard.get(reg) abort
+                              if type(s:paste[a:reg]) == v:t_func
+                                return s:paste[a:reg]()
+                              elseif s:selections[a:reg].owner > 0
+                                return s:selections[a:reg].data
+                              end
+                            
+                              let clipboard_data = s:try_cmd(s:paste[a:reg])
+                              if match(&clipboard, '\v(unnamed|unnamedplus)') >= 0
+                                    \ && type(clipboard_data) == v:t_list
+                                    \ && get(s:selections[a:reg].data, 0, []) ==# clipboard_data
+                                " When system clipboard return is same as our cache return the cache
+                                " as it contains regtype information
+                                return s:selections[a:reg].data
+                              end
+                              return clipboard_data
+                            endfunction
+                            
+    1              0.000001 function! s:clipboard.set(lines, regtype, reg) abort
+                              if a:reg == '"'
+                                call s:clipboard.set(a:lines,a:regtype,'+')
+                                if s:copy['*'] != s:copy['+']
+                                  call s:clipboard.set(a:lines,a:regtype,'*')
+                                end
+                                return 0
+                              end
+                            
+                              if type(s:copy[a:reg]) == v:t_func
+                                call s:copy[a:reg](a:lines, a:regtype)
+                                return 0
+                              end
+                            
+                              if s:cache_enabled == 0
+                                call s:try_cmd(s:copy[a:reg], a:lines)
+                                "Cache it anyway we can compare it later to get regtype of the yank
+                                let s:selections[a:reg] = copy(s:selection)
+                                let s:selections[a:reg].data = [a:lines, a:regtype]
+                                return 0
+                              end
+                            
+                              if s:selections[a:reg].owner > 0
+                                let prev_job = s:selections[a:reg].owner
+                              end
+                              let s:selections[a:reg] = copy(s:selection)
+                              let selection = s:selections[a:reg]
+                              let selection.data = [a:lines, a:regtype]
+                              let selection.argv = s:copy[a:reg]
+                              let selection.detach = s:cache_enabled
+                              let selection.cwd = "/"
+                              let jobid = jobstart(selection.argv, selection)
+                              if jobid > 0
+                                call jobsend(jobid, a:lines)
+                                call jobclose(jobid, 'stdin')
+                                " xclip does not close stdout when receiving input via stdin
+                                if selection.argv[0] ==# 'xclip'
+                                  call jobclose(jobid, 'stdout')
+                                endif
+                                let selection.owner = jobid
+                                let ret = 1
+                              else
+                                echohl WarningMsg
+                                echomsg 'clipboard: failed to execute: '.(s:copy[a:reg])
+                                echohl None
+                                let ret = 1
+                              endif
+                            
+                              " The previous provider instance should exit when the new one takes
+                              " ownership, but kill it to be sure we don't fill up the job table.
+                              if exists('prev_job')
+                                call timer_start(1000, {... ->
+                                      \ jobwait([prev_job], 0)[0] == -1
+                                      \ && jobstop(prev_job)})
+                              endif
+                            
+                              return ret
+                            endfunction
+                            
+    1              0.000001 function! provider#clipboard#Call(method, args) abort
+                              if get(s:, 'here', v:false)  " Clipboard provider must not recurse. #7184
+                                return 0
+                              endif
+                              let s:here = v:true
+                              try
+                                return call(s:clipboard[a:method],a:args,s:clipboard)
+                              finally
+                                let s:here = v:false
+                              endtry
+                            endfunction
+                            
+                            " eval_has_provider() decides based on this variable.
+    1   0.000019   0.000004 let g:loaded_clipboard_provider = empty(provider#clipboard#Executable()) ? 1 : 2
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/dressing.nvim/plugin/dressing.lua
+Sourced 1 time
+Total time:   0.000366
+ Self time:   0.000366
+
+count  total (s)   self (s)
+                            require("dressing").patch()
+                            vim.api.nvim_set_hl(0, "DressingSelectIdx", {
+                              link = "Special",
+                            })
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/telescope.nvim/ftplugin/TelescopePrompt.lua
+Sourced 1 time
+Total time:   0.000227
+ Self time:   0.000227
+
+count  total (s)   self (s)
+                            -- Don't wrap textwidth things
+                            vim.opt_local.formatoptions:remove "t"
+                            vim.opt_local.formatoptions:remove "c"
+                            
+                            -- Don't include `showbreak` when calculating strdisplaywidth
+                            vim.opt_local.wrap = false
+                            
+                            -- There's also no reason to enable textwidth here anyway
+                            vim.opt_local.textwidth = 0
+                            vim.opt_local.scrollbind = false
+                            
+                            vim.opt_local.signcolumn = "no"
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/telescope.nvim/ftplugin/TelescopeResults.lua
+Sourced 1 time
+Total time:   0.000109
+ Self time:   0.000109
+
+count  total (s)   self (s)
+                            -- Don't have scrolloff, it makes things weird.
+                            vim.opt_local.scrolloff = 0
+                            vim.opt_local.scrollbind = false
+                            
+                            vim.opt_local.signcolumn = "no"
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/cmp-buffer/after/plugin/cmp_buffer.lua
+Sourced 1 time
+Total time:   0.002981
+ Self time:   0.002981
+
+count  total (s)   self (s)
+                            require('cmp').register_source('buffer', require('cmp_buffer'))
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/cmp-path/after/plugin/cmp_path.lua
+Sourced 1 time
+Total time:   0.000331
+ Self time:   0.000331
+
+count  total (s)   self (s)
+                            require('cmp').register_source('path', require('cmp_path').new())
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.lua
+Sourced 1 time
+Total time:   0.002412
+ Self time:   0.002412
+
+count  total (s)   self (s)
+                            vim.filetype.add({
+                            	extension = { snippets = "snippets" },
+                            })
+                            
+                            local function silent_map(mode, lhs, rhs, desc)
+                            	vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc or "" })
+                            end
+                            
+                            silent_map("i", "<Plug>luasnip-expand-or-jump", function()
+                            	require("luasnip").expand_or_jump()
+                            end, "LuaSnip: Expand or jump in the current snippet")
+                            silent_map("i", "<Plug>luasnip-expand-snippet", function()
+                            	require("luasnip").expand()
+                            end, "LuaSnip: Expand the current snippet")
+                            silent_map("i", "<Plug>luasnip-next-choice", function()
+                            	require("luasnip").change_choice(1)
+                            end, "LuaSnip: Change to the next choice from the choiceNode")
+                            silent_map("i", "<Plug>luasnip-prev-choice", function()
+                            	require("luasnip").change_choice(-1)
+                            end, "LuaSnip: Change to the previous choice from the choiceNode")
+                            silent_map("i", "<Plug>luasnip-jump-next", function()
+                            	require("luasnip").jump(1)
+                            end, "LuaSnip: Jump to the next node")
+                            silent_map("i", "<Plug>luasnip-jump-prev", function()
+                            	require("luasnip").jump(-1)
+                            end, "LuaSnip: Jump to the previous node")
+                            
+                            silent_map("n", "<Plug>luasnip-delete-check", function()
+                            	require("luasnip").unlink_current_if_deleted()
+                            end, "LuaSnip: Removes current snippet from jumplist")
+                            silent_map("!", "<Plug>luasnip-delete-check", function()
+                            	require("luasnip").unlink_current_if_deleted()
+                            end, "LuaSnip: Removes current snippet from jumplist")
+                            
+                            silent_map("", "<Plug>luasnip-expand-repeat", function()
+                            	require("luasnip").expand_repeat()
+                            end, "LuaSnip: Repeat last node expansion")
+                            silent_map("!", "<Plug>luasnip-expand-repeat", function()
+                            	require("luasnip").expand_repeat()
+                            end, "LuaSnip: Repeat last node expansion")
+                            
+                            silent_map("s", "<Plug>luasnip-expand-or-jump", function()
+                            	require("luasnip").expand_or_jump()
+                            end, "LuaSnip: Expand or jump in the current snippet")
+                            silent_map("s", "<Plug>luasnip-expand-snippet", function()
+                            	require("luasnip").expand()
+                            end, "LuaSnip: Expand the current snippet")
+                            silent_map("s", "<Plug>luasnip-next-choice", function()
+                            	require("luasnip").change_choice(1)
+                            end, "LuaSnip: Change to the next choice from the choiceNode")
+                            silent_map("s", "<Plug>luasnip-prev-choice", function()
+                            	require("luasnip").change_choice(-1)
+                            end, "LuaSnip: Change to the previous choice from the choiceNode")
+                            silent_map("s", "<Plug>luasnip-jump-next", function()
+                            	require("luasnip").jump(1)
+                            end, "LuaSnip: Jump to the next node")
+                            silent_map("s", "<Plug>luasnip-jump-prev", function()
+                            	require("luasnip").jump(-1)
+                            end, "LuaSnip: Jump to the previous node")
+                            
+                            vim.api.nvim_create_user_command("LuaSnipUnlinkCurrent", function()
+                            	require("luasnip").unlink_current()
+                            end, { force = true })
+                            
+                            --stylua: ignore
+                            vim.api.nvim_create_user_command("LuaSnipListAvailable", function()
+                            	(
+                            		(
+                            			vim.version
+                            			and type(vim.version) == "table"
+                            			and (
+                            				((vim.version().major == 0) and (vim.version().minor >= 9))
+                            				or (vim.version().major > 0) )
+                            		) and vim.print
+                            		  or vim.pretty_print
+                            	)(require("luasnip").available())
+                            end, { force = true })
+                            
+                            require("luasnip.config")._setup()
+                            
+                            -- register these during startup so lazy_load will also load filetypes whose
+                            -- events fired only before lazy_load is actually called.
+                            -- (BufWinEnter -> lazy_load() wouldn't load any files without these).
+                            vim.api.nvim_create_augroup("_luasnip_lazy_load", {})
+                            vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
+                            	callback = function(event)
+                            		require("luasnip.loaders").load_lazy_loaded(tonumber(event.buf))
+                            	end,
+                            	group = "_luasnip_lazy_load",
+                            })
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/LuaSnip/plugin/luasnip.vim
+Sourced 1 time
+Total time:   0.000028
+ Self time:   0.000028
+
+count  total (s)   self (s)
+    1              0.000002 function! luasnip#expandable()
+                            	return luaeval('require("luasnip").expandable()')
+                            endfunction
+                            
+    1              0.000001 function! luasnip#expand_or_jumpable()
+                            	return luaeval('require("luasnip").expand_or_jumpable()')
+                            endfunction
+                            
+    1              0.000000 function! luasnip#expand_or_locally_jumpable()
+                            	return luaeval('require("luasnip").expand_or_locally_jumpable()')
+                            endfunction
+                            
+    1              0.000001 function! luasnip#locally_jumpable(direction)
+                            	return luaeval('require("luasnip").locally_jumpable(_A)', a:direction)
+                            endfunction
+                            
+    1              0.000000 function! luasnip#jumpable(direction)
+                            	return luaeval('require("luasnip").jumpable(_A)', a:direction)
+                            endfunction
+                            
+    1              0.000000 function! luasnip#choice_active()
+                            	return luaeval('require("luasnip").choice_active()')
+                            endfunction
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/cmp_luasnip/after/plugin/cmp_luasnip.lua
+Sourced 1 time
+Total time:   0.000365
+ Self time:   0.000365
+
+count  total (s)   self (s)
+                            require("cmp").register_source("luasnip", require("cmp_luasnip").new())
+                            
+                            local cmp_luasnip = vim.api.nvim_create_augroup("cmp_luasnip", {})
+                            
+                            vim.api.nvim_create_autocmd("User", {
+                              pattern = "LuasnipCleanup",
+                              callback = function ()
+                                require("cmp_luasnip").clear_cache()
+                              end,
+                              group = cmp_luasnip
+                            })
+                            
+                            vim.api.nvim_create_autocmd("User", {
+                              pattern = "LuasnipSnippetsAdded",
+                              callback = function ()
+                                require("cmp_luasnip").refresh()
+                              end,
+                              group = cmp_luasnip
+                            })
+
+SCRIPT  /Users/evan/.local/share/nvim/lazy/nvim-cmp/plugin/cmp.lua
+Sourced 1 time
+Total time:   0.000209
+ Self time:   0.000209
+
+count  total (s)   self (s)
+                            if vim.g.loaded_cmp then
+                              return
+                            end
+                            vim.g.loaded_cmp = true
+                            
+                            if not vim.api.nvim_create_autocmd then
+                              return print('[nvim-cmp] Your nvim does not has `nvim_create_autocmd` function. Please update to latest nvim.')
+                            end
+                            
+                            local api = require('cmp.utils.api')
+                            local types = require('cmp.types')
+                            local highlight = require('cmp.utils.highlight')
+                            local autocmd = require('cmp.utils.autocmd')
+                            
+                            vim.api.nvim_set_hl(0, 'CmpItemAbbr', { link = 'CmpItemAbbrDefault', default = true })
+                            vim.api.nvim_set_hl(0, 'CmpItemAbbrDeprecated', { link = 'CmpItemAbbrDeprecatedDefault', default = true })
+                            vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { link = 'CmpItemAbbrMatchDefault', default = true })
+                            vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link = 'CmpItemAbbrMatchFuzzyDefault', default = true })
+                            vim.api.nvim_set_hl(0, 'CmpItemKind', { link = 'CmpItemKindDefault', default = true })
+                            vim.api.nvim_set_hl(0, 'CmpItemMenu', { link = 'CmpItemMenuDefault', default = true })
+                            for kind in pairs(types.lsp.CompletionItemKind) do
+                              if type(kind) == 'string' then
+                                local name = ('CmpItemKind%s'):format(kind)
+                                vim.api.nvim_set_hl(0, name, { link = ('%sDefault'):format(name), default = true })
+                              end
+                            end
+                            
+                            autocmd.subscribe({ 'ColorScheme', 'UIEnter' }, function()
+                              highlight.inherit('CmpItemAbbrDefault', 'Pmenu', { bg = 'NONE', default = false })
+                              highlight.inherit('CmpItemAbbrDeprecatedDefault', 'Comment', { bg = 'NONE', default = false })
+                              highlight.inherit('CmpItemAbbrMatchDefault', 'Pmenu', { bg = 'NONE', default = false })
+                              highlight.inherit('CmpItemAbbrMatchFuzzyDefault', 'Pmenu', { bg = 'NONE', default = false })
+                              highlight.inherit('CmpItemKindDefault', 'Special', { bg = 'NONE', default = false })
+                              highlight.inherit('CmpItemMenuDefault', 'Pmenu', { bg = 'NONE', default = false })
+                              for name in pairs(types.lsp.CompletionItemKind) do
+                                if type(name) == 'string' then
+                                  vim.api.nvim_set_hl(0, ('CmpItemKind%sDefault'):format(name), { link = 'CmpItemKind', default = false })
+                                end
+                              end
+                            end)
+                            autocmd.emit('ColorScheme')
+                            
+                            if vim.on_key then
+                              local control_c_termcode = vim.api.nvim_replace_termcodes('<C-c>', true, true, true)
+                              vim.on_key(function(keys)
+                                if keys == control_c_termcode then
+                                  vim.schedule(function()
+                                    if not api.is_suitable_mode() then
+                                      autocmd.emit('InsertLeave')
+                                    end
+                                  end)
+                                end
+                              end, vim.api.nvim_create_namespace('cmp.plugin'))
+                            end
+                            
+                            
+                            vim.api.nvim_create_user_command('CmpStatus', function()
+                              require('cmp').status()
+                            end, { desc = 'Check status of cmp sources' })
+                            
+                            vim.cmd([[doautocmd <nomodeline> User CmpReady]])
+
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/ftplugin/lua.vim
+Sourced 1 time
+Total time:   0.000494
+ Self time:   0.000494
+
+count  total (s)   self (s)
+                            " Vim filetype plugin file.
+                            " Language:		Lua
+                            " Maintainer:		Doug Kearns <dougkearns@gmail.com>
+                            " Previous Maintainer:	Max Ischenko <mfi@ukr.net>
+                            " Contributor:		Dorai Sitaram <ds26@gte.com>
+                            "			C.D. MacEachern <craig.daniel.maceachern@gmail.com>
+                            " Last Change:		2022 Nov 19
+                            
+    1              0.000006 if exists("b:did_ftplugin")
+                              finish
+    1              0.000001 endif
+    1              0.000003 let b:did_ftplugin = 1
+                            
+    1              0.000005 let s:cpo_save = &cpo
+    1              0.000010 set cpo&vim
+                            
+    1              0.000004 setlocal comments=:--
+    1              0.000002 setlocal commentstring=--\ %s
+    1              0.000004 setlocal formatoptions-=t formatoptions+=croql
+                            
+    1              0.000003 let &l:define = '\<function\|\<local\%(\s\+function\)\='
+                            
+                            " TODO: handle init.lua
+    1              0.000002 setlocal includeexpr=tr(v:fname,'.','/')
+    1              0.000002 setlocal suffixesadd=.lua
+                            
+    1              0.000002 let b:undo_ftplugin = "setlocal cms< com< def< fo< inex< sua<"
+                            
+    1              0.000004 if exists("loaded_matchit") && !exists("b:match_words")
+    1              0.000001   let b:match_ignorecase = 0
+    1              0.000007   let b:match_words =
+                            	\ '\<\%(do\|function\|if\)\>:' ..
+                            	\ '\<\%(return\|else\|elseif\)\>:' ..
+                            	\ '\<end\>,' ..
+                            	\ '\<repeat\>:\<until\>,' ..
+                            	\ '\%(--\)\=\[\(=*\)\[:]\1]'
+    1              0.000005   let b:undo_ftplugin ..= " | unlet! b:match_words b:match_ignorecase"
+    1              0.000001 endif
+                            
+    1              0.000007 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
+                              let b:browsefilter = "Lua Source Files (*.lua)\t*.lua\n" ..
+                            	\	       "All Files (*.*)\t*.*\n"
+                              let b:undo_ftplugin ..= " | unlet! b:browsefilter"
+    1              0.000000 endif
+                            
+    1              0.000005 let &cpo = s:cpo_save
+    1              0.000003 unlet s:cpo_save
+                            
+                            " vim: nowrap sw=2 sts=2 ts=8 noet:
+
+SCRIPT  /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/indent/lua.vim
+Sourced 1 time
+Total time:   0.000283
+ Self time:   0.000283
+
+count  total (s)   self (s)
+                            " Vim indent file
+                            " Language:	Lua script
+                            " Maintainer:	Marcus Aurelius Farias <marcus.cf 'at' bol.com.br>
+                            " First Author:	Max Ischenko <mfi 'at' ukr.net>
+                            " Last Change:	2017 Jun 13
+                            "		2022 Sep 07: b:undo_indent added by Doug Kearns
+                            
+                            " Only load this indent file when no other was loaded.
+    1              0.000003 if exists("b:did_indent")
+                              finish
+    1              0.000000 endif
+    1              0.000002 let b:did_indent = 1
+                            
+    1              0.000008 setlocal indentexpr=GetLuaIndent()
+                            
+                            " To make Vim call GetLuaIndent() when it finds '\s*end' or '\s*until'
+                            " on the current line ('else' is default and includes 'elseif').
+    1              0.000002 setlocal indentkeys+=0=end,0=until
+                            
+    1              0.000003 setlocal autoindent
+                            
+    1              0.000001 let b:undo_indent = "setlocal autoindent< indentexpr< indentkeys<"
+                            
+                            " Only define the function once.
+    1              0.000002 if exists("*GetLuaIndent")
+                              finish
+    1              0.000000 endif
+                            
+    1              0.000003 function! GetLuaIndent()
+                              " Find a non-blank line above the current line.
+                              let prevlnum = prevnonblank(v:lnum - 1)
+                            
+                              " Hit the start of the file, use zero indent.
+                              if prevlnum == 0
+                                return 0
+                              endif
+                            
+                              " Add a 'shiftwidth' after lines that start a block:
+                              " 'function', 'if', 'for', 'while', 'repeat', 'else', 'elseif', '{'
+                              let ind = indent(prevlnum)
+                              let prevline = getline(prevlnum)
+                              let midx = match(prevline, '^\s*\%(if\>\|for\>\|while\>\|repeat\>\|else\>\|elseif\>\|do\>\|then\>\)')
+                              if midx == -1
+                                let midx = match(prevline, '{\s*$')
+                                if midx == -1
+                                  let midx = match(prevline, '\<function\>\s*\%(\k\|[.:]\)\{-}\s*(')
+                                endif
+                              endif
+                            
+                              if midx != -1
+                                " Add 'shiftwidth' if what we found previously is not in a comment and
+                                " an "end" or "until" is not present on the same line.
+                                if synIDattr(synID(prevlnum, midx + 1, 1), "name") != "luaComment" && prevline !~ '\<end\>\|\<until\>'
+                                  let ind = ind + shiftwidth()
+                                endif
+                              endif
+                            
+                              " Subtract a 'shiftwidth' on end, else, elseif, until and '}'
+                              " This is the part that requires 'indentkeys'.
+                              let midx = match(getline(v:lnum), '^\s*\%(end\>\|else\>\|elseif\>\|until\>\|}\)')
+                              if midx != -1 && synIDattr(synID(v:lnum, midx + 1, 1), "name") != "luaComment"
+                                let ind = ind - shiftwidth()
+                              endif
+                            
+                              return ind
+                            endfunction
+
+FUNCTION  <SNR>1_LoadFTPlugin()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/ftplugin.vim:14
+Called 5 times
+Total time:   0.012206
+ Self time:   0.011351
+
+count  total (s)   self (s)
+    5              0.000015     if exists("b:undo_ftplugin")
+                                  exe b:undo_ftplugin
+                                  unlet! b:undo_ftplugin b:did_ftplugin
+    5              0.000003     endif
+                            
+    5              0.000015     let s = expand("<amatch>")
+    5              0.000005     if s != ""
+    5              0.000029       if &cpo =~# "S" && exists("b:did_ftplugin")
+                            	" In compatible mode options are reset to the global values, need to
+                            	" set the local values also when a plugin was already used.
+                            	unlet b:did_ftplugin
+    5              0.000002       endif
+                            
+                                  " When there is a dot it is used to separate filetype names.  Thus for
+                                  " "aaa.bbb" load "aaa" and then "bbb".
+   10              0.000026       for name in split(s, '\.')
+                                    " Load Lua ftplugins after Vim ftplugins _per directory_
+                                    " TODO(clason): use nvim__get_runtime when supports globs and modeline
+    5   0.012029   0.011174         exe printf('runtime! ftplugin/%s.vim ftplugin/%s.lua ftplugin/%s_*.vim ftplugin/%s_*.lua ftplugin/%s/*.vim ftplugin/%s/*.lua', name, name, name, name, name, name)
+   10              0.000013       endfor
+    5              0.000002     endif
+
+FUNCTION  provider#clipboard#Call()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim:242
+Called 2 times
+Total time:   0.060304
+ Self time:   0.000165
+
+count  total (s)   self (s)
+    2              0.000053   if get(s:, 'here', v:false)  " Clipboard provider must not recurse. #7184
+                                return 0
+    2              0.000006   endif
+    2              0.000017   let s:here = v:true
+    2              0.000005   try
+    2   0.060190   0.000051     return call(s:clipboard[a:method],a:args,s:clipboard)
+    2              0.000003   finally
+    2              0.000003     let s:here = v:false
+    2              0.000003   endtry
+
+FUNCTION  <SNR>28_Remove_Matches()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/plugin/matchparen.vim:197
+Called 64 times
+Total time:   0.000498
+ Self time:   0.000498
+
+count  total (s)   self (s)
+   64              0.000221   if exists('w:paren_hl_on') && w:paren_hl_on
+    1              0.000005     silent! call matchdelete(3)
+    1              0.000002     let w:paren_hl_on = 0
+   64              0.000049   endif
+
+FUNCTION  <SNR>41_SynSet()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/syntax/synload.vim:26
+Called 8 times
+Total time:   0.002616
+ Self time:   0.002616
+
+count  total (s)   self (s)
+                              " clear syntax for :set syntax=OFF  and any syntax name that doesn't exist
+    8              0.000026   syn clear
+    8              0.000026   if exists("b:current_syntax")
+                                unlet b:current_syntax
+    8              0.000006   endif
+                            
+    8              0.000027   0verbose let s = expand("<amatch>")
+    8              0.000008   if s == "ON"
+                                " :set syntax=ON
+                                if &filetype == ""
+                                  echohl ErrorMsg
+                                  echo "filetype unknown"
+                                  echohl None
+                                endif
+                                let s = &filetype
+    8              0.000006   elseif s == "OFF"
+                                let s = ""
+    8              0.000002   endif
+                            
+    8              0.000004   if s != ""
+                                " Load the syntax file(s).  When there are several, separated by dots,
+                                " load each in sequence.  Skip empty entries.
+    8              0.000012     for name in split(s, '\.')
+    4              0.000004       if !empty(name)
+    4              0.001217         exe "runtime! syntax/" . name . ".vim syntax/" . name . "/*.vim"
+    4              0.001123         exe "runtime! syntax/" . name . ".lua syntax/" . name . "/*.lua"
+    4              0.000001       endif
+    8              0.000042     endfor
+    8              0.000002   endif
+
+FUNCTION  CursorHoldTimer()
+    Defined: ~/.local/share/nvim/lazy/FixCursorHold.nvim/plugin/fix_cursorhold_nvim.vim:37
+Called 20 times
+Total time:   0.000296
+ Self time:   0.000296
+
+count  total (s)   self (s)
+   20              0.000088   call timer_stop(g:fix_cursorhold_nvim_timer)
+   20              0.000051   if mode() == 'n'
+   14              0.000076     let g:fix_cursorhold_nvim_timer = timer_start(g:cursorhold_updatetime, 'CursorHold_Cb')
+   20              0.000017   endif
+
+FUNCTION  3()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim:183
+Called 2 times
+Total time:   0.060139
+ Self time:   0.000178
+
+count  total (s)   self (s)
+    2              0.000010   if a:reg == '"'
+                                call s:clipboard.set(a:lines,a:regtype,'+')
+                                if s:copy['*'] != s:copy['+']
+                                  call s:clipboard.set(a:lines,a:regtype,'*')
+                                end
+                                return 0
+    2              0.000002   end
+                            
+    2              0.000017   if type(s:copy[a:reg]) == v:t_func
+                                call s:copy[a:reg](a:lines, a:regtype)
+                                return 0
+    2              0.000001   end
+                            
+    2              0.000004   if s:cache_enabled == 0
+    2   0.059997   0.000036     call s:try_cmd(s:copy[a:reg], a:lines)
+                                "Cache it anyway we can compare it later to get regtype of the yank
+    2              0.000036     let s:selections[a:reg] = copy(s:selection)
+    2              0.000005     let s:selections[a:reg].data = [a:lines, a:regtype]
+    2              0.000002     return 0
+                              end
+                            
+                              if s:selections[a:reg].owner > 0
+                                let prev_job = s:selections[a:reg].owner
+                              end
+                              let s:selections[a:reg] = copy(s:selection)
+                              let selection = s:selections[a:reg]
+                              let selection.data = [a:lines, a:regtype]
+                              let selection.argv = s:copy[a:reg]
+                              let selection.detach = s:cache_enabled
+                              let selection.cwd = "/"
+                              let jobid = jobstart(selection.argv, selection)
+                              if jobid > 0
+                                call jobsend(jobid, a:lines)
+                                call jobclose(jobid, 'stdin')
+                                " xclip does not close stdout when receiving input via stdin
+                                if selection.argv[0] ==# 'xclip'
+                                  call jobclose(jobid, 'stdout')
+                                endif
+                                let selection.owner = jobid
+                                let ret = 1
+                              else
+                                echohl WarningMsg
+                                echomsg 'clipboard: failed to execute: '.(s:copy[a:reg])
+                                echohl None
+                                let ret = 1
+                              endif
+                            
+                              " The previous provider instance should exit when the new one takes
+                              " ownership, but kill it to be sure we don't fill up the job table.
+                              if exists('prev_job')
+                                call timer_start(1000, {... -> jobwait([prev_job], 0)[0] == -1 && jobstop(prev_job)})
+                              endif
+                            
+                              return ret
+
+FUNCTION  provider#clipboard#Executable()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim:69
+Called 1 time
+Total time:   0.000015
+ Self time:   0.000015
+
+count  total (s)   self (s)
+    1              0.000001   if exists('g:clipboard')
+                                if type({}) isnot# type(g:clipboard) || type({}) isnot# type(get(g:clipboard, 'copy', v:null)) || type({}) isnot# type(get(g:clipboard, 'paste', v:null))
+                                  let s:err = 'clipboard: invalid g:clipboard'
+                                  return ''
+                                endif
+                            
+                                let s:copy = {}
+                                let s:copy['+'] = s:split_cmd(get(g:clipboard.copy, '+', v:null))
+                                let s:copy['*'] = s:split_cmd(get(g:clipboard.copy, '*', v:null))
+                            
+                                let s:paste = {}
+                                let s:paste['+'] = s:split_cmd(get(g:clipboard.paste, '+', v:null))
+                                let s:paste['*'] = s:split_cmd(get(g:clipboard.paste, '*', v:null))
+                            
+                                let s:cache_enabled = get(g:clipboard, 'cache_enabled', 0)
+                                return get(g:clipboard, 'name', 'g:clipboard')
+    1              0.000001   elseif has('mac')
+    1              0.000001     let s:copy['+'] = ['pbcopy']
+    1              0.000001     let s:paste['+'] = ['pbpaste']
+    1              0.000001     let s:copy['*'] = s:copy['+']
+    1              0.000000     let s:paste['*'] = s:paste['+']
+    1              0.000000     let s:cache_enabled = 0
+    1              0.000000     return 'pbcopy'
+                              elseif !empty($WAYLAND_DISPLAY) && executable('wl-copy') && executable('wl-paste')
+                                let s:copy['+'] = ['wl-copy', '--type', 'text/plain']
+                                let s:paste['+'] = ['wl-paste', '--no-newline']
+                                let s:copy['*'] = ['wl-copy', '--primary', '--type', 'text/plain']
+                                let s:paste['*'] = ['wl-paste', '--no-newline', '--primary']
+                                return 'wl-copy'
+                              elseif !empty($WAYLAND_DISPLAY) && executable('waycopy') && executable('waypaste')
+                                let s:copy['+'] = ['waycopy', '-t', 'text/plain']
+                                let s:paste['+'] = ['waypaste', '-t', 'text/plain']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'wayclip'
+                              elseif !empty($DISPLAY) && executable('xsel') && s:cmd_ok('xsel -o -b')
+                                let s:copy['+'] = ['xsel', '--nodetach', '-i', '-b']
+                                let s:paste['+'] = ['xsel', '-o', '-b']
+                                let s:copy['*'] = ['xsel', '--nodetach', '-i', '-p']
+                                let s:paste['*'] = ['xsel', '-o', '-p']
+                                return 'xsel'
+                              elseif !empty($DISPLAY) && executable('xclip')
+                                let s:copy['+'] = ['xclip', '-quiet', '-i', '-selection', 'clipboard']
+                                let s:paste['+'] = ['xclip', '-o', '-selection', 'clipboard']
+                                let s:copy['*'] = ['xclip', '-quiet', '-i', '-selection', 'primary']
+                                let s:paste['*'] = ['xclip', '-o', '-selection', 'primary']
+                                return 'xclip'
+                              elseif executable('lemonade')
+                                let s:copy['+'] = ['lemonade', 'copy']
+                                let s:paste['+'] = ['lemonade', 'paste']
+                                let s:copy['*'] = ['lemonade', 'copy']
+                                let s:paste['*'] = ['lemonade', 'paste']
+                                return 'lemonade'
+                              elseif executable('doitclient')
+                                let s:copy['+'] = ['doitclient', 'wclip']
+                                let s:paste['+'] = ['doitclient', 'wclip', '-r']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'doitclient'
+                              elseif executable('win32yank.exe')
+                                if has('wsl') && getftype(exepath('win32yank.exe')) == 'link'
+                                  let win32yank = resolve(exepath('win32yank.exe'))
+                                else
+                                  let win32yank = 'win32yank.exe'
+                                endif
+                                let s:copy['+'] = [win32yank, '-i', '--crlf']
+                                let s:paste['+'] = [win32yank, '-o', '--lf']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'win32yank'
+                              elseif executable('termux-clipboard-set')
+                                let s:copy['+'] = ['termux-clipboard-set']
+                                let s:paste['+'] = ['termux-clipboard-get']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'termux-clipboard'
+                              elseif !empty($TMUX) && executable('tmux')
+                                let tmux_v = v:lua.vim.version.parse(system(['tmux', '-V']))
+                                if !empty(tmux_v) && !v:lua.vim.version.lt(tmux_v, [3,2,0])
+                                  let s:copy['+'] = ['tmux', 'load-buffer', '-w', '-']
+                                else
+                                  let s:copy['+'] = ['tmux', 'load-buffer', '-']
+                                endif
+                                let s:paste['+'] = ['tmux', 'save-buffer', '-']
+                                let s:copy['*'] = s:copy['+']
+                                let s:paste['*'] = s:paste['+']
+                                return 'tmux'
+                              endif
+                            
+                              let s:err = 'clipboard: No clipboard tool. :help clipboard'
+                              return ''
+
+FUNCTION  CursorHoldITimer()
+    Defined: ~/.local/share/nvim/lazy/FixCursorHold.nvim/plugin/fix_cursorhold_nvim.vim:44
+Called 5 times
+Total time:   0.000119
+ Self time:   0.000119
+
+count  total (s)   self (s)
+    5              0.000043   call timer_stop(g:fix_cursorhold_nvim_timer)
+    5              0.000063   let g:fix_cursorhold_nvim_timer = timer_start(g:cursorhold_updatetime, 'CursorHoldI_Cb')
+
+FUNCTION  <SNR>2_LoadIndent()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/indent.vim:13
+Called 5 times
+Total time:   0.001676
+ Self time:   0.001390
+
+count  total (s)   self (s)
+    5              0.000009     if exists("b:undo_indent")
+                                  exe b:undo_indent
+                                  unlet! b:undo_indent b:did_indent
+    5              0.000001     endif
+    5              0.000011     let s = expand("<amatch>")
+    5              0.000004     if s != ""
+    5              0.000004       if exists("b:did_indent")
+                            	unlet b:did_indent
+    5              0.000001       endif
+                            
+                                  " When there is a dot it is used to separate filetype names.  Thus for
+                                  " "aaa.bbb" load "indent/aaa.vim" and then "indent/bbb.vim".
+   10              0.000014       for name in split(s, '\.')
+    5   0.001076   0.000790         exe 'runtime! indent/' . name . '.vim'
+    5              0.000528         exe 'runtime! indent/' . name . '.lua'
+   10              0.000004       endfor
+    5              0.000001     endif
+
+FUNCTION  <SNR>28_Highlight_Matching_Pair()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/plugin/matchparen.vim:39
+Called 49 times
+Total time:   0.003667
+ Self time:   0.003300
+
+count  total (s)   self (s)
+                              " Remove any previous match.
+   49   0.000697   0.000330   call s:Remove_Matches()
+                            
+                              " Avoid that we remove the popup menu.
+                              " Return when there are no colors (looks like the cursor jumps).
+   49              0.000159   if pumvisible() || (&t_Co < 8 && !has("gui_running"))
+                                return
+   49              0.000017   endif
+                            
+                              " Get the character under the cursor and check if it's in 'matchpairs'.
+   49              0.000115   let c_lnum = line('.')
+   49              0.000082   let c_col = col('.')
+   49              0.000038   let before = 0
+                            
+   49              0.000108   let text = getline(c_lnum)
+   49              0.000609   let matches = matchlist(text, '\(.\)\=\%'.c_col.'c\(.\=\)')
+   49              0.000086   if empty(matches)
+                                let [c_before, c] = ['', '']
+   49              0.000028   else
+   49              0.000135     let [c_before, c] = matches[1:2]
+   49              0.000018   endif
+   49              0.000477   let plist = split(&matchpairs, '.\zs[:,]')
+   49              0.000108   let i = index(plist, c)
+   49              0.000039   if i < 0
+                                " not found, in Insert mode try character before the cursor
+   48              0.000097     if c_col > 1 && (mode() == 'i' || mode() == 'R')
+   12              0.000029       let before = strlen(c_before)
+   12              0.000014       let c = c_before
+   12              0.000021       let i = index(plist, c)
+   48              0.000018     endif
+   48              0.000028     if i < 0
+                                  " not found, nothing to do
+   48              0.000041       return
+                                endif
+    1              0.000000   endif
+                            
+                              " Figure out the arguments for searchpairpos().
+    1              0.000001   if i % 2 == 0
+                                let s_flags = 'nW'
+                                let c2 = plist[i + 1]
+    1              0.000000   else
+    1              0.000001     let s_flags = 'nbW'
+    1              0.000001     let c2 = c
+    1              0.000002     let c = plist[i - 1]
+    1              0.000000   endif
+    1              0.000001   if c == '['
+                                let c = '\['
+                                let c2 = '\]'
+    1              0.000000   endif
+                            
+                              " Find the match.  When it was just before the cursor move it there for a
+                              " moment.
+    1              0.000001   if before > 0
+                                let has_getcurpos = exists("*getcurpos")
+                                if has_getcurpos
+                                  " getcurpos() is more efficient but doesn't exist before 7.4.313.
+                                  let save_cursor = getcurpos()
+                                else
+                                  let save_cursor = winsaveview()
+                                endif
+                                call cursor(c_lnum, c_col - before)
+    1              0.000000   endif
+                            
+    1              0.000006   if !has("syntax") || !exists("g:syntax_on")
+                                let s_skip = "0"
+    1              0.000000   else
+                                " Build an expression that detects whether the current cursor position is
+                                " in certain syntax types (string, comment, etc.), for use as
+                                " searchpairpos()'s skip argument.
+                                " We match "escape" for special items, such as lispEscapeSpecial, and
+                                " match "symbol" for lispBarSymbol.
+    1              0.000004     let s_skip = 'synstack(".", col("."))' . '->indexof({_, id -> synIDattr(id, "name") =~? ' . '"string\\|character\\|singlequote\\|escape\\|symbol\\|comment"}) >= 0'
+                                " If executing the expression determines that the cursor is currently in
+                                " one of the syntax types, then we want searchpairpos() to find the pair
+                                " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+                                " outside of the syntax types and s_skip should keep its value so we skip
+                                " any matching pair inside the syntax types.
+                                " Catch if this throws E363: pattern uses more memory than 'maxmempattern'.
+    1              0.000001     try
+    1              0.000020       execute 'if ' . s_skip . ' | let s_skip = "0" | endif'
+                                catch /^Vim\%((\a\+)\)\=:E363/
+                                  " We won't find anything, so skip searching, should keep Vim responsive.
+                                  return
+    1              0.000001     endtry
+    1              0.000000   endif
+                            
+                              " Limit the search to lines visible in the window.
+    1              0.000002   let stoplinebottom = line('w$')
+    1              0.000002   let stoplinetop = line('w0')
+    1              0.000001   if i % 2 == 0
+                                let stopline = stoplinebottom
+    1              0.000000   else
+    1              0.000002     let stopline = stoplinetop
+    1              0.000000   endif
+                            
+                              " Limit the search time to 300 msec to avoid a hang on very long lines.
+                              " This fails when a timeout is not supported.
+    1              0.000002   if mode() == 'i' || mode() == 'R'
+                                let timeout = exists("b:matchparen_insert_timeout") ? b:matchparen_insert_timeout : g:matchparen_insert_timeout
+    1              0.000000   else
+    1              0.000004     let timeout = exists("b:matchparen_timeout") ? b:matchparen_timeout : g:matchparen_timeout
+    1              0.000000   endif
+    1              0.000001   try
+    1              0.000038     let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline, timeout)
+                              catch /E118/
+                                " Can't use the timeout, restrict the stopline a bit more to avoid taking
+                                " a long time on closed folds and long lines.
+                                " The "viewable" variables give a range in which we can scroll while
+                                " keeping the cursor at the same position.
+                                " adjustedScrolloff accounts for very large numbers of scrolloff.
+                                let adjustedScrolloff = min([&scrolloff, (line('w$') - line('w0')) / 2])
+                                let bottom_viewable = min([line('$'), c_lnum + &lines - adjustedScrolloff - 2])
+                                let top_viewable = max([1, c_lnum-&lines+adjustedScrolloff + 2])
+                                " one of these stoplines will be adjusted below, but the current values are
+                                " minimal boundaries within the current window
+                                if i % 2 == 0
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = min([line2byte("$"), line2byte(".") + col(".") + &smc * 2])
+                            	let stopline = min([bottom_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = min([bottom_viewable, c_lnum + 100])
+                                  endif
+                                  let stoplinebottom = stopline
+                                else
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = max([1, line2byte(".") + col(".") - &smc * 2])
+                            	let stopline = max([top_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = max([top_viewable, c_lnum - 100])
+                                  endif
+                                  let stoplinetop = stopline
+                                endif
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline)
+    1              0.000001   endtry
+                            
+    1              0.000001   if before > 0
+                                if has_getcurpos
+                                  call setpos('.', save_cursor)
+                                else
+                                  call winrestview(save_cursor)
+                                endif
+    1              0.000000   endif
+                            
+                              " If a match is found setup match highlighting.
+    1              0.000002   if m_lnum > 0 && m_lnum >= stoplinetop && m_lnum <= stoplinebottom 
+    1              0.000002     if exists('*matchaddpos')
+    1              0.000006       call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+                                else
+                                  exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) . 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+    1              0.000000     endif
+    1              0.000001     let w:paren_hl_on = 1
+    1              0.000000   endif
+
+FUNCTION  <SNR>42_try_cmd()
+    Defined: /opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim:38
+Called 2 times
+Total time:   0.059961
+ Self time:   0.000657
+
+count  total (s)   self (s)
+    2   0.059894   0.000590   let out = systemlist(a:cmd, (a:0 ? a:1 : ['']), 1)
+    2              0.000027   if v:shell_error
+                                if !exists('s:did_error_try_cmd')
+                                  echohl WarningMsg
+                                  echomsg "clipboard: error: ".(len(out) ? out[0] : v:shell_error)
+                                  echohl None
+                                  let s:did_error_try_cmd = 1
+                                endif
+                                return 0
+    2              0.000001   endif
+    2              0.000002   return out
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+    2   0.060304   0.000165  provider#clipboard#Call()
+    2   0.060139   0.000178  3()
+    2   0.059961   0.000657  <SNR>42_try_cmd()
+    5   0.012206   0.011351  <SNR>1_LoadFTPlugin()
+   49   0.003667   0.003300  <SNR>28_Highlight_Matching_Pair()
+    8   0.002616             <SNR>41_SynSet()
+    5   0.001676   0.001390  <SNR>2_LoadIndent()
+   64   0.000498             <SNR>28_Remove_Matches()
+   20   0.000296             CursorHoldTimer()
+    5   0.000119             CursorHoldITimer()
+    1   0.000015             provider#clipboard#Executable()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+    5   0.012206   0.011351  <SNR>1_LoadFTPlugin()
+   49   0.003667   0.003300  <SNR>28_Highlight_Matching_Pair()
+    8              0.002616  <SNR>41_SynSet()
+    5   0.001676   0.001390  <SNR>2_LoadIndent()
+    2   0.059961   0.000657  <SNR>42_try_cmd()
+   64              0.000498  <SNR>28_Remove_Matches()
+   20              0.000296  CursorHoldTimer()
+    2   0.060139   0.000178  3()
+    2   0.060304   0.000165  provider#clipboard#Call()
+    5              0.000119  CursorHoldITimer()
+    1              0.000015  provider#clipboard#Executable()
+
