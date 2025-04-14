@@ -12,7 +12,7 @@ alias t="tail -n"
 alias eu="vim ~/.bash_utils"
 alias ea="vim ~/.bash_aliases"
 alias ei="vim ~/.inputrc"
-alias eb="vim ~/.zhrc"
+alias eb="vim ~/.zshrc"
 alias ep="vim ~/.bash_prompt"
 alias sb="source ~/.zprofile"
 
