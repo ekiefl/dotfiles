@@ -7,6 +7,9 @@ alias rl="readlink -f"
 alias ll="ls -la"
 alias h="head -n"
 alias t="tail -n"
+alias p="python"
+alias ip="ipython"
+alias ipi="ipython -i"
 
 # Aliases for editing config files
 alias eu="vim ~/.bash_utils"
