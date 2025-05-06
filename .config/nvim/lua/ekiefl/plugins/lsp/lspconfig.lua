@@ -14,42 +14,42 @@ return {
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-		-- TEMPORARY FIX: Set default position encoding to UTF-16 for Neovim 0.11+
-		vim.lsp.util.default_position_encoding = "utf-16"
+		-- -- TEMPORARY FIX: Set default position encoding to UTF-16 for Neovim 0.11+
+		-- vim.lsp.util.default_position_encoding = "utf-16"
 
-		-- TEMPORARY FIX: Monkey-patching LSP utility functions for Neovim 0.11+
-		--
-		-- The functions below address breaking changes in Neovim 0.11 that require explicit
-		-- position_encoding parameters. These wrappers standardize to UTF-16 encoding.
-		--
-		-- ⚠️ FUTURE REMOVAL NOTE ⚠️
-		-- These wrappers may become unnecessary in future Neovim versions if:
-		--   1. Neovim adds better handling of mixed encodings in the same buffer
-		--   2. The default behavior stabilizes to automatically use vim.lsp.util.default_position_encoding
-		--   3. A future major version (0.12+) changes the API again
-		--
-		-- Consider removing these wrappers when updating to newer Neovim versions
-		-- and check if you still get encoding warnings - they may no longer be needed.
+		-- -- TEMPORARY FIX: Monkey-patching LSP utility functions for Neovim 0.11+
+		-- --
+		-- -- The functions below address breaking changes in Neovim 0.11 that require explicit
+		-- -- position_encoding parameters. These wrappers standardize to UTF-16 encoding.
+		-- --
+		-- -- ⚠️ FUTURE REMOVAL NOTE ⚠️
+		-- -- These wrappers may become unnecessary in future Neovim versions if:
+		-- --   1. Neovim adds better handling of mixed encodings in the same buffer
+		-- --   2. The default behavior stabilizes to automatically use vim.lsp.util.default_position_encoding
+		-- --   3. A future major version (0.12+) changes the API again
+		-- --
+		-- -- Consider removing these wrappers when updating to newer Neovim versions
+		-- -- and check if you still get encoding warnings - they may no longer be needed.
 
-		local orig_make_position_params = vim.lsp.util.make_position_params
-		vim.lsp.util.make_position_params = function(winid, _, bufnr)
-			return orig_make_position_params(winid, "utf-16", bufnr)
-		end
+		-- local orig_make_position_params = vim.lsp.util.make_position_params
+		-- vim.lsp.util.make_position_params = function(winid, _, bufnr)
+		-- 	return orig_make_position_params(winid, "utf-16", bufnr)
+		-- end
 
-		local orig_make_range_params = vim.lsp.util.make_range_params
-		vim.lsp.util.make_range_params = function(winid, _, bufnr)
-			return orig_make_range_params(winid, "utf-16", bufnr)
-		end
+		-- local orig_make_range_params = vim.lsp.util.make_range_params
+		-- vim.lsp.util.make_range_params = function(winid, _, bufnr)
+		-- 	return orig_make_range_params(winid, "utf-16", bufnr)
+		-- end
 
-		local orig_make_given_range_params = vim.lsp.util.make_given_range_params
-		vim.lsp.util.make_given_range_params = function(winid, _, start_pos, end_pos, bufnr)
-			return orig_make_given_range_params(winid, "utf-16", start_pos, end_pos, bufnr)
-		end
+		-- local orig_make_given_range_params = vim.lsp.util.make_given_range_params
+		-- vim.lsp.util.make_given_range_params = function(winid, _, start_pos, end_pos, bufnr)
+		-- 	return orig_make_given_range_params(winid, "utf-16", start_pos, end_pos, bufnr)
+		-- end
 
-		local orig_symbols_to_items = vim.lsp.util.symbols_to_items
-		vim.lsp.util.symbols_to_items = function(symbols, _, options)
-			return orig_symbols_to_items(symbols, "utf-16", options)
-		end
+		-- local orig_symbols_to_items = vim.lsp.util.symbols_to_items
+		-- vim.lsp.util.symbols_to_items = function(symbols, _, options)
+		-- 	return orig_symbols_to_items(symbols, "utf-16", options)
+		-- end
 
 		local keymap = vim.keymap -- for conciseness
 
