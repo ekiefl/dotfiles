@@ -1,5 +1,4 @@
 return {
-	-- disable trouble
 	-- { "stevearc/aerial.nvim", enabled = false },
 	-- { "romgrk/barbar.nvim", enabled = false },
 	-- { "hrsh7th/nvim-cmp", enabled = false },
