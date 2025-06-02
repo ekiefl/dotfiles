@@ -144,6 +144,58 @@ gitsed () {
     git grep -l "${ORIG}" ${SUBDIR} | xargs sed -i "" -e "s/${ORIG}/${REPLACE}/g"
 }
 
+
+# ----------------------------------------------------------------------
+#  }}} tmux dev helper  {{{
+# ----------------------------------------------------------------------
+# ------------------------------------------------------------------
+# dev  <project-dir>  [conda-env]
+#
+# • Opens / re-attaches a tmux-in-iTerm session (control mode, -CC).
+# • Session name = basename of project dir.
+# • Conda env    = 2nd arg or same basename.
+# • Windows:  vim | shell | chat
+#   - All start in project root.
+#   - Each window runs an interactive zsh, then we send keys to it.
+# ------------------------------------------------------------------
+dev () {
+  if [[ -z $1 ]]; then
+    echo "Usage: dev <project-dir> [conda-env]" >&2
+    return 1
+  fi
+
+  # -------- names & paths -----------------------------------------
+  local proj_dir env_name sess
+  proj_dir=$(cd "$1" && pwd)           # portable realpath
+  env_name=${2:-${proj_dir:t}}         # :t == basename in zsh
+  sess=${proj_dir:t}
+
+  # -------- if already running: just attach -----------------------
+  if tmux has-session -t "$sess" 2>/dev/null; then
+    exec tmux -CC attach -t "$sess"
+  fi
+
+  # -------- create skeleton session -------------------------------
+  tmux -CC new-session  -d  -s "$sess" -c "$proj_dir" -n vim
+
+  # -------- window 0: vim -----------------------------------------
+  tmux send-keys       -t "$sess:0" \
+        "conda activate $env_name && nvim" C-m
+
+  # -------- window 1: shell ---------------------------------------
+  tmux new-window      -t "$sess"   -n shell -c "$proj_dir"
+  tmux send-keys       -t "$sess:1" "conda activate $env_name" C-m
+
+  # -------- window 2: chat ----------------------------------------
+  tmux new-window      -t "$sess"   -n chat  -c "$proj_dir"
+  tmux send-keys       -t "$sess:2" \
+        "conda activate $env_name && claude" C-m
+
+  # -------- land on the vim window and attach ---------------------
+  tmux select-window   -t "$sess:0"
+  exec tmux -CC attach -t "$sess"
+}
+
 # ----------------------------------------------------------------------
 #  }}} Make a conda environment. Remove existing if it exists  {{{
 # ----------------------------------------------------------------------
