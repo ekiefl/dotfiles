@@ -1,0 +1,22 @@
+<% # -------- ERB preamble -------- %>
+<% repo = ENV['REPO'] || Dir.pwd             # path to repo (default = $PWD) %>
+<% env  = ENV['ENV']  || File.basename(repo) # conda env (default = repo name) %>
+
+name: <%= File.basename(repo) %>
+root: <%= repo %>
+
+tmux_options: -CC        # iTerm2 Control-Mode → each tmux window in its own tab
+
+pre_window: |
+  conda activate <%= env %>
+
+windows:
+  - vim:
+      panes:
+        - nvim .
+  - shell:
+      panes:
+        -          # empty → plain prompt
+  - claude:
+      panes:
+        - claude
