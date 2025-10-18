@@ -11,6 +11,9 @@ alias p="python"
 alias ip="ipython"
 alias ipi="ipython -i"
 
+# Autocorrect annoyances
+alias make="nocorrect make"
+
 # Aliases for editing config files
 alias eu="vim ~/.bash_utils"
 alias ea="vim ~/.bash_aliases"
@@ -64,6 +67,8 @@ else
     alias readlink="greadlink"
     alias vim=$(which nvim)
     alias vi=$(which nvim)
+      
+    alias claude="/Users/evan/.claude/local/claude"
 
     export academics="/Users/evan/Academics"
     export nvim="/Users/evan/.config/nvim/"
@@ -85,5 +90,6 @@ else
     export d="/Users/evan/Desktop"
     export software="/Users/evan/Software"
     export ekiefl="/Users/evan/Software/ekiefl.github.io"
+
 fi
 

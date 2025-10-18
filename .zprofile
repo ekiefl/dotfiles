@@ -24,5 +24,6 @@ if [ -f ~/.zshrc ]; then
 fi
 
 # FIXME misplaced
+eval "$(rbenv init -)"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$PATH:/Users/evan/.pixi/bin
