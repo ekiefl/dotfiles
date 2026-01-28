@@ -62,8 +62,16 @@ local GRUVBOX = {
 	end,
 }
 
+local MATRIX = {
+	"iruzo/matrix-nvim",
+	config = function()
+		_set_default()
+	end,
+}
+
 return {
 	DARCUBOX,
 	MATERIAL,
 	GRUVBOX,
+	MATRIX,
 }
