@@ -19,6 +19,7 @@ return {
 		local opts = { noremap = true, silent = true }
 		local on_attach = function(client, bufnr)
 			lsp_signature.on_attach(client, bufnr)
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
 			vim.diagnostic.config({
 				virtual_text = false,
@@ -113,6 +114,11 @@ return {
 
 		-- yaml
 		lspconfig["yamlls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		lspconfig["rust_analyzer"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})

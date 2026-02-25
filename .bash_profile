@@ -23,5 +23,5 @@ if [ -f ~/.bashrc ]; then
   source ~/.bashrc
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$PATH:/Users/evan/.pixi/bin
+. "$HOME/.cargo/env"

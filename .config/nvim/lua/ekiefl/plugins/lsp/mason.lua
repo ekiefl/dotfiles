@@ -31,6 +31,7 @@ return {
 				"lua_ls",
 				"pyright",
 				"ruff",
+				"rust_analyzer",
 				"yamlls",
 			},
 			-- auto-install configured servers (with lspconfig)

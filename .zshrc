@@ -159,3 +159,5 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
