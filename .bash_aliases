@@ -48,6 +48,9 @@ alias ca="conda activate"
 alias js="bundle exec jekyll serve"
 alias jsi="bundle exec jekyll serve --incremental"
 
+# Jupyter MCP
+alias jupymcp="uv tool run --from jupyterlab jupyter-lab --port 8888 --IdentityProvider.token 9e1ab5c2784c46c8b4ca39a1844ea6db --ip 127.0.0.1"
+
 title() {
     echo -ne "\033]0;"$*"\007"
 }

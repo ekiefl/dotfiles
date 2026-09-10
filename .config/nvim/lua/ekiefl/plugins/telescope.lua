@@ -145,6 +145,11 @@ return {
 					"--follow",
 				}
 
+				-- venv libraries are gitignored, so rg skips them by default
+				if search_dir:find("site%-packages") then
+					table.insert(rg_args, "--no-ignore")
+				end
+
 				builtin.live_grep({
 					cwd = search_dir,
 					search_dirs = { search_dir },
